@@ -1,0 +1,9 @@
+{
+  "name": "hanzo.core",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tizis/hanzo.core.git",
+  "author": "a bit cat",
+  "license": "MIT",
+  "private": false
+}
