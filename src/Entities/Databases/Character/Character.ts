@@ -12,7 +12,7 @@ export default class Character {
 
     private _relationship: number
 
-    constructor(id: string, name: string, media: string, relationship: number, type: string) {
+    constructor(id: string, name: string, media: string = '', relationship: number = 0, type: string = TYPE_FILLER) {
         this._id = id
         this._name = name
         this._media = new Media(media)
