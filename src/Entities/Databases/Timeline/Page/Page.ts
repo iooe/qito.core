@@ -1,7 +1,8 @@
 import ParagraphContent from "../../../Basic/Content/ParagraphContent";
 import ImageContent from "../../../Basic/Content/ImageContent";
 
-import ChoiceContent from "../../../Basic/Content/Choice/ChoiceContent";
+import ChoiceContent from "../../../Basic/Content/ChoiceContent";
+
 import CharacterContent from "../../../Basic/Content/CharacterContent";
 import DelimiterContent from "../../../Basic/Content/DelimiterContent";
 import Content from "../../../Basic/Content/Content";
@@ -21,7 +22,7 @@ export default class Page {
             }
 
             if (data.type === 'choice') {
-                this.data.push(new ChoiceContent(data.data))
+                this.data.push(new ChoiceContent(data.data.id))
             }
 
             if (data.type === 'character') {
