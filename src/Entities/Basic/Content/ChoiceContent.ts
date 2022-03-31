@@ -21,10 +21,16 @@ export default class ChoiceContent extends Content implements ObjectContent {
         return TYPE
     }
 
+    public getId() {
+        return this.id
+    }
+
     public export() {
         return {
             type: TYPE,
-            data: {}
+            data: {
+                id: this.id
+            }
         }
     }
 }

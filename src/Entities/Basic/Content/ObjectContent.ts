@@ -3,6 +3,8 @@ export default interface ObjectContent {
 
     getContentAsObject(): object
 
+    getId(): string
+
     /*
         getContentAsObject(): Object
     */

@@ -4,20 +4,24 @@ import ObjectContent from "./ObjectContent";
 const TYPE = 'image';
 
 export default class ImageContent extends Content implements ObjectContent {
-    private readonly path: string;
+    private readonly url: string;
     private readonly format: string;
 
-    constructor(path: string, format: string) {
+    constructor(url: string, format: string) {
         super()
-        this.path = path
+        this.url = url
         this.format = format
     }
 
     public getContentAsObject() {
         return {
-            path: this.path,
+            url: this.url,
             format: this.format
         }
+    }
+
+    public getId() {
+        return this.url
     }
 
     public type() {
@@ -32,7 +36,7 @@ export default class ImageContent extends Content implements ObjectContent {
         return {
             type: TYPE,
             data: {
-                url: this.path,
+                url: this.url,
                 format: this.format
             }
         }

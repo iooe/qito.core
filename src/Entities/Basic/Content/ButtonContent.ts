@@ -23,4 +23,8 @@ export default class ButtonContent extends Content implements ObjectContent {
     public type() {
         return TYPE
     }
+
+    public getId() {
+        return this.id
+    }
 }

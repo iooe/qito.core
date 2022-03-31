@@ -20,6 +20,10 @@ export default class CharacterContent extends Content implements ObjectContent {
         }
     }
 
+    public getId() {
+        return this.id
+    }
+
     public type() {
         return TYPE
     }
