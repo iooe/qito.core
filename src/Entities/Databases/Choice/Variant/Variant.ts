@@ -31,8 +31,9 @@ export default class Variant {
         narrative: (id: string) => {
             return new NarrativeVariantResult(id)
         },
-        item: (id: string) => {
-            return new ItemVariantResult(id)
+        item: (id: string, data: object) => {
+            //@ts-ignore
+            return new ItemVariantResult(id, data.action)
         },
         relationship: (id: string, data: object) => {
             //@ts-ignore
