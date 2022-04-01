@@ -34,7 +34,7 @@ export default class Item {
         return this._state;
     }
 
-    public getMedia(): Media {
+    public media(): Media {
         return this._media;
     }
 }

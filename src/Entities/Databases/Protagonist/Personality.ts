@@ -36,7 +36,7 @@ export default class Personality {
         this._media = media
     }
 
-    public getMedia(): Media {
+    public media(): Media {
         return this._media;
     }
 }
