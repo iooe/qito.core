@@ -1,9 +1,11 @@
+import Media from "../../Basic/Objects/Media";
+
 export default class Personality {
 
     private readonly _id: string
     private _name: string
-    private _icon: string = ''
     private _value: number = 0
+    private _media: Media = new Media()
 
     constructor(id: string, name: string) {
         this._id = id
@@ -22,19 +24,19 @@ export default class Personality {
         this._name = value;
     }
 
-    public setIcon(value: string) {
-        this._icon = value;
-    }
-
     public setValue(value: number) {
         this._value = value;
     }
 
-    public getIcon(): string {
-        return this._icon;
-    }
-
     public getValue(): number {
         return this._value;
+    }
+
+    public setMedia(media: Media) {
+        this._media = media
+    }
+
+    public getMedia(): Media {
+        return this._media;
     }
 }
