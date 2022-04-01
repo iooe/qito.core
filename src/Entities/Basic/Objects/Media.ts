@@ -15,7 +15,6 @@ export default class Media {
     }
 
     public isVideo(): boolean {
-
         const pieces = this._path.split('.'),
             type = pieces[pieces.length - 1];
 
