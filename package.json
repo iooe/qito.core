@@ -1,9 +1,12 @@
 {
   "name": "hanzo.core",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "index.js",
   "repository": "https://github.com/tizis/hanzo.core.git",
   "author": "a bit cat",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "@types/uuid": "^8.3.4"
+  }
 }
