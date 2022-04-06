@@ -5,6 +5,7 @@ export default interface ObjectContent {
 
     getId(): string
 
+    export(): object
     /*
         getContentAsObject(): Object
     */

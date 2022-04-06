@@ -7,11 +7,11 @@ export default class Content {
         return ''
     }
 
-    getContentAsArray(): Array<any> {
-        return []
+    getContentAsObject(): object {
+        return {}
     }
 
-    getContentAsObject(): object {
+    export(): object {
         return {}
     }
 }
