@@ -1,12 +1,12 @@
-import Requirement from "./Requirements/Requirement";
+import RequirementContract from "./RequirementContract";
 import {v4 as uuidv4} from 'uuid';
 
-export default class RequirementsBlock {
+export default class RequirementsContainer {
 
-    private requirements: Array<Requirement> = []
+    private requirements: Array<RequirementContract> = []
     private readonly _uuid: string = uuidv4()
 
-    push(requirement: Requirement) {
+    push(requirement: RequirementContract) {
         return this.requirements.push(requirement)
     }
 

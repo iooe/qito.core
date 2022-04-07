@@ -1,44 +1,41 @@
-import ParagraphContent from "../../../Basic/Content/ParagraphContent";
-import ImageContent from "../../../Basic/Content/ImageContent";
-
-import ChoiceContent from "../../../Basic/Content/ChoiceContent";
-
-import CharacterContent from "../../../Basic/Content/CharacterContent";
-import DelimiterContent from "../../../Basic/Content/DelimiterContent";
-import Content from "../../../Basic/Content/Content";
-import ButtonContent from "../../../Basic/Content/ButtonContent";
+import Paragraph from "../../../Basic/Blocks/Foundation/Paragraph";
+import Image from "../../../Basic/Blocks/Foundation/Image";
+import Choice from "../../../Basic/Blocks/Foundation/Choice";
+import Character from "../../../Basic/Blocks/Foundation/Character";
+import Delimiter from "../../../Basic/Blocks/Foundation/Delimiter";
+import BaseBlock from "../../../Basic/Blocks/BaseBlock";
+import Button from "../../../Basic/Blocks/Foundation/Button";
 
 export default class Page {
-    protected data: Array<Content> = []
+    protected data: Array<BaseBlock> = []
 
     setContent(content: Array<any>) {
         content.forEach(data => {
             if (data.type === 'paragraph') {
-                this.data.push(new ParagraphContent(data.data.text))
+                this.data.push(new Paragraph(data.data.text))
             }
 
             if (data.type === 'image') {
-                this.data.push(new ImageContent(data.data.url, data.data.format))
+                this.data.push(new Image(data.data.url, data.data.format))
             }
 
             if (data.type === 'choice') {
-                this.data.push(new ChoiceContent(data.data.uuid))
+                this.data.push(new Choice(data.data.uuid))
             }
 
             if (data.type === 'character') {
-                this.data.push(new CharacterContent(data.data.uuid, data.data.text))
+                this.data.push(new Character(data.data.uuid, data.data.text))
             }
 
             if (data.type === 'button') {
-                this.data.push(new ButtonContent(data.data.id, data.data.text))
+                this.data.push(new Button(data.data.id, data.data.text))
             }
 
             if (data.type === 'delimiter') {
-                this.data.push(new DelimiterContent(data.data.format))
+                this.data.push(new Delimiter(data.data.format))
             }
         })
     }
-
 
     public getBlocks() {
         return this.data

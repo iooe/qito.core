@@ -1,4 +1,4 @@
-export default interface Requirement {
+export default interface ResultContract {
     getId(): string
 
     getAction(): string

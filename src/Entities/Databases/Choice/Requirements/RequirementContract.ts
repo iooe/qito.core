@@ -1,4 +1,4 @@
-export default interface IVariantResult {
+export default interface RequirementContract {
     getId(): string
 
     getAction(): string

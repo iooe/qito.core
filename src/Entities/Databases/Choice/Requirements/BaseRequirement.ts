@@ -1,4 +1,4 @@
-export default class DefaultRequirement {
+export default class BaseRequirement {
 
     protected readonly _id: string;
     protected readonly _operator: string;

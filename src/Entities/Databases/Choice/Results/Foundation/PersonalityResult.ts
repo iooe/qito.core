@@ -1,5 +1,5 @@
-import IVariantResult from "./IVariantResult";
-import DefaultResult from "./DefaultResult";
+import ResultContract from "../ResultContract";
+import BaseRequirement from "../BaseRequirement";
 
 export const constants = {
     ACTIONS: [
@@ -7,7 +7,7 @@ export const constants = {
         'decrease'],
 } as const;
 
-export default class PersonalityVariantResult extends DefaultResult implements IVariantResult {
+export default class PersonalityResult extends BaseRequirement implements ResultContract {
 
     constructor(id: string, action: string, value: number) {
         super(id, action, value)

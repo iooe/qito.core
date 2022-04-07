@@ -1,43 +1,43 @@
-import PersonalityRequirement from "./Requirements/PersonalityRequirement";
-import ItemRequirement from "./Requirements/ItemRequirement";
-import RelationshipRequirement from "./Requirements/RelationshipRequirement";
-import PersonalityVariantResult from "./Result/PersonalityVariantResult";
-import FactVariantResult from "./Result/FactVariantResult";
-import RelationshipVariantResult from "./Result/RelationshipVariantResult";
-import IVariantResult from "./Result/IVariantResult";
-import ItemVariantResult from "./Result/ItemVariantResult";
-import RequirementsBlock from "./RequirementsBlock";
-import FactRequirement from "./Requirements/FactRequirement";
-import PageVariantResult from "./Result/PageVariantResult";
-import NarrativeVariantResult from "./Result/NarrativeVariantResult";
+import PersonalityRequirement from "../Requirements/Foundataion/PersonalityRequirement";
+import ItemRequirement from "../Requirements/Foundataion/ItemRequirement";
+import RelationshipRequirement from "../Requirements/Foundataion/RelationshipRequirement";
+import PersonalityResult from "../Results/Foundation/PersonalityResult";
+import FactResult from "../Results/Foundation/FactResult";
+import RelationshipResult from "../Results/Foundation/RelationshipResult";
+import ResultContract from "../Results/ResultContract";
+import ItemResult from "../Results/Foundation/ItemResult";
+import RequirementsContainer from "../Requirements/RequirementsContainer";
+import FactRequirement from "../Requirements/Foundataion/FactRequirement";
+import PageResult from "../Results/Foundation/PageResult";
+import NarrativeResult from "../Results/Foundation/NarrativeResult";
 
 export default class Variant {
-    private result: Array<IVariantResult> = []
-    private requirements: Array<RequirementsBlock> = []
+    private result: Array<ResultContract> = []
+    private requirements: Array<RequirementsContainer> = []
 
     private readonly name: string;
 
     private readonly RESULT_PROCESS = {
         personality: (uuid: string, data: object) => {
             //@ts-ignore
-            return new PersonalityVariantResult(uuid, data.action, data.value)
+            return new PersonalityResult(uuid, data.action, data.value)
         },
         fact: (uuid: string) => {
-            return new FactVariantResult(uuid)
+            return new FactResult(uuid)
         },
         page: (uuid: string) => {
-            return new PageVariantResult(uuid)
+            return new PageResult(uuid)
         },
         narrative: (uuid: string) => {
-            return new NarrativeVariantResult(uuid)
+            return new NarrativeResult(uuid)
         },
         item: (uuid: string, data: object) => {
             //@ts-ignore
-            return new ItemVariantResult(uuid, data.action)
+            return new ItemResult(uuid, data.action)
         },
         relationship: (uuid: string, data: object) => {
             //@ts-ignore
-            return (new RelationshipVariantResult(uuid, data.action, data.value))
+            return (new RelationshipResult(uuid, data.action, data.value))
         }
     }
 
@@ -65,7 +65,7 @@ export default class Variant {
 
         // @ts-ignore
         content.requirements.forEach(block => {
-            const requirementsBlock = new RequirementsBlock()
+            const requirementsBlock = new RequirementsContainer()
             // @ts-ignore
             block.forEach(data => {
                 // @ts-ignore
@@ -82,11 +82,11 @@ export default class Variant {
         })
     }
 
-    public getRequirements(): Array<RequirementsBlock> {
+    public getRequirements(): Array<RequirementsContainer> {
         return this.requirements
     }
 
-    public getResult(): Array<IVariantResult> {
+    public getResult(): Array<ResultContract> {
         return this.result
     }
 
