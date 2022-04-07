@@ -4,16 +4,16 @@ import Content from "./Content";
 const TYPE = 'choice';
 
 export default class ChoiceContent extends Content implements ObjectContent {
-    private readonly id: string
+    private readonly uuid: string
 
     constructor(id: string) {
         super()
-        this.id = id
+        this.uuid = id
     }
 
     public getContentAsObject() {
         return {
-            id: this.id
+            uuid: this.uuid
         }
     }
 
@@ -22,14 +22,14 @@ export default class ChoiceContent extends Content implements ObjectContent {
     }
 
     public getId() {
-        return this.id
+        return this.uuid
     }
 
     public export() {
         return {
             type: TYPE,
             data: {
-                id: this.id
+                uuid: this.uuid
             }
         }
     }

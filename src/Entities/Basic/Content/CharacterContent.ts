@@ -32,7 +32,7 @@ export default class CharacterContent extends Content implements ObjectContent {
         return {
             type: TYPE,
             data: {
-                id: this.id,
+                uuid: this.id,
                 text: this.text
             }
         }

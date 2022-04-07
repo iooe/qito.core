@@ -3,15 +3,15 @@ import Page from "./Page/Page";
 export default class Narrative {
     private title: string = ''
     private pages: Array<Page> = []
-    private _id: string = '';
+    private _uuid: string = '';
     private _styles: Array<string> = [];
 
-    public getId() {
-        return this._id
+    public getUuid() {
+        return this._uuid
     }
 
-    public setId(id: string) {
-        this._id = id
+    public setUuid(id: string) {
+        this._uuid = id
     }
 
     public getPages() {

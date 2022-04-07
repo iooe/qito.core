@@ -2,12 +2,12 @@ import Preview from "./Preview/Preview";
 
 export default class Fact {
 
-    private readonly _id: string
+    private readonly _uuid: string
     private _state: boolean
     private readonly _preview: Preview
 
-    constructor(id: string, state: boolean, preview: Preview) {
-        this._id = id
+    constructor(uuid: string, state: boolean, preview: Preview) {
+        this._uuid = uuid
         this._state = state
         this._preview = preview
     }
@@ -20,8 +20,8 @@ export default class Fact {
         this._state = false
     }
 
-    public getId(): string {
-        return this._id;
+    public getUuid(): string {
+        return this._uuid;
     }
 
     public getPreview(): Preview {

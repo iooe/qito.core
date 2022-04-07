@@ -2,13 +2,13 @@ import Media from "../../Basic/Objects/Media";
 
 export default class Item {
 
-    private readonly _id: string
+    private readonly _uuid: string
     private readonly _name: string
     private _state: boolean
     private readonly _media: Media
 
-    constructor(id: string, name: string, state: boolean, path: string) {
-        this._id = id
+    constructor(uuid: string, name: string, state: boolean, path: string) {
+        this._uuid = uuid
         this._name = name
         this._state = state
         this._media = new Media(path)
@@ -22,8 +22,8 @@ export default class Item {
         this._state = false
     }
 
-    public getId(): string {
-        return this._id;
+    public getUuid(): string {
+        return this._uuid;
     }
 
     public getName(): string {

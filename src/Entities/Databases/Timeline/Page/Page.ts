@@ -22,11 +22,11 @@ export default class Page {
             }
 
             if (data.type === 'choice') {
-                this.data.push(new ChoiceContent(data.data.id))
+                this.data.push(new ChoiceContent(data.data.uuid))
             }
 
             if (data.type === 'character') {
-                this.data.push(new CharacterContent(data.data.id, data.data.text))
+                this.data.push(new CharacterContent(data.data.uuid, data.data.text))
             }
 
             if (data.type === 'button') {

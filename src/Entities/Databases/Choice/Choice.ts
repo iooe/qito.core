@@ -2,15 +2,15 @@ import Variant from "./Variant/Variant";
 
 export default class Choice {
 
-    protected _id: string
+    protected _uuid: string
     protected _data: Array<Variant> = []
 
-    constructor(id: string) {
-        this._id = id
+    constructor(uuid: string) {
+        this._uuid = uuid
     }
 
-    public getId() {
-        return this._id
+    public getUuid() {
+        return this._uuid
     }
 
     public setData(data: Array<any>) {

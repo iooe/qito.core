@@ -2,18 +2,18 @@ import Media from "../../Basic/Objects/Media";
 
 export default class Personality {
 
-    private readonly _id: string
+    private readonly _uuid: string
     private _name: string
     private _value: number = 0
     private _media: Media = new Media()
 
-    constructor(id: string, name: string) {
-        this._id = id
+    constructor(uuid: string, name: string) {
+        this._uuid = uuid
         this._name = name
     }
 
-    public getId(): string {
-        return this._id;
+    public getUuid(): string {
+        return this._uuid;
     }
 
     public getName(): string {

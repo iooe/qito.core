@@ -18,44 +18,44 @@ export default class Variant {
     private readonly name: string;
 
     private readonly RESULT_PROCESS = {
-        personality: (id: string, data: object) => {
+        personality: (uuid: string, data: object) => {
             //@ts-ignore
-            return new PersonalityVariantResult(id, data.action, data.value)
+            return new PersonalityVariantResult(uuid, data.action, data.value)
         },
-        fact: (id: string) => {
-            return new FactVariantResult(id)
+        fact: (uuid: string) => {
+            return new FactVariantResult(uuid)
         },
-        page: (id: string) => {
-            return new PageVariantResult(id)
+        page: (uuid: string) => {
+            return new PageVariantResult(uuid)
         },
-        narrative: (id: string) => {
-            return new NarrativeVariantResult(id)
+        narrative: (uuid: string) => {
+            return new NarrativeVariantResult(uuid)
         },
-        item: (id: string, data: object) => {
+        item: (uuid: string, data: object) => {
             //@ts-ignore
-            return new ItemVariantResult(id, data.action)
+            return new ItemVariantResult(uuid, data.action)
         },
-        relationship: (id: string, data: object) => {
+        relationship: (uuid: string, data: object) => {
             //@ts-ignore
-            return (new RelationshipVariantResult(id, data.action, data.value))
+            return (new RelationshipVariantResult(uuid, data.action, data.value))
         }
     }
 
     private readonly REQUIREMENT_PROCESS = {
-        personality: (id: string, data: object) => {
+        personality: (uuid: string, data: object) => {
             //@ts-ignore
-            return new PersonalityRequirement(id, data.operator, data.value)
+            return new PersonalityRequirement(uuid, data.operator, data.value)
         },
-        item: (id: string) => {
-            return new ItemRequirement(id)
+        item: (uuid: string) => {
+            return new ItemRequirement(uuid)
         },
-        fact: (id: string, data: object) => {
+        fact: (uuid: string, data: object) => {
             //@ts-ignore
-            return new FactRequirement(id, data.operator)
+            return new FactRequirement(uuid, data.operator)
         },
-        relationship: (id: string, data: object) => {
+        relationship: (uuid: string, data: object) => {
             //@ts-ignore
-            return new RelationshipRequirement(id, data.operator, data.value)
+            return new RelationshipRequirement(uuid, data.operator, data.value)
         }
     }
 
@@ -69,7 +69,7 @@ export default class Variant {
             // @ts-ignore
             block.forEach(data => {
                 // @ts-ignore
-                requirementsBlock.push(this.REQUIREMENT_PROCESS[data.type](data.id, data))
+                requirementsBlock.push(this.REQUIREMENT_PROCESS[data.type](data.uuid, data))
             })
 
             this.requirements.push(requirementsBlock)
@@ -78,7 +78,7 @@ export default class Variant {
         // @ts-ignore
         content.result.forEach(data => {
             // @ts-ignore
-            this.result.push(this.RESULT_PROCESS[data.type](data.id, data))
+            this.result.push(this.RESULT_PROCESS[data.type](data.uuid, data))
         })
     }
 
