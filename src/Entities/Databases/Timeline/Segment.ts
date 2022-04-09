@@ -1,25 +1,32 @@
-import Block from "./Block/Block";
+import Part from "./Part/Part";
+import Title from "./Meta/Title";
 
 export default class Segment {
-    private blocks: Array<Block> = [];
-    private _id: string = ''
+    private _parts: Array<Part> = [];
+    private _uuid: string = ''
+    private _title = new Title();
 
-    constructor() {
+    public getTitle() {
+        return this._title
     }
 
-    public setId(id: string) {
-        this._id = id
+    public setTitle(value: Title) {
+        this._title = value
     }
 
-    public getId() {
-        return this._id
+    public setUuid(id: string) {
+        this._uuid = id
     }
 
-    public getBlocks() {
-        return this.blocks
+    public getUuid() {
+        return this._uuid
     }
 
-    public pushBlock(block: Block) {
-        this.blocks.push(block)
+    public getParts() {
+        return this._parts
+    }
+
+    public pushPart(part: Part) {
+        this._parts.push(part)
     }
 }

@@ -4,30 +4,30 @@ import Page from "../Page/Page";
 import Callback from "./Callbacks/Callback";
 
 
-export default class Block {
-    private title: Title
-    private nav: Nav
-    private type: string | null = null
-    private pages: Array<Page> = []
-    private readonly id: string;
+export default class Part {
+    private _title: Title
+    private _nav: Nav
+    private _type: string | null = null
+    private _pages: Array<Page> = []
+    private readonly _uuid: string;
     protected _onCreated = Array<Callback>();
 
     constructor(id: string) {
-        this.id = id
-        this.nav = new Nav(null, null)
-        this.title = new Title();
+        this._uuid = id
+        this._nav = new Nav(null, null)
+        this._title = new Title();
     }
 
     public getType() {
-        return this.type
+        return this._type
     }
 
-    public getId() {
-        return this.id
+    public getUuid() {
+        return this._uuid
     }
 
     public getPages() {
-        return this.pages
+        return this._pages
     }
 
     public getOnCreatedCallbacks() {
@@ -39,26 +39,26 @@ export default class Block {
     }
 
     public setType(type: string) {
-        this.type = type
+        this._type = type
     }
 
     public setNav(instance: Nav) {
-        this.nav = instance
+        this._nav = instance
     }
 
     public getNav() {
-        return this.nav
+        return this._nav
     }
 
     public setTitle(instance: Title) {
-        this.title = instance
+        this._title = instance
     }
 
     public pushPage(page: Page) {
-        this.pages.push(page)
+        this._pages.push(page)
     }
 
-    public getTitleInstance(): Title {
-        return this.title
+    public getTitle(): Title {
+        return this._title
     }
 }
