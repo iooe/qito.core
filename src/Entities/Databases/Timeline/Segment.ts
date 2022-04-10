@@ -22,11 +22,21 @@ export default class Segment {
         return this._uuid
     }
 
-    public getParts() {
-        return this._parts
-    }
+    public parts = {
+        get: () => {
+            return this._parts
+        },
+        push: (part: Part) => {
+            this._parts.push(part)
+        },
+        update: (part: Part) => {
+            const index = this._parts.findIndex(value => value.getUuid() === part.getUuid())
 
-    public pushPart(part: Part) {
-        this._parts.push(part)
+            if (index === -1) {
+                return
+            }
+
+            this._parts[index] = part
+        }
     }
 }
