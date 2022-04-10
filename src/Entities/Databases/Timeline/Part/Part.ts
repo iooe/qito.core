@@ -3,6 +3,12 @@ import Nav from "../Meta/Nav";
 import Page from "../Page/Page";
 import Callback from "./Callbacks/Callback";
 
+export const constants = {
+    TYPES: [
+        'filler',
+        'important'
+    ],
+} as const;
 
 export default class Part {
     private _title: Title
