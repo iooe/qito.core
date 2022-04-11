@@ -8,6 +8,9 @@ export const constants = {
         'filler',
         'important'
     ],
+    CALLBACKS: [
+        'onCreated'
+    ]
 } as const;
 
 export default class Part {
@@ -16,55 +19,79 @@ export default class Part {
     private _type: string | null = null
     private _pages: Array<Page> = []
     private readonly _uuid: string;
-    protected _onCreated = Array<Callback>();
+    protected _callbacks: Array<{ key: string, values: Array<Callback> }> = [];
 
-    constructor(id: string) {
-        this._uuid = id
+    constructor(uuid: string) {
+        this._uuid = uuid
         this._nav = new Nav(null, null)
         this._title = new Title();
-    }
 
-    public getType() {
-        return this._type
+        constants.CALLBACKS.forEach(value => this._callbacks.push({key: value, values: []}))
     }
 
     public getUuid() {
         return this._uuid
     }
 
-    public getPages() {
-        return this._pages
+    public pages = {
+        get: () => {
+            return this._pages
+        },
+        push: (page: Page) => {
+            this._pages.push(page)
+        }
     }
 
-    public getOnCreatedCallbacks() {
-        return this._onCreated
+    public callbacks = {
+        get: () => {
+            return this._callbacks
+        },
+        first: (key: string) => {
+            const instance = this._callbacks.find(value => value.key === key)
+
+            if (instance === undefined) {
+                new Error('Unfinded')
+                return;
+            }
+
+            return instance.values
+        },
+        push: (key: string, callback: Callback) => {
+            const instance = this._callbacks.find(value => value.key === key)
+
+            if (instance === undefined) {
+                new Error('Wrong callback key')
+                return;
+            }
+
+            instance.values.push(callback)
+        }
     }
 
-    public pushOnCreatedCallback(instance: Callback) {
-        this._onCreated.push(instance)
+    public type = {
+        get: () => {
+            return this._type
+        },
+        set: (type: string) => {
+            this._type = type
+        }
     }
 
-    public setType(type: string) {
-        this._type = type
+    public nav = {
+        get: (): Nav => {
+            return this._nav
+        },
+        set: (instance: Nav) => {
+            this._nav = instance
+        }
     }
 
-    public setNav(instance: Nav) {
-        this._nav = instance
-    }
-
-    public getNav() {
-        return this._nav
-    }
-
-    public setTitle(instance: Title) {
-        this._title = instance
-    }
-
-    public pushPage(page: Page) {
-        this._pages.push(page)
-    }
-
-    public getTitle(): Title {
-        return this._title
+    public title = {
+        get: (): Title => {
+            return this._title
+        },
+        set: (instance: Title) => {
+            this._title = instance
+        }
     }
 }
