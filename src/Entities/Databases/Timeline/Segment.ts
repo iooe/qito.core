@@ -30,6 +30,7 @@ export default class Segment {
             this._parts.push(part)
         },
         update: (part: Part) => {
+            //@ts-ignore
             const index = this._parts.findIndex(value => value.getUuid() === part.getUuid())
 
             if (index === -1) {
