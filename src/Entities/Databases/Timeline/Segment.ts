@@ -3,19 +3,20 @@ import Title from "./Meta/Title";
 
 export default class Segment {
     private _parts: Array<Part> = [];
-    private _uuid: string = ''
+    private readonly _uuid: string = ''
     private _title = new Title();
 
-    public getTitle() {
-        return this._title
+    constructor(uuid: string) {
+        this._uuid = uuid
     }
 
-    public setTitle(value: Title) {
-        this._title = value
-    }
-
-    public setUuid(id: string) {
-        this._uuid = id
+    public title = {
+        get: () => {
+            return this._title
+        },
+        set: (value: Title) => {
+            this._title = value
+        }
     }
 
     public getUuid() {

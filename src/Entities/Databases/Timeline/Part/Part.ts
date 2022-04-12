@@ -1,7 +1,7 @@
 import Title from "../Meta/Title";
 import Nav from "../Meta/Nav";
-import Page from "../Page/Page";
-import Callback from "./Callbacks/Callback";
+import Page from "../../../Basic/Objects/Page";
+import Callback from "./Callback/CallbackContract";
 
 export const constants = {
     TYPES: [

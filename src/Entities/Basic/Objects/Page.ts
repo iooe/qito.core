@@ -1,10 +1,10 @@
-import Paragraph from "../../../Basic/Blocks/Foundation/Paragraph";
-import Image from "../../../Basic/Blocks/Foundation/Image";
-import Choice from "../../../Basic/Blocks/Foundation/Choice";
-import Character from "../../../Basic/Blocks/Foundation/Character";
-import Delimiter from "../../../Basic/Blocks/Foundation/Delimiter";
-import BaseBlock from "../../../Basic/Blocks/BaseBlock";
-import Button from "../../../Basic/Blocks/Foundation/Button";
+import Paragraph from "../Blocks/Foundation/Paragraph";
+import Image from "../Blocks/Foundation/Image";
+import Choice from "../Blocks/Foundation/Choice";
+import Character from "../Blocks/Foundation/Character";
+import Delimiter from "../Blocks/Foundation/Delimiter";
+import BaseBlock from "../Blocks/BaseBlock";
+import Button from "../Blocks/Foundation/Button";
 
 export default class Page {
     protected data: Array<BaseBlock> = []

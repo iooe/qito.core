@@ -1,40 +1,43 @@
-import Page from "./Page/Page";
+import Page from "../../Basic/Objects/Page";
 
 export default class Narrative {
-    private title: string = ''
-    private pages: Array<Page> = []
-    private _uuid: string = '';
+    private _title: string = ''
+    private _pages: Array<Page> = []
+    private readonly _uuid: string = '';
     private _styles: Array<string> = [];
+
+    constructor(uuid: string) {
+        this._uuid = uuid
+    }
 
     public getUuid() {
         return this._uuid
     }
 
-    public setUuid(id: string) {
-        this._uuid = id
+    public pages = {
+        get: () => {
+            return this._pages
+        },
+        push: (page: Page) => {
+            this._pages.push(page)
+        }
     }
 
-    public getPages() {
-        return this.pages
+    public styles = {
+        set: (value: Array<string>) => {
+            this._styles = value
+        },
+        get: () => {
+            return this._styles
+        }
     }
 
-    public setStyles(value: Array<string>) {
-        this._styles = value
-    }
-
-    public getStyles() {
-        return this._styles
-    }
-
-    public setTitle(value: string) {
-        this.title = value
-    }
-
-    public pushPage(page: Page) {
-        this.pages.push(page)
-    }
-
-    public getTitle(): string {
-        return this.title
+    public title = {
+        set: (value: string) => {
+            this._title = value
+        },
+        get: (): string => {
+            return this._title
+        }
     }
 }
