@@ -3,38 +3,59 @@ import Media from "../../Basic/Objects/Media";
 export default class Item {
 
     private readonly _uuid: string
-    private readonly _name: string
-    private _state: boolean
-    private readonly _media: Media
+    private _name: string = ''
+    private _state: boolean = false
+    private _media: Media = new Media()
 
-    constructor(uuid: string, name: string, state: boolean, path: string) {
+    constructor(uuid: string) {
         this._uuid = uuid
-        this._name = name
-        this._state = state
-        this._media = new Media(path)
-    }
-
-    public open() {
-        this._state = true
-    }
-
-    public hide() {
-        this._state = false
     }
 
     public getUuid(): string {
         return this._uuid;
     }
 
-    public getName(): string {
-        return this._name;
+    public name = {
+        set: (value: string) => {
+            this._name = value
+        },
+        get: () => {
+            return this._name
+        }
     }
 
-    public getState(): boolean {
-        return this._state;
+    public state = {
+        open: () => {
+            this._state = true
+        },
+        hide: () => {
+            this._state = false
+        },
+        set: (value: boolean) => {
+            this._state = value
+        },
+        get: (): boolean => {
+            return this._state;
+        }
     }
 
-    public media(): Media {
-        return this._media;
+    public media = {
+        get: () => {
+            return this._media;
+        },
+        set: (value: Media) => {
+            this._media = value
+        }
+    }
+
+    public export(): Object {
+        return {
+            uuid: this._uuid,
+            name: this._name,
+            media: {
+                id: this._media.path()
+            },
+            state: this._state,
+        }
     }
 }
