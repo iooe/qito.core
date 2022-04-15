@@ -5,42 +5,67 @@ const TYPE_IMPORTANT = 'important',
 
 export default class Character {
 
-    private readonly _name: string
-    private readonly _media: Media
-    private readonly _type: string;
-
-    private _relationship: number
+    private _name: string = ''
+    private _media: Media = new Media()
+    private _type: string = TYPE_FILLER;
+    private _relationship: number = 0
     private readonly _uuid: string;
 
-    constructor(_uuid: string, name: string, media: string = '', relationship: number = 0, type: string = TYPE_FILLER) {
+    constructor(_uuid: string) {
         this._uuid = _uuid
-        this._name = name
-        this._media = new Media(media)
-        this._relationship = relationship
-        this._type = type
-    }
-
-    public isFiller() {
-        return this._type === TYPE_FILLER
-    }
-
-    public media(): Media {
-        return this._media
     }
 
     public getUuid() {
         return this._uuid
     }
 
-    public getName() {
-        return this._name
+    public type = {
+        isFiller: () => {
+            return this._type === TYPE_FILLER
+        },
+        isImportant: () => {
+            return this._type === TYPE_IMPORTANT
+        },
+        set: (value: string) => {
+            this._type = value
+        }
     }
 
-    public setRelationship(value: number) {
-        this._relationship = value
+    public media = {
+        get: () => {
+            return this._media;
+        },
+        set: (value: Media) => {
+            this._media = value
+        }
     }
 
-    public getRelationship() {
-        return this._relationship
+    public name = {
+        get: () => {
+            return this._name
+        },
+        set: (value: string) => {
+            this._name = value
+        }
+    }
+    public relationship = {
+        set: (value: number) => {
+            this._relationship = value
+        },
+        get: () => {
+            return this._relationship
+        }
+    }
+
+    public export(): Object {
+        return {
+            uuid: this._uuid,
+            name: this._name,
+            media: {
+                id: this._media.path()
+            },
+            relationship: this._relationship,
+            type: this._type,
+        }
     }
 }
