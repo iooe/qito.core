@@ -3,32 +3,48 @@ import Preview from "./Preview/Preview";
 export default class Fact {
 
     private readonly _uuid: string
-    private _state: boolean
-    private readonly _preview: Preview
+    private _state: boolean = false
+    private _preview: Preview = new Preview('')
 
-    constructor(uuid: string, state: boolean, preview: Preview) {
+    constructor(uuid: string) {
         this._uuid = uuid
-        this._state = state
-        this._preview = preview
-    }
-
-    public open() {
-        this._state = true
-    }
-
-    public hide() {
-        this._state = false
     }
 
     public getUuid(): string {
         return this._uuid;
     }
 
-    public getPreview(): Preview {
-        return this._preview;
+    public preview = {
+        get: (): Preview => {
+            return this._preview;
+        },
+        set: (value: Preview) => {
+            this._preview = value
+        }
+
+    }
+    public state = {
+        open: () => {
+            this._state = true
+        },
+        hide: () => {
+            this._state = false
+        },
+        set: (value: boolean) => {
+            this._state = value
+        },
+        get: (): boolean => {
+            return this._state;
+        }
     }
 
-    public getState(): boolean {
-        return this._state;
+    public export(): Object {
+        return {
+            uuid: this._uuid,
+            preview: {
+                message: this.preview.get().getMessage()
+            },
+            state: this._state,
+        }
     }
 }
