@@ -24,7 +24,12 @@ export default class Segment {
     }
 
     public parts = {
-        first: (uuid: string) => {
+        first: (uuid: string = '') => {
+
+            if (uuid.length === 0) {
+                return this._parts[0]
+            }
+
             const value = this._parts.find((part: Part) => part.getUuid() === uuid);
 
             return value
