@@ -1,18 +1,18 @@
 export default class Title {
 
-    private readonly _title: string | null;
+    private readonly _title: string;
     private readonly _slug: string;
 
-    constructor(title: string | null = null, slug: string = '') {
+    constructor(title: string = '', slug: string = '') {
         this._title = title
         this._slug = slug
     }
 
-    public getSlug(): string | null {
+    public getSlug(): string {
         return this._slug
     }
 
-    public getValue(): string | null {
+    public getValue(): string {
         return this._title
     }
 
