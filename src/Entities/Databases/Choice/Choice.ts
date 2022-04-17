@@ -1,6 +1,6 @@
 import Variant from "./Variant/Variant";
-import ResultContract from "hanzo.core/src/Entities/Databases/Choice/Results/ResultContract";
-import PageResult from "hanzo.core/src/Entities/Databases/Choice/Results/Foundation/PageResult";
+import ResultContract from "./Results/ResultContract";
+import PageResult from "./Results/Foundation/PageResult";
 
 export default class Choice {
 
@@ -27,6 +27,13 @@ export default class Choice {
 
     public getData() {
         return this._data
+    }
+
+    public export() {
+        return {
+            uuid: this._uuid,
+            data: this._data.map((value: Variant) => value.export())
+        }
     }
 
     public variants = {

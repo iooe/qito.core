@@ -12,10 +12,10 @@ import PageResult from "../Results/Foundation/PageResult";
 import NarrativeResult from "../Results/Foundation/NarrativeResult";
 
 export default class Variant {
-    private result: Array<ResultContract> = []
-    private requirements: Array<RequirementsContainer> = []
+    private _result: Array<ResultContract> = []
+    private _requirements: Array<RequirementsContainer> = []
 
-    private readonly name: string;
+    private readonly _name: string;
 
     private readonly RESULT_PROCESS = {
         personality: (uuid: string, data: object) => {
@@ -61,7 +61,7 @@ export default class Variant {
 
     constructor(content: Object) {
         // @ts-ignore
-        this.name = content.name
+        this._name = content.name
 
         // @ts-ignore
         content.requirements.forEach(block => {
@@ -72,25 +72,33 @@ export default class Variant {
                 requirementsBlock.push(this.REQUIREMENT_PROCESS[data.type](data.uuid, data))
             })
 
-            this.requirements.push(requirementsBlock)
+            this._requirements.push(requirementsBlock)
         })
 
         // @ts-ignore
         content.result.forEach(data => {
             // @ts-ignore
-            this.result.push(this.RESULT_PROCESS[data.type](data.uuid, data))
+            this._result.push(this.RESULT_PROCESS[data.type](data.uuid, data))
         })
     }
 
     public getRequirements(): Array<RequirementsContainer> {
-        return this.requirements
+        return this._requirements
     }
 
     public getResult(): Array<ResultContract> {
-        return this.result
+        return this._result
     }
 
     public getName(): string {
-        return this.name
+        return this._name
+    }
+
+    public export() {
+        return {
+            name: this._name,
+            requirements: this._requirements.map((value: RequirementsContainer) => value.export()),
+            result: this._result.map((value: ResultContract) => value.export()),
+        }
     }
 }

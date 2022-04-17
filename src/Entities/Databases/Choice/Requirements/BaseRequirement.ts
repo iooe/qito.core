@@ -1,4 +1,6 @@
-export default class BaseRequirement {
+import RequirementContract from "./RequirementContract";
+
+export default class BaseRequirement implements RequirementContract{
 
     protected readonly _id: string;
     protected readonly _operator: string;
@@ -10,19 +12,23 @@ export default class BaseRequirement {
         this._value = value
     }
 
-    getId(): string {
+    public getId(): string {
         return this._id;
     }
 
-    getAction(): string {
+    public getAction(): string {
         return this._operator
     }
 
-    getOperator(): string {
+    public getOperator(): string {
         return this._operator
     }
 
-    getValue(): number {
+    public getValue(): number {
         return this._value;
+    }
+
+    public export() {
+        return {}
     }
 }

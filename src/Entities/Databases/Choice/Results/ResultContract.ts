@@ -4,4 +4,6 @@ export default interface ResultContract {
     getAction(): string
 
     getValue(): number
+
+    export(): any
 }

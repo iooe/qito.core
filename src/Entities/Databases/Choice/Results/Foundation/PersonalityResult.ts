@@ -1,6 +1,8 @@
 import ResultContract from "../ResultContract";
 import BaseRequirement from "../BaseRequirement";
 
+export const TYPE = 'personality'
+
 export const constants = {
     ACTIONS: [
         'increase',
@@ -11,5 +13,14 @@ export default class PersonalityResult extends BaseRequirement implements Result
 
     constructor(id: string, action: string, value: number) {
         super(id, action, value)
+    }
+
+    public export() {
+        return {
+            type: TYPE,
+            uuid: this._id,
+            action: this._action,
+            value: this._value
+        }
     }
 }

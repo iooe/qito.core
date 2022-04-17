@@ -4,4 +4,6 @@ export default interface RequirementContract {
     getAction(): string
 
     getValue(): number
+
+    export(): any
 }
