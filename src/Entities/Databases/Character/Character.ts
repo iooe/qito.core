@@ -3,6 +3,13 @@ import Media from "../../Basic/Objects/Media";
 const TYPE_IMPORTANT = 'important',
     TYPE_FILLER = 'filler'
 
+export const constants = {
+    TYPES: [
+        TYPE_FILLER,
+        TYPE_IMPORTANT
+    ]
+} as const;
+
 export default class Character {
 
     private _name: string = ''
@@ -28,6 +35,9 @@ export default class Character {
         },
         set: (value: string) => {
             this._type = value
+        },
+        get: () => {
+            return this._type
         }
     }
 
