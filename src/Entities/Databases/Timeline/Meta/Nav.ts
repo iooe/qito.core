@@ -1,8 +1,8 @@
 export default class Nav {
-    public prev: string | null;
-    public next: string | null;
+    private prev: string | null;
+    private next: string | null;
 
-    constructor(prev: string | null, next: string | null) {
+    constructor(prev: string | null = null, next: string | null = null) {
         this.prev = prev
         this.next = next
     }
@@ -15,19 +15,11 @@ export default class Nav {
         return this.next !== null
     }
 
-    public getPrev(): string {
-        if (this.prev === null) {
-            throw new Error('')
-        }
-
+    public getPrev(): string | null {
         return this.prev
     }
 
-    public getNext(): string {
-        if (this.next === null) {
-            throw new Error('')
-        }
-
+    public getNext(): string | null {
         return this.next
     }
 }

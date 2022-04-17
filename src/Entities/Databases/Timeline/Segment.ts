@@ -10,6 +10,10 @@ export default class Segment {
         this._uuid = uuid
     }
 
+    public getUuid() {
+        return this._uuid
+    }
+
     public title = {
         get: () => {
             return this._title
@@ -19,11 +23,15 @@ export default class Segment {
         }
     }
 
-    public getUuid() {
-        return this._uuid
-    }
-
     public parts = {
+        first: (uuid: string) => {
+            const value = this._parts.find((part: Part) => part.getUuid() === uuid);
+
+            return value
+        },
+        has: (uuid: string) => {
+            return this._parts.find((part: Part) => part.getUuid() === uuid) !== undefined;
+        },
         get: () => {
             return this._parts
         },
@@ -39,6 +47,14 @@ export default class Segment {
             }
 
             this._parts[index] = part
+        }
+    }
+
+    public export() {
+        return {
+            uuid: this._uuid,
+            title: this._title.export(),
+            parts: this._parts.map((value: Part) => value.export())
         }
     }
 }

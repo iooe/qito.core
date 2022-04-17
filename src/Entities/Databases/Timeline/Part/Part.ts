@@ -94,4 +94,26 @@ export default class Part {
             this._title = instance
         }
     }
+
+    public export() {
+        const callbacks = {}
+
+        this._callbacks.forEach(value => {
+            value.values.forEach(config => {
+                if (!callbacks.hasOwnProperty(value.key)) {
+                    callbacks[value.key] = []
+                }
+
+                callbacks[value.key].push(config.config.get())
+            })
+        })
+
+        return {
+            uuid: this._uuid,
+            title: this._title.export(),
+            type: this._type,
+            callbacks: callbacks,
+            pages: this._pages.map((value: Page) => value.export())
+        }
+    }
 }

@@ -19,4 +19,11 @@ export default class Title {
     public isEmpty(): Boolean {
         return this._title?.length === 0
     }
+
+    public export() {
+        return {
+            title: this._title,
+            slug: this._slug
+        }
+    }
 }
