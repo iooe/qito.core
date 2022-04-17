@@ -9,7 +9,7 @@ import Button from "../Blocks/Foundation/Button";
 export default class Page {
     protected data: Array<BaseBlock> = []
 
-    setContent(content: Array<any>) {
+    setBlocks(content: Array<any>) {
         content.forEach(data => {
             if (data.type === 'paragraph') {
                 this.data.push(new Paragraph(data.data.text))
@@ -39,5 +39,11 @@ export default class Page {
 
     public getBlocks() {
         return this.data
+    }
+
+    public export() {
+        return {
+            blocks: this.data.map((value: BaseBlock) => value.export())
+        }
     }
 }
