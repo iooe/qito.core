@@ -1,5 +1,5 @@
 import ResultContract from "../ResultContract";
-import BaseRequirement from "../BaseRequirement";
+import BaseResult from "../BaseResult";
 
 export const TYPE = 'relationship'
 export const constants = {
@@ -8,7 +8,7 @@ export const constants = {
         'decrease'],
 } as const;
 
-export default class RelationshipResult extends BaseRequirement implements ResultContract {
+export default class RelationshipResult extends BaseResult implements ResultContract {
     constructor(id: string, action: string, value: number) {
         super(id, action, value)
     }

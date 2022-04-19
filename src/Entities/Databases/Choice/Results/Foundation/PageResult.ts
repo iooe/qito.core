@@ -1,8 +1,8 @@
 import ResultContract from "../ResultContract";
-import BaseRequirement from "../BaseRequirement";
+import BaseResult from "../BaseResult";
 
 export const TYPE = 'page'
-export default class PageResult extends BaseRequirement implements ResultContract {
+export default class PageResult extends BaseResult implements ResultContract {
     constructor(id: string) {
         super(id);
     }

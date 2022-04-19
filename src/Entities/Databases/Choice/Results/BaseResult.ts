@@ -1,6 +1,6 @@
 import ResultContract from "..//Results/ResultContract";
 
-export default class BaseRequirement implements ResultContract{
+export default class BaseResult implements ResultContract{
 
     protected readonly _id: string;
     protected readonly _action: string;

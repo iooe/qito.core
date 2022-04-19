@@ -1,5 +1,5 @@
 import ResultContract from "../ResultContract";
-import BaseRequirement from "../BaseRequirement";
+import BaseResult from "../BaseResult";
 
 export const TYPE = 'item'
 export const constants = {
@@ -8,7 +8,7 @@ export const constants = {
         'hide'],
 } as const;
 
-export default class ItemResult extends BaseRequirement implements ResultContract {
+export default class ItemResult extends BaseResult implements ResultContract {
     constructor(id: string, action: string) {
         super(id, action)
     }
