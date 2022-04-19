@@ -12,11 +12,11 @@ export const touch = (state: any) => {
 const scheme: any = {
     namespaced: true,
     state: () => ({
-        items: Array<Item>(),
+        data: Array<Item>(),
     }),
     mutations: {
-        set(state: any, items: Array<Item>) {
-            state.items = items;
+        set(state: any, data: Array<Item>) {
+            state.data = data;
         }
     },
     actions: {
@@ -25,12 +25,12 @@ const scheme: any = {
                 return false
             }
 
-            context.state.items.push(item)
+            context.state.data.push(item)
 
             return true;
         },
         edit(context: any, item: Item) {
-            const editedValue = context.state.items.find((value: Item) => value.getUuid() === item.getUuid());
+            const editedValue = context.state.data.find((value: Item) => value.getUuid() === item.getUuid());
 
             editedValue.name.set(item.name.get())
             editedValue.state.set(item.state.get())
@@ -39,7 +39,7 @@ const scheme: any = {
             return true;
         },
         import(context: any, data: Array<any>) {
-            let items: Array<Item> = [];
+            let values: Array<Item> = [];
 
             data.map(value => {
                 const instance = new Item(value.uuid)
@@ -47,27 +47,27 @@ const scheme: any = {
                 instance.state.set(value.state)
                 instance.media.set(new Media(value.media.id))
 
-                items.push(instance)
+                values.push(instance)
             })
 
-            context.commit('set', items)
+            context.state.data = values
         },
         export(context: any) {
             return {
                 name: NAME,
-                data: context.state.items.map((item: Item) => item.export())
+                data: context.state.data.map((item: Item) => item.export())
             }
         }
     },
     getters: {
         get: (state: any) => {
-            return state.items
+            return state.data
         },
         first: (state: any) => (id: string): Item => {
-            return state.items.find((item: Item) => item.getUuid() === id);
+            return state.data.find((item: Item) => item.getUuid() === id);
         },
         has: (state: any) => (id: string) => {
-            return state.items.find((item: Item) => item.getUuid() === id && item.state.get()) !== undefined;
+            return state.data.find((item: Item) => item.getUuid() === id && item.state.get()) !== undefined;
         },
     },
 }
