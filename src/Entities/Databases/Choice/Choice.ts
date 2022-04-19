@@ -1,7 +1,7 @@
 import Variant from "./Variant/Variant";
 import ResultContract from "./Results/ResultContract";
 import PageResult from "./Results/Foundation/PageResult";
-import Title from "src/Entities/Basic/Objects/Title";
+import Title from "../../Basic/Objects/Title";
 
 export default class Choice {
 
