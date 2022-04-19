@@ -2,7 +2,7 @@ import Segment from "../Entities/Databases/Timeline/Segment";
 import TimelineSegmentEntity from "../Entities/Databases/Timeline/Segment";
 import Part from "../Entities/Databases/Timeline/Part/Part";
 import TimelineBlockEntity from "../Entities/Databases/Timeline/Part/Part";
-import TimelineTitleEntity from "../Entities/Databases/Timeline/Meta/Title";
+import TimelineTitleEntity from "../Entities/Basic/Objects/Title";
 import TimelineNavEntity from "../Entities/Databases/Timeline/Meta/Nav";
 import PageCallback from "../Entities/Databases/Timeline/Part/Callback/Callback";
 import Page from "../Entities/Basic/Objects/Page";
