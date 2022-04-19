@@ -4,9 +4,9 @@ import Media from "../Entities/Basic/Objects/Media";
 export const NAME = 'items'
 
 export const touch = (state: any) => {
-    const length = state.items.length;
-    state.items.push(state.items[length - 1])
-    state.items.splice(state.items[length], 1)
+    const length = state.data.length;
+    state.data.push(state.data[length - 1])
+    state.data.splice(state.data[length], 1)
 }
 
 const scheme: any = {
