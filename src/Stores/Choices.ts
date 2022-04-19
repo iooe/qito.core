@@ -1,4 +1,5 @@
 import Choice from "../Entities/Databases/Choice/Choice";
+import Title from "../Entities/Basic/Objects/Title";
 
 export const NAME = 'choices'
 
@@ -19,7 +20,8 @@ export const scheme = {
 
             data.map(item => {
                 const instance = new Choice(item.uuid)
-                instance.setData(item.data)
+                instance.title.set(new Title(item.title.title, item.title.slug))
+                item.data.forEach((variant: object) => instance.variants.add(variant))
 
                 values.push(instance)
             })
