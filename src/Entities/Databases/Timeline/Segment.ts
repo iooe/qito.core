@@ -1,5 +1,7 @@
+import {v4 as uuidv4} from 'uuid';
+
 import Part from "./Part/Part";
-import Title from "./Meta/Title";
+import Title from "../../Basic/Objects/Title";
 
 export default class Segment {
     private _parts: Array<Part> = [];
@@ -8,6 +10,10 @@ export default class Segment {
 
     constructor(uuid: string) {
         this._uuid = uuid
+    }
+
+    public static create() {
+        return new Segment(uuidv4())
     }
 
     public getUuid() {
@@ -52,6 +58,9 @@ export default class Segment {
             }
 
             this._parts[index] = part
+        },
+        isCursored: (uuid: string) => {
+            return this._parts.find((part: Part) => part.nav.get().getPrev() === uuid || part.nav.get().getNext() === uuid)
         }
     }
 
