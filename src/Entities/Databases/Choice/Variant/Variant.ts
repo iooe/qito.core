@@ -65,11 +65,11 @@ export default class Variant {
 
         // @ts-ignore
         content.requirements.forEach(block => {
-            const requirementsBlock = new RequirementsContainer()
+            const requirementsBlock = new RequirementsContainer(block.uuid)
             // @ts-ignore
-            block.forEach(data => {
+            block.data.forEach(data => {
                 // @ts-ignore
-                requirementsBlock.push(this.REQUIREMENT_PROCESS[data.type](data.uuid, data))
+                requirementsBlock.values.add(this.REQUIREMENT_PROCESS[data.type](data.uuid, data))
             })
 
             this._requirements.push(requirementsBlock)
