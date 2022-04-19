@@ -2,6 +2,7 @@ export default interface CallbackContract {
     callback: {
         set(value: CallableFunction),
         get()
+        call(store)
     }
 
     config: {

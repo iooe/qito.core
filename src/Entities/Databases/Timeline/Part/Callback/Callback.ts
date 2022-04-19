@@ -13,6 +13,9 @@ export default class Callback implements CallbackContract {
         },
         get: () => {
             return this._callback
+        },
+        call: (store: any) => {
+            this._callback(store)
         }
     }
 
