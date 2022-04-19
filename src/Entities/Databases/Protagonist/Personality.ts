@@ -1,3 +1,4 @@
+import {v4 as uuidv4} from 'uuid';
 import Media from "../../Basic/Objects/Media";
 
 export default class Personality {
@@ -9,6 +10,10 @@ export default class Personality {
 
     constructor(uuid: string) {
         this._uuid = uuid
+    }
+
+    public static create() {
+        return new Personality(uuidv4())
     }
 
     public getUuid(): string {

@@ -1,3 +1,4 @@
+import {v4 as uuidv4} from 'uuid';
 import Media from "../../Basic/Objects/Media";
 
 const TYPE_IMPORTANT = 'important',
@@ -20,6 +21,10 @@ export default class Character {
 
     constructor(_uuid: string) {
         this._uuid = _uuid
+    }
+
+    public static create() {
+        return new Character(uuidv4())
     }
 
     public getUuid() {

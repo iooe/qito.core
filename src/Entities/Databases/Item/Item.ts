@@ -1,3 +1,4 @@
+import {v4 as uuidv4} from 'uuid';
 import Media from "../../Basic/Objects/Media";
 
 export default class Item {
@@ -9,6 +10,10 @@ export default class Item {
 
     constructor(uuid: string) {
         this._uuid = uuid
+    }
+
+    public static create() {
+        return new Item(uuidv4())
     }
 
     public getUuid(): string {

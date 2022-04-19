@@ -1,4 +1,5 @@
-import Title from "../Meta/Title";
+import {v4 as uuidv4} from 'uuid';
+import Title from "../../../Basic/Objects/Title";
 import Nav from "../Meta/Nav";
 import Page from "../../../Basic/Objects/Page";
 import Callback from "./Callback/CallbackContract";
@@ -27,6 +28,10 @@ export default class Part {
         this._title = new Title();
 
         constants.CALLBACKS.forEach(value => this._callbacks.push({key: value, values: []}))
+    }
+
+    public static create() {
+        return new Part(uuidv4())
     }
 
     public getUuid() {

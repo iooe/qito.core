@@ -1,3 +1,4 @@
+import {v4 as uuidv4} from 'uuid';
 import Preview from "./Preview/Preview";
 
 export default class Fact {
@@ -8,6 +9,10 @@ export default class Fact {
 
     constructor(uuid: string) {
         this._uuid = uuid
+    }
+
+    public static create() {
+        return new Fact(uuidv4())
     }
 
     public getUuid(): string {

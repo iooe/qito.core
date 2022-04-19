@@ -1,11 +1,13 @@
 import Variant from "./Variant/Variant";
 import ResultContract from "./Results/ResultContract";
 import PageResult from "./Results/Foundation/PageResult";
+import Title from "src/Entities/Basic/Objects/Title";
 
 export default class Choice {
 
     protected _uuid: string
     protected _data: Array<Variant> = []
+    protected _title: Title = new Title()
 
     constructor(uuid: string) {
         this._uuid = uuid
@@ -15,18 +17,13 @@ export default class Choice {
         return this._uuid
     }
 
-    public setData(data: Array<any>) {
-        data.forEach(variant => {
-            this._data.push(new Variant(variant))
-        })
-    }
-
-    public hasData() {
-        return !this._data === null
-    }
-
-    public getData() {
-        return this._data
+    public title = {
+        get: () => {
+            return this._title
+        },
+        set: (value: Title) => {
+            this._title = value
+        }
     }
 
     public export() {
@@ -37,7 +34,7 @@ export default class Choice {
     }
 
     public variants = {
-        push: (value: object) => {
+        add: (value: object) => {
             this._data.push(new Variant(value))
         },
 
@@ -53,7 +50,7 @@ export default class Choice {
     public backlinks = {
         has: {
             page: (uuid: string): boolean => {
-                return this.getData().find((value: Variant) => value.getResult()
+                return this.variants.get().find((value: Variant) => value.getResult()
                     .find((result: ResultContract) => result.constructor.name === PageResult.name && result.getId() === uuid)) !== undefined
             }
         }
