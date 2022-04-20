@@ -20,7 +20,7 @@ export const scheme = {
 
             data.map(item => {
                 const instance = new Choice(item.uuid)
-                instance.title.set(new Title(item.title.value, item.title.slug))
+                instance.title.set(new Title(item.title.title, item.title.slug))
                 item.data.forEach((variant: object) => instance.variants.add(variant))
 
                 values.push(instance)
@@ -39,8 +39,16 @@ export const scheme = {
         get: (state: any) => {
             return state.data
         },
-        first: (state: any) => (id: string): Choice => {
-            return state.data.find((item: Choice) => item.getUuid() === id);
+        first: (state: any) => (uuid: string = ''): Choice | undefined => {
+            if (state.data.length === 0) {
+                return undefined
+            }
+
+            if (uuid.length === 0) {
+                return state.data[0]
+            }
+
+            return state.data.find((item: Choice) => item.getUuid() === uuid);
         }
     }
 }
