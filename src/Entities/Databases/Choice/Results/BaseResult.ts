@@ -12,7 +12,7 @@ export default class BaseResult implements ResultContract{
         this._value = value
     }
 
-    public getId(): string {
+    public getUuid(): string {
         return this._id;
     }
 
