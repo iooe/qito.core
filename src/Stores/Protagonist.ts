@@ -47,6 +47,14 @@ export const scheme: any = {
 
             return true;
         },
+        editPersonality(context: any, personality: Personality) {
+            const editedValue = context.state.personalities.find((value: Personality) => value.getUuid() === personality.getUuid());
+
+            editedValue.name.set(personality.name.get())
+            editedValue.value.set(personality.value.get())
+
+            return true;
+        },
         import(context: any, data: Array<any>) {
             data.forEach(instance => {
                 if (instance.key === 'personalities') {
