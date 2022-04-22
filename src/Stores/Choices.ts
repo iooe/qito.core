@@ -20,7 +20,7 @@ export const scheme = {
 
             data.map(item => {
                 const instance = new Choice(item.uuid)
-                instance.title.set(new Title(item.title.title, item.title.slug))
+                instance.title.set(new Title(item.title.value, item.title.slug))
                 item.data.forEach((variant: object) => instance.variants.add(variant))
 
                 values.push(instance)
