@@ -5,6 +5,7 @@ export default class RequirementsContainer {
 
     private _data: Array<RequirementContract> = []
     private readonly _uuid: string
+    private _counter = 0;
 
     constructor(uuid: string) {
         this._uuid = uuid
@@ -14,9 +15,14 @@ export default class RequirementsContainer {
         return this._uuid
     }
 
+    public get count() {
+        return this._counter
+    }
+
     public values = {
-        add: (requirement: RequirementContract) => {
-            return this._data.push(requirement)
+        add: (value: RequirementContract) => {
+            this._data.push(value)
+            this._counter++
         },
         get: () => {
             return this._data
@@ -27,7 +33,7 @@ export default class RequirementsContainer {
                 return this._data[0]
             }
 
-            return this._data.find((value: RequirementContract) => value.getId() === uuid)
+            return this._data.find((value: RequirementContract) => value.getUuid() === uuid)
         },
         has: (uuid: string = '') => {
 
@@ -35,7 +41,7 @@ export default class RequirementsContainer {
                 return false
             }
 
-            return this._data.find((value: RequirementContract) => value.getId() === uuid) !== undefined
+            return this._data.find((value: RequirementContract) => value.getUuid() === uuid) !== undefined
         }
     }
 

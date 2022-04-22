@@ -1,6 +1,6 @@
 import RequirementContract from "./RequirementContract";
 
-export default class BaseRequirement implements RequirementContract{
+export default class BaseRequirement implements RequirementContract {
 
     protected readonly _id: string;
     protected readonly _operator: string;
@@ -12,7 +12,7 @@ export default class BaseRequirement implements RequirementContract{
         this._value = value
     }
 
-    public getId(): string {
+    public getUuid(): string {
         return this._id;
     }
 
