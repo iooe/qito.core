@@ -92,7 +92,7 @@ export default class Variant {
         }
     }
 
-    public getRequirement(): Array<RequirementsContainer> {
+    public getRequirements(): Array<RequirementsContainer> {
         return this._requirements
     }
 
