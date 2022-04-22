@@ -15,7 +15,7 @@ export default class Variant {
     private _result: Array<ResultContract> = []
     private _requirements: Array<RequirementsContainer> = []
 
-    private readonly _name: string;
+    private _name: string;
 
     private readonly RESULT_PROCESS = {
         personality: (uuid: string, data: object) => {
@@ -82,16 +82,22 @@ export default class Variant {
         })
     }
 
-    public getRequirements(): Array<RequirementsContainer> {
+    public name = {
+        set: (value: string) => {
+            this._name = value
+        },
+
+        get: () => {
+            return this._name
+        }
+    }
+
+    public getRequirement(): Array<RequirementsContainer> {
         return this._requirements
     }
 
     public getResult(): Array<ResultContract> {
         return this._result
-    }
-
-    public getName(): string {
-        return this._name
     }
 
     public export() {
