@@ -44,6 +44,10 @@ export default class Choice {
 
         has: () => {
             return this._data.length > 0
+        },
+
+        count: () => {
+            return this._data.length
         }
     }
 
