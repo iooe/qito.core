@@ -1,5 +1,6 @@
 import Fact from "../Entities/Databases/Fact/Fact";
 import Preview from "../Entities/Databases/Fact/Preview/Preview";
+import Title from "../Entities/Basic/Objects/Title";
 
 export const NAME = 'facts'
 
@@ -48,6 +49,7 @@ const scheme: any = {
             data.map(item => {
                 const instance = new Fact(item.uuid)
 
+                instance.title.set(new Title(item.title.value))
                 instance.preview.set(new Preview(item.preview.message))
                 instance.state.set(item.state)
 
