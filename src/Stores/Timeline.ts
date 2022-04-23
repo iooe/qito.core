@@ -127,6 +127,16 @@ export const scheme: any = {
                 .find((segment: Segment) => segment.getUuid() === segmentUuid)
                 .parts.first(uuid)
         },
+        getSegmentByPartUuid: (state: any) => (uuid: string) => {
+            const segmentUuid = state.hash[uuid]
+
+            if (!segmentUuid) {
+                return undefined
+            }
+
+            return state.segments
+                .find((segment: Segment) => segment.getUuid() === segmentUuid)
+        },
         getSegment: (state: any) => (uuid: any): Segment => {
             return state.segments.find((segment: Segment) => segment.getUuid() === uuid)
         },
