@@ -1,11 +1,17 @@
 import ResultContract from "../ResultContract";
 import BaseResult from "../BaseResult";
 
-export const TYPE = 'relationship'
+const TYPE = 'relationship',
+    ACTION_INCREASE = 'increase',
+    ACTION_DECREASE = 'decrease'
+
 export const constants = {
     ACTIONS: [
-        'increase',
-        'decrease'],
+        ACTION_INCREASE,
+        ACTION_DECREASE
+    ],
+    ACTION_INCREASE: ACTION_INCREASE,
+    ACTION_DECREASE: ACTION_DECREASE
 } as const;
 
 export default class RelationshipResult extends BaseResult implements ResultContract {

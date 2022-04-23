@@ -1,11 +1,17 @@
 import ResultContract from "../ResultContract";
 import BaseResult from "../BaseResult";
 
-export const TYPE = 'item'
+export const TYPE = 'item',
+    ACTION_OPEN = 'open',
+    ACTION_HIDE = 'hide'
+
 export const constants = {
     ACTIONS: [
-        'open',
-        'hide'],
+        ACTION_OPEN,
+        ACTION_HIDE
+    ],
+    ACTION_OPEN: ACTION_OPEN,
+    ACTION_HIDE: ACTION_HIDE
 } as const;
 
 export default class ItemResult extends BaseResult implements ResultContract {

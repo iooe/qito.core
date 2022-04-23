@@ -1,7 +1,8 @@
 import ResultContract from "../ResultContract";
 import BaseResult from "../BaseResult";
 
-export const TYPE = 'page'
+const TYPE = 'page'
+
 export default class PageResult extends BaseResult implements ResultContract {
     constructor(id: string) {
         super(id);

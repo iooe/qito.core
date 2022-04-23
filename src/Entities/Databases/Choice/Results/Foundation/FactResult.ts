@@ -1,7 +1,7 @@
 import ResultContract from "../ResultContract";
 import BaseResult from "../BaseResult";
 
-export const TYPE = 'fact'
+const TYPE = 'fact'
 
 export default class FactResult extends BaseResult implements ResultContract {
     constructor(id: string) {
