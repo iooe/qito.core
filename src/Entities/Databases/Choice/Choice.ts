@@ -51,7 +51,7 @@ export default class Choice {
         has: {
             page: (uuid: string): boolean => {
                 return this.variants.get().find((value: Variant) => value.getResult()
-                    .find((result: ResultContract) => result.constructor.name === PageResult.name && result.getId() === uuid)) !== undefined
+                    .find((result: ResultContract) => result.constructor.name === PageResult.name && result.getUuid() === uuid)) !== undefined
             }
         }
     }
