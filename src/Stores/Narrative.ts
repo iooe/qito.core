@@ -1,5 +1,6 @@
 import Narrative from "../Entities/Databases/Narrative/Narrative";
 import Page from "../Entities/Basic/Objects/Page";
+import Fact from "hanzo.core/src/Entities/Databases/Fact/Fact";
 
 export const NAME = 'narrative'
 export const touch = (state: any) => {
@@ -39,6 +40,12 @@ export const scheme: any = {
     getters: {
         get: (state: any) => {
             return state.data
+        },
+        first: (state: any) => (uuid: string): Fact => {
+            return state.data.find((value: Narrative) => value.getUuid() === uuid);
+        },
+        has: (state: any) => (uuid: string): boolean => {
+            return state.data.find((value: Narrative) => value.getUuid() === uuid) !== undefined;
         }
     },
 }
