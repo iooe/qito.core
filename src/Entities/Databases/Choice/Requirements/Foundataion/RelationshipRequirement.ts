@@ -1,7 +1,7 @@
 import RequirementContract from "../RequirementContract";
 import BaseRequirement from "../BaseRequirement";
 
-export const TYPE = 'realtionship'
+export const TYPE = 'relationship'
 
 export const constants = {
     OPERATORS: [
