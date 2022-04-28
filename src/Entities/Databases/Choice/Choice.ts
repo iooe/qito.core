@@ -37,6 +37,8 @@ export default class Choice {
     public variants = {
         import: (value: object) => {
             const variant = Variant.create()
+            //@ts-ignore
+            variant.name.set(value.name)
             variant.import(value)
 
             this._data.push(variant)

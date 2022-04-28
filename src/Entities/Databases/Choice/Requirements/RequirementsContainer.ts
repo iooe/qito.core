@@ -58,7 +58,10 @@ export default class RequirementsContainer {
     }
 
     public export() {
-        return this._data.map((value: RequirementContract) => value.export())
+        return {
+            uuid: this._uuid,
+            data: this._data.map((value: RequirementContract) => value.export())
+        }
     }
 
     public static create() {

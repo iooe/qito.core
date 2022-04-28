@@ -149,18 +149,14 @@ export default class Variant {
 
     public import(content: Object) {
         // @ts-ignore
-        this._name = content.name
-
-        // @ts-ignore
-        content.requirements.forEach(block => {
-            const requirementsBlock = new RequirementsContainer(block.uuid)
-            // @ts-ignore
-            block.data.forEach(data => {
-                // @ts-ignore
-                requirementsBlock.values.add(this.REQUIREMENT_PROCESS[data.type](data.uuid, data))
+        content.requirements.forEach(container => {
+            const containerInstance = new RequirementsContainer(container.uuid)
+            container.data.forEach(data => {
+                console.log(data)
+                containerInstance.values.add(this.REQUIREMENT_PROCESS[data.type](data.uuid, data))
             })
 
-            this._requirements.push(requirementsBlock)
+            this._requirements.push(containerInstance)
         })
 
         // @ts-ignore
