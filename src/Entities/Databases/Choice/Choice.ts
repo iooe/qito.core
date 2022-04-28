@@ -29,6 +29,7 @@ export default class Choice {
     public export() {
         return {
             uuid: this._uuid,
+            title: this._title.export(),
             data: this._data.map((value: Variant) => value.export())
         }
     }
