@@ -36,6 +36,12 @@ export const scheme: any = {
             })
 
             context.state.data = values
+        },
+        export(context: any) {
+            return {
+                name: NAME,
+                data: context.state.data.map((value: Narrative) => value.export())
+            }
         }
     },
     getters: {
