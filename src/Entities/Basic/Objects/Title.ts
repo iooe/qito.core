@@ -22,7 +22,7 @@ export default class Title {
 
     public export() {
         return {
-            title: this._title,
+            value: this._title,
             slug: this._slug
         }
     }
