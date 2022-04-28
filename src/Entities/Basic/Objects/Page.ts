@@ -5,9 +5,23 @@ import Character from "../Blocks/Foundation/Character";
 import Delimiter from "../Blocks/Foundation/Delimiter";
 import BaseBlock from "../Blocks/BaseBlock";
 import Button from "../Blocks/Foundation/Button";
+import {v4 as uuidv4} from 'uuid';
 
 export default class Page {
     protected data: Array<BaseBlock> = []
+    private readonly _uuid: string;
+
+    constructor(uuid: string) {
+        this._uuid = uuid
+    }
+
+    public static create() {
+        return new Page(uuidv4())
+    }
+
+    public getUuid() {
+        return this._uuid
+    }
 
     setBlocks(content: Array<any>) {
         content.forEach(data => {
@@ -43,6 +57,7 @@ export default class Page {
 
     public export() {
         return {
+            uuid: this._uuid,
             blocks: this.data.map((value: BaseBlock) => value.export())
         }
     }

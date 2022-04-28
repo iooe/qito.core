@@ -20,6 +20,9 @@ export default class Narrative {
         },
         push: (page: Page) => {
             this._pages.push(page)
+        },
+        count: () => {
+            return this._pages.length
         }
     }
 

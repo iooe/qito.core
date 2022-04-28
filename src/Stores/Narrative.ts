@@ -26,7 +26,7 @@ export const scheme: any = {
                 instance.styles.set(part.style)
 
                 part.pages.forEach((page: any) => {
-                    const pageInstance = new Page()
+                    const pageInstance = new Page(page.uuid)
 
                     pageInstance.setBlocks(page.blocks)
                     instance.pages.push(pageInstance)

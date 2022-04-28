@@ -97,7 +97,7 @@ export const scheme: any = {
                     })
 
                     part.pages.forEach((page: any) => {
-                        const pageInstance = new Page()
+                        const pageInstance = new Page(page.uuid)
                         pageInstance.setBlocks(page.blocks)
                         blockInstance.pages.push(pageInstance)
                     })
