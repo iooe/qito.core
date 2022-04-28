@@ -6,7 +6,7 @@ export const NAME = 'choices'
 export const touch = (state: any) => {
     const length = state.data.length;
     state.data.push(state.data[length - 1])
-    state.data.splice(state.data[length], 1)
+    state.data.splice(length, 1)
 }
 
 export const scheme = {
@@ -21,7 +21,7 @@ export const scheme = {
             data.map(item => {
                 const instance = new Choice(item.uuid)
                 instance.title.set(new Title(item.title.value, item.title.slug))
-                item.data.forEach((variant: object) => instance.variants.add(variant))
+                item.data.forEach((variant: object) => instance.variants.import(variant))
 
                 values.push(instance)
             })
