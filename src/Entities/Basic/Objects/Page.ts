@@ -24,6 +24,8 @@ export default class Page {
     }
 
     setBlocks(content: Array<any>) {
+        this.data = []
+
         content.forEach(data => {
             if (data.type === 'paragraph') {
                 this.data.push(new Paragraph(data.data.text))
