@@ -44,7 +44,18 @@ export default class Part {
         },
         push: (page: Page) => {
             this._pages.push(page)
-        }
+        },
+        count: () => {
+            return this._pages.length
+        },
+        first: (uuid: string = '') => {
+
+            if (uuid.length === 0) {
+                return this._pages[0]
+            }
+
+            return this._pages.find((value: Page) => value.getUuid() === uuid)
+        },
     }
 
     public callbacks = {
@@ -116,6 +127,7 @@ export default class Part {
         return {
             uuid: this._uuid,
             title: this._title.export(),
+            nav: this._nav.export(),
             type: this._type,
             callbacks: callbacks,
             pages: this._pages.map((value: Page) => value.export())
