@@ -57,6 +57,7 @@ export default class Fact {
     public export(): Object {
         return {
             uuid: this._uuid,
+            title: this._title.export(),
             preview: {
                 message: this.preview.get().getMessage()
             },
