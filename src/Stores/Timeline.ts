@@ -1,9 +1,7 @@
 import Segment from "../Entities/Databases/Timeline/Segment";
-import TimelineSegmentEntity from "../Entities/Databases/Timeline/Segment";
 import Part from "../Entities/Databases/Timeline/Part/Part";
-import TimelineBlockEntity from "../Entities/Databases/Timeline/Part/Part";
-import TimelineTitleEntity from "../Entities/Basic/Objects/Title";
-import TimelineNavEntity from "../Entities/Databases/Timeline/Meta/Nav";
+import Title from "../Entities/Basic/Objects/Title";
+import Nav from "../Entities/Databases/Timeline/Meta/Nav";
 import PageCallback from "../Entities/Databases/Timeline/Part/Callback/Callback";
 import Page from "../Entities/Basic/Objects/Page";
 
@@ -68,15 +66,15 @@ export const scheme: any = {
 
                 const parts = segmentRaw.parts
 
-                const segmentInstance = new TimelineSegmentEntity(segmentRaw.uuid)
-                segmentInstance.title.set(new TimelineTitleEntity(segmentRaw.title.value, segmentRaw.title.slug))
+                const segmentInstance = new Segment(segmentRaw.uuid)
+                segmentInstance.title.set(new Title(segmentRaw.title.value, segmentRaw.title.slug))
 
                 parts.forEach((part: any) => {
 
-                    const blockInstance = new TimelineBlockEntity(part.uuid)
-                    blockInstance.title.set(new TimelineTitleEntity(part.title.value, part.title.slug))
-                    blockInstance.nav.set(new TimelineNavEntity(part.nav.prev, part.nav.next))
-                    blockInstance.type.set(part.type)
+                    const partInstance = new Part(part.uuid)
+                    partInstance.title.set(new Title(part.title.value, part.title.slug))
+                    partInstance.nav.set(new Nav(part.nav.prev, part.nav.next))
+                    partInstance.type.set(part.type)
 
                     Object.entries(part.callbacks).forEach((callbackValue: any) => {
 
@@ -92,17 +90,17 @@ export const scheme: any = {
                                 callbackInstance.callback.set((store: any) => store.commit('narrative/pushQueue', value.id))
                             }
 
-                            blockInstance.callbacks.push(callbackKey, callbackInstance)
+                            partInstance.callbacks.push(callbackKey, callbackInstance)
                         }))
                     })
 
                     part.pages.forEach((page: any) => {
                         const pageInstance = new Page(page.uuid)
                         pageInstance.setBlocks(page.blocks)
-                        blockInstance.pages.push(pageInstance)
+                        partInstance.pages.push(pageInstance)
                     })
 
-                    segmentInstance.parts.push(blockInstance)
+                    segmentInstance.parts.push(partInstance)
                 })
 
                 context.dispatch('addSegment', segmentInstance)
