@@ -7,7 +7,7 @@ export const NAME = 'characters'
 export const touch = (state: any) => {
     const length = state.data.length;
     state.data.push(state.data[length - 1])
-    state.data.splice(state.data[length], 1)
+    state.data.splice(length, 1)
 }
 
 export const scheme:any = {
@@ -36,6 +36,7 @@ export const scheme:any = {
             editedValue.name.set(item.name.get())
             editedValue.type.set(item.type.get())
             editedValue.media.set(item.media.get())
+            editedValue.relationship.set(item.relationship.get())
 
             return true;
         },
