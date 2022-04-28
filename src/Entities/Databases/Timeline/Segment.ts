@@ -36,9 +36,7 @@ export default class Segment {
                 return this._parts[0]
             }
 
-            const value = this._parts.find((part: Part) => part.getUuid() === uuid);
-
-            return value
+            return this._parts.find((part: Part) => part.getUuid() === uuid)
         },
         has: (uuid: string) => {
             return this._parts.find((part: Part) => part.getUuid() === uuid) !== undefined;
