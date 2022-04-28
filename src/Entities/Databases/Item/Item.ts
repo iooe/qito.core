@@ -1,6 +1,16 @@
 import {v4 as uuidv4} from 'uuid';
 import Media from "../../Basic/Objects/Media";
 
+const IS_OPENED = true,
+    IS_HIDE = false;
+
+export const constants = {
+    STATES: [
+        IS_OPENED,
+        IS_HIDE
+    ]
+} as const;
+
 export default class Item {
 
     private readonly _uuid: string
