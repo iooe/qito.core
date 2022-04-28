@@ -56,6 +56,8 @@ export const scheme: any = {
             return true;
         },
         import(context: any, data: Array<any>) {
+            context.personalities = []
+
             data.forEach(instance => {
                 if (instance.key === 'personalities') {
                     instance.data.forEach((value: any) => {

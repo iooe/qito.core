@@ -62,6 +62,9 @@ export const scheme: any = {
             touch(context.state)
         },
         import(context: any, data: Array<any>) {
+            context.state.segments = []
+            context.state.hash = []
+
             data.forEach((segmentRaw, key) => {
 
                 const parts = segmentRaw.parts
