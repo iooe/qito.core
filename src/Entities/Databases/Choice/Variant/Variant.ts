@@ -14,8 +14,7 @@ import NarrativeResult from "../Results/Foundation/NarrativeResult";
 export default class Variant {
     private _result: Array<ResultContract> = []
     private _requirements: Array<RequirementsContainer> = []
-
-    private _name: string;
+    private _name: string = '';
 
     private readonly RESULT_PROCESS = {
         personality: (uuid: string, data: object) => {
@@ -59,7 +58,96 @@ export default class Variant {
         }
     }
 
-    constructor(content: Object) {
+    public static create() {
+        return new Variant()
+    }
+
+    public name = {
+        set: (value: string) => {
+            this._name = value
+        },
+
+        get: () => {
+            return this._name
+        }
+    }
+
+    public results = {
+        add: (value: ResultContract) => {
+            return this._result.push(value)
+        },
+        first: (uuid: string = ''): ResultContract | undefined => {
+            if (this._result.length === 0) {
+                return undefined
+            }
+
+            if (uuid.length === 0) {
+                return this._result[0]
+            }
+
+            return this._result.find((value: ResultContract) => value.getUuid() === uuid);
+        },
+        get: (): Array<ResultContract> => {
+            return this._result
+        },
+        delete: (uuid: string) => {
+            const index = this._result.findIndex((value: ResultContract) => value.getUuid() === uuid)
+
+            if (index === undefined) {
+                return
+            }
+
+            this._result.splice(index, 1)
+        }
+    }
+
+    public requirements = {
+        add: (value: RequirementsContainer) => {
+            return this._requirements.push(value)
+        },
+        first: (uuid: string = ''): RequirementsContainer | undefined => {
+            if (this._requirements.length === 0) {
+                return undefined
+            }
+
+            if (uuid.length === 0) {
+                return this._requirements[0]
+            }
+
+            return this._requirements.find((value: RequirementsContainer) => value.getUuid() === uuid);
+        },
+        edit: (newValue: RequirementsContainer) => {
+            const index = this._requirements.findIndex((value: RequirementsContainer) => value.getUuid() === newValue.getUuid())
+
+            if (index === undefined) {
+                return
+            }
+
+            this._requirements[index] = newValue
+        },
+        get: (): Array<RequirementsContainer> => {
+            return this._requirements
+        },
+        delete: (uuid: string) => {
+            const index = this._requirements.findIndex((value: RequirementsContainer) => value.getUuid() === uuid)
+
+            if (index === undefined) {
+                return
+            }
+
+            this._requirements.splice(index, 1)
+        }
+    }
+
+    public export() {
+        return {
+            name: this._name,
+            requirements: this._requirements.map((value: RequirementsContainer) => value.export()),
+            result: this._result.map((value: ResultContract) => value.export()),
+        }
+    }
+
+    public import(content: Object) {
         // @ts-ignore
         this._name = content.name
 
@@ -80,31 +168,5 @@ export default class Variant {
             // @ts-ignore
             this._result.push(this.RESULT_PROCESS[data.type](data.uuid, data))
         })
-    }
-
-    public name = {
-        set: (value: string) => {
-            this._name = value
-        },
-
-        get: () => {
-            return this._name
-        }
-    }
-
-    public getRequirements(): Array<RequirementsContainer> {
-        return this._requirements
-    }
-
-    public getResult(): Array<ResultContract> {
-        return this._result
-    }
-
-    public export() {
-        return {
-            name: this._name,
-            requirements: this._requirements.map((value: RequirementsContainer) => value.export()),
-            result: this._result.map((value: ResultContract) => value.export()),
-        }
     }
 }

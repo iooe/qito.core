@@ -34,8 +34,47 @@ export default class Choice {
     }
 
     public variants = {
-        add: (value: object) => {
-            this._data.push(new Variant(value))
+        import: (value: object) => {
+            const variant = Variant.create()
+            variant.import(value)
+
+            this._data.push(variant)
+        },
+
+        moveUp: (index: number) => {
+            if (this._data.length < 2) {
+                return
+            }
+
+            if (index === 0) {
+                return;
+            }
+
+            const temp = this._data[index - 1]
+            this._data[index - 1] = this._data[index]
+            this._data[index] = temp
+        },
+
+        moveDown: (index: number) => {
+            if (this._data.length < 2) {
+                return
+            }
+
+            if (index === this._data.length - 1) {
+                return;
+            }
+
+            const temp = this._data[index + 1]
+            this._data[index + 1] = this._data[index]
+            this._data[index] = temp
+        },
+
+        add: (value: Variant) => {
+            this._data.push(value)
+        },
+
+        delete: (index: number) => {
+            this._data.splice(index, 1)
         },
 
         get: () => {
@@ -54,7 +93,7 @@ export default class Choice {
     public backlinks = {
         has: {
             page: (uuid: string): boolean => {
-                return this.variants.get().find((value: Variant) => value.getResult()
+                return this.variants.get().find((value: Variant) => value.results.get()
                     .find((result: ResultContract) => result.constructor.name === PageResult.name && result.getUuid() === uuid)) !== undefined
             }
         }

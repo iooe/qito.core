@@ -27,6 +27,18 @@ export default class RequirementsContainer {
         get: () => {
             return this._data
         },
+        count: () => {
+            return this._data.length
+        },
+        delete: (uuid: string) => {
+            const index = this._data.findIndex((value: RequirementContract) => value.getUuid() === uuid)
+
+            if (index === undefined) {
+                return
+            }
+
+            this._data.splice(index, 1)
+        },
         first: (uuid: string = '') => {
 
             if (uuid.length === 0) {
