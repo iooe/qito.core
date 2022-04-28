@@ -6,7 +6,7 @@ export const NAME = 'items'
 export const touch = (state: any) => {
     const length = state.data.length;
     state.data.push(state.data[length - 1])
-    state.data.splice(state.data[length], 1)
+    state.data.splice(length, 1)
 }
 
 const scheme: any = {

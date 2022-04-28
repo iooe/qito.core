@@ -3,10 +3,11 @@ import Page from "../Entities/Basic/Objects/Page";
 import Fact from "hanzo.core/src/Entities/Databases/Fact/Fact";
 
 export const NAME = 'narrative'
+
 export const touch = (state: any) => {
     const length = state.data.length;
     state.data.push(state.data[length - 1])
-    state.data.splice(state.data[length], 1)
+    state.data.splice(length, 1)
 }
 
 export const scheme: any = {
