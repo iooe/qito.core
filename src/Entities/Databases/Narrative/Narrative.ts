@@ -23,7 +23,15 @@ export default class Narrative {
         },
         count: () => {
             return this._pages.length
-        }
+        },
+        first: (uuid: string = '') => {
+
+            if (uuid.length === 0) {
+                return this._pages[0]
+            }
+
+            return this._pages.find((value: Page) => value.getUuid() === uuid)
+        },
     }
 
     public styles = {
@@ -41,6 +49,15 @@ export default class Narrative {
         },
         get: (): string => {
             return this._title
+        }
+    }
+
+    public export(): Object {
+        return {
+            uuid: this._uuid,
+            title: this._title,
+            style: this._styles.map((value: string) => value),
+            pages: this._pages.map((page: Page) => page.export())
         }
     }
 }
