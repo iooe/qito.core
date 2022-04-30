@@ -24,6 +24,15 @@ export default class Narrative {
         count: () => {
             return this._pages.length
         },
+        delete: (uuid: string) => {
+            const index = this._pages.findIndex((value: Page) => value.getUuid() === uuid)
+
+            if (index === undefined) {
+                return
+            }
+
+            this._pages.splice(index, 1)
+        },
         first: (uuid: string = '') => {
 
             if (uuid.length === 0) {

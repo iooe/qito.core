@@ -1,11 +1,11 @@
-import Segment from "../Entities/Databases/Timeline/Segment";
-import Part from "../Entities/Databases/Timeline/Part/Part";
+import Segment from "../Entities/Databases/Segment/Segment";
+import Part from "../Entities/Databases/Segment/Part/Part";
 import Title from "../Entities/Basic/Objects/Title";
-import Nav from "../Entities/Databases/Timeline/Meta/Nav";
-import PageCallback from "../Entities/Databases/Timeline/Part/Callback/Callback";
+import Nav from "../Entities/Databases/Segment/Meta/Nav";
+import PageCallback from "../Entities/Databases/Segment/Part/Callback/Callback";
 import Page from "../Entities/Basic/Objects/Page";
 
-export const NAME = 'timeline'
+export const NAME = 'segments'
 
 const touch = (state: any) => {
     const length = state.segments.length;

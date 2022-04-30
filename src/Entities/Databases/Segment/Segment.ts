@@ -41,6 +41,15 @@ export default class Segment {
         has: (uuid: string) => {
             return this._parts.find((part: Part) => part.getUuid() === uuid) !== undefined;
         },
+        delete: (uuid: string) => {
+            const index = this._parts.findIndex((value: Part) => value.getUuid() === uuid)
+
+            if (index === undefined) {
+                return
+            }
+
+            this._parts.splice(index, 1)
+        },
         get: () => {
             return this._parts
         },
