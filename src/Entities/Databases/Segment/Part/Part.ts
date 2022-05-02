@@ -10,7 +10,8 @@ export const constants = {
         'important'
     ],
     CALLBACKS: [
-        'onCreated'
+        'onCreated',
+        'onClosed'
     ]
 } as const;
 
@@ -55,6 +56,9 @@ export default class Part {
             }
 
             return this._pages.find((value: Page) => value.getUuid() === uuid)
+        },
+        index: (uuid: string) => {
+            return this._pages.findIndex((value: Page) => value.getUuid() === uuid)
         },
     }
 
@@ -112,7 +116,9 @@ export default class Part {
     }
 
     public export() {
-        const callbacks = {}
+        let callbacks = {}
+
+        constants.CALLBACKS.map(value => callbacks[value] = [])
 
         this._callbacks.forEach(value => {
             value.values.forEach(config => {
