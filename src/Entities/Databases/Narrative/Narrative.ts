@@ -33,6 +33,9 @@ export default class Narrative {
 
             this._pages.splice(index, 1)
         },
+        index: (uuid: string) => {
+            return this._pages.findIndex((value: Page) => value.getUuid() === uuid)
+        },
         first: (uuid: string = '') => {
 
             if (uuid.length === 0) {
