@@ -80,6 +80,10 @@ export default class Choice {
             this._data.splice(index, 1)
         },
 
+        unshift: (value: Variant) => {
+            this._data.unshift(value)
+        },
+
         get: () => {
             return this._data
         },
