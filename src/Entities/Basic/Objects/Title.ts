@@ -1,3 +1,5 @@
+import {v4 as uuidv4} from 'uuid';
+
 export default class Title {
 
     private readonly _title: string;
@@ -5,7 +7,7 @@ export default class Title {
 
     constructor(title: string = '', slug: string = '') {
         this._title = title
-        this._slug = slug
+        this._slug = slug.length > 0 ? slug : uuidv4()
     }
 
     public getSlug(): string {
