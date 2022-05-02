@@ -29,15 +29,6 @@ const scheme: any = {
 
             return true;
         },
-        edit(context: any, item: Item) {
-            const editedValue = context.state.data.find((value: Item) => value.getUuid() === item.getUuid());
-
-            editedValue.name.set(item.name.get())
-            editedValue.state.set(item.state.get())
-            editedValue.media.set(item.media.get())
-
-            return true;
-        },
         import(context: any, data: Array<any>) {
             let values: Array<Item> = [];
 
