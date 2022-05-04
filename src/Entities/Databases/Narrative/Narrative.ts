@@ -1,4 +1,5 @@
 import Page from "../../Basic/Objects/Page";
+import {v4 as uuidv4} from 'uuid';
 
 export default class Narrative {
     private _title: string = ''
@@ -8,6 +9,10 @@ export default class Narrative {
 
     constructor(uuid: string) {
         this._uuid = uuid
+    }
+
+    public static create() {
+        return new Narrative(uuidv4())
     }
 
     public getUuid() {
