@@ -17,6 +17,15 @@ export const scheme: any = {
     }),
     mutations: {},
     actions: {
+        add(context: any, value: Narrative) {
+            if (context.getters.first(value.getUuid()) !== undefined) {
+                return false
+            }
+
+            context.state.data.push(value)
+
+            return true;
+        },
         import(context: any, data: Array<any>) {
             let values: Array<Narrative> = [];
 
