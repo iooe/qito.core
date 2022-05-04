@@ -76,6 +76,16 @@ export default class Part {
 
             return instance.values
         },
+        delete: (key: string, index: number) => {
+            const instance = this._callbacks.find(value => value.key === key)
+
+            if (instance === undefined) {
+                new Error('Unfinded')
+                return;
+            }
+
+            instance.values.splice(index, 1)
+        },
         push: (key: string, callback: Callback) => {
             const instance = this._callbacks.find(value => value.key === key)
 
