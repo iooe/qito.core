@@ -2,6 +2,7 @@ import Variant from "./Variant/Variant";
 import ResultContract from "./Results/ResultContract";
 import PageResult from "./Results/Foundation/PageResult";
 import Title from "../../Basic/Objects/Title";
+import {v4 as uuidv4} from 'uuid';
 
 export default class Choice {
 
@@ -11,6 +12,10 @@ export default class Choice {
 
     constructor(uuid: string) {
         this._uuid = uuid
+    }
+
+    public static create() {
+        return new Choice(uuidv4())
     }
 
     public getUuid() {
