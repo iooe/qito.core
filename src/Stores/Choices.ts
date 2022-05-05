@@ -15,6 +15,26 @@ export const scheme = {
         data: Array<any>(),
     }),
     actions: {
+        add(context: any, value: Choice) {
+            if (context.getters.first(value.getUuid()) !== undefined) {
+                return false
+            }
+
+            context.state.data.push(value)
+
+            return true;
+        },
+        remove(context: any, uuid: string) {
+            const index = context.state.data.findIndex((value: Choice) => value.getUuid() === uuid);
+
+            if (index === undefined) {
+                return false
+            }
+
+            context.state.data.splice(index, 1)
+
+            return true;
+        },
         import(context: any, data: Array<any>) {
             const values: Array<Choice> = []
 
