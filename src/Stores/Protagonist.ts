@@ -1,5 +1,6 @@
 import Personality from "../Entities/Databases/Protagonist/Personality";
 import Media from "../Entities/Basic/Objects/Media";
+import Narrative from "../Entities/Databases/Narrative/Narrative";
 
 export const NAME = 'protagonist'
 
@@ -52,6 +53,17 @@ export const scheme: any = {
 
             editedValue.name.set(personality.name.get())
             editedValue.value.set(personality.value.get())
+
+            return true;
+        },
+        removePersonality(context: any, uuid: string) {
+            const index = context.state.data.findIndex((value: Personality) => value.getUuid() === uuid);
+
+            if (index === undefined) {
+                return false
+            }
+
+            context.state.data.splice(index, 1)
 
             return true;
         },
