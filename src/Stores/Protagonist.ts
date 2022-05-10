@@ -88,7 +88,8 @@ export const scheme: any = {
                 name: NAME,
                 data: [
                     {
-                        'personalities': context.state.personalities.map((value: Personality) => value.export())
+                        key: 'personalities',
+                        data: context.state.personalities.map((value: Personality) => value.export())
                     }
                 ]
             }
