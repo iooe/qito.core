@@ -4,8 +4,8 @@ import BaseRequirement from "../BaseRequirement";
 export const TYPE = 'fact'
 
 export default class FactRequirement extends BaseRequirement implements RequirementContract {
-    constructor(id: string, operator: string) {
-        super(id, operator)
+    constructor(id: string) {
+        super(id)
     }
 
     public export() {
