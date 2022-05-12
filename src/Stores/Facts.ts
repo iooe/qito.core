@@ -43,6 +43,17 @@ const scheme: any = {
 
             return true;
         },
+        remove(context: any, uuid: string) {
+            const index = context.state.data.findIndex((value: Fact) => value.getUuid() === uuid);
+
+            if (index === undefined) {
+                return false
+            }
+
+            context.state.data.splice(index, 1)
+
+            return true;
+        },
         import(context: any, data: Array<any>) {
             let values: Array<Fact> = [];
 
