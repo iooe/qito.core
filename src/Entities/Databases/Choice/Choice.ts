@@ -40,9 +40,8 @@ export default class Choice {
     }
 
     public variants = {
-        import: (value: object) => {
-            const variant = Variant.create()
-            //@ts-ignore
+        import: (value: any) => {
+            const variant = value.hasOwnProperty('uuid') ? new Variant(value.uuid) : Variant.create()
             variant.name.set(value.name)
             variant.import(value)
 

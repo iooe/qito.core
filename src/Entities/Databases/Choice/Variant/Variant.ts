@@ -10,11 +10,13 @@ import RequirementsContainer from "../Requirements/RequirementsContainer";
 import FactRequirement from "../Requirements/Foundataion/FactRequirement";
 import PageResult from "../Results/Foundation/PageResult";
 import NarrativeResult from "../Results/Foundation/NarrativeResult";
+import {v4 as uuidv4} from 'uuid';
 
 export default class Variant {
     private _result: Array<ResultContract> = []
     private _requirements: Array<RequirementsContainer> = []
     private _name: string = '';
+    private _uuid: string
 
     private readonly RESULT_PROCESS = {
         personality: (uuid: string, data: object) => {
@@ -58,8 +60,12 @@ export default class Variant {
         }
     }
 
+    constructor(uuid: string) {
+        this._uuid = uuid
+    }
+
     public static create() {
-        return new Variant()
+        return new Variant(uuidv4())
     }
 
     public name = {
@@ -70,6 +76,10 @@ export default class Variant {
         get: () => {
             return this._name
         }
+    }
+
+    public getUuid(): string {
+        return this._uuid
     }
 
     public results = {
