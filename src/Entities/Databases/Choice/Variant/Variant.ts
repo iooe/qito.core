@@ -93,7 +93,7 @@ export default class Variant {
         delete: (uuid: string) => {
             const index = this._result.findIndex((value: ResultContract) => value.getUuid() === uuid)
 
-            if (index === undefined) {
+            if (index === -1) {
                 return
             }
 
@@ -119,7 +119,7 @@ export default class Variant {
         edit: (newValue: RequirementsContainer) => {
             const index = this._requirements.findIndex((value: RequirementsContainer) => value.getUuid() === newValue.getUuid())
 
-            if (index === undefined) {
+            if (index === -1) {
                 return
             }
 
@@ -131,7 +131,7 @@ export default class Variant {
         delete: (uuid: string) => {
             const index = this._requirements.findIndex((value: RequirementsContainer) => value.getUuid() === uuid)
 
-            if (index === undefined) {
+            if (index === -1) {
                 return
             }
 

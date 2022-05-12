@@ -32,7 +32,7 @@ export default class Narrative {
         delete: (uuid: string) => {
             const index = this._pages.findIndex((value: Page) => value.getUuid() === uuid)
 
-            if (index === undefined) {
+            if (index === -1) {
                 return
             }
 

@@ -29,7 +29,7 @@ export const scheme: any = {
         remove(context: any, uuid: string) {
             const index = context.state.data.findIndex((value: Narrative) => value.getUuid() === uuid);
 
-            if (index === undefined) {
+            if (index === -1) {
                 return false
             }
 

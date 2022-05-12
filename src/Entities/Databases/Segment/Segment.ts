@@ -44,7 +44,7 @@ export default class Segment {
         delete: (uuid: string) => {
             const index = this._parts.findIndex((value: Part) => value.getUuid() === uuid)
 
-            if (index === undefined) {
+            if (index === -1) {
                 return
             }
 

@@ -33,7 +33,7 @@ export default class RequirementsContainer {
         delete: (uuid: string) => {
             const index = this._data.findIndex((value: RequirementContract) => value.getUuid() === uuid)
 
-            if (index === undefined) {
+            if (index === -1) {
                 return
             }
 
