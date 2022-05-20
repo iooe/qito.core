@@ -126,7 +126,7 @@ export default class Part {
     }
 
     public export() {
-        let callbacks = {}
+        let callbacks: any = {}
 
         constants.CALLBACKS.map(value => callbacks[value] = [])
 

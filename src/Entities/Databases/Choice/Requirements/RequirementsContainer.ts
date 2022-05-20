@@ -19,7 +19,7 @@ export default class RequirementsContainer {
         return this._counter
     }
 
-    public values = {
+    public values: any = {
         add: (value: RequirementContract) => {
             this._data.push(value)
             this._counter++

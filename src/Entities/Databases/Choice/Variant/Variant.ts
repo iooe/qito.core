@@ -161,8 +161,7 @@ export default class Variant {
         // @ts-ignore
         content.requirements.forEach(container => {
             const containerInstance = new RequirementsContainer(container.uuid)
-            container.data.forEach(data => {
-                console.log(data)
+            container.data.forEach((data: any) => {
                 containerInstance.values.add(this.REQUIREMENT_PROCESS[data.type](data.uuid, data))
             })
 
@@ -170,7 +169,7 @@ export default class Variant {
         })
 
         // @ts-ignore
-        content.result.forEach(data => {
+        content.result.forEach((data: any) => {
             // @ts-ignore
             this._result.push(this.RESULT_PROCESS[data.type](data.uuid, data))
         })

@@ -8,31 +8,31 @@ export default class Callback implements CallbackContract {
     private _type: string = ''
 
     public callback = {
-        set: (value: CallableFunction) => {
+        set: (value: CallableFunction): void => {
             this._callback = value
         },
-        get: () => {
+        get: (): CallableFunction => {
             return this._callback
         },
-        call: (store: any) => {
+        call: (store: any): void => {
             this._callback(store)
         }
     }
 
     public config = {
-        set: (value: Object) => {
+        set: (value: Object): void => {
             this._config = value
         },
-        get: () => {
+        get: (): Object => {
             return this._config
         }
     }
 
     public type = {
-        set: (value: string) => {
+        set: (value: string): void => {
             this._type = value
         },
-        get: () => {
+        get: (): string => {
             return this._type
         }
     }

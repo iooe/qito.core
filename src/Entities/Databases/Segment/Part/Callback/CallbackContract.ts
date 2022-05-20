@@ -1,17 +1,17 @@
 export default interface CallbackContract {
     callback: {
-        set(value: CallableFunction),
-        get()
-        call(store)
+        set(value: CallableFunction): void,
+        get(): CallableFunction
+        call(store: any): void
     }
 
     config: {
-        set(value: Object),
-        get()
+        set(value: Object): void,
+        get(): Object
     }
 
     type: {
-        set(value: String),
-        get()
+        set(value: String): void,
+        get(): string
     }
 }
