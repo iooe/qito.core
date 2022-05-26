@@ -40,7 +40,19 @@ export default class Part {
     }
 
     public pages = {
-        get: () => {
+        set: (pages: Array<Page>) => {
+            this._pages = pages
+        },
+        replace: (uuid: string, value: Page) => {
+            const index = this._pages.findIndex((value: Page) => value.getUuid() === uuid)
+
+            if (index === -1) {
+                new Error('Unfinded')
+            }
+
+            this._pages[index] = value
+        },
+        get: (): Array<Page> => {
             return this._pages
         },
         push: (page: Page) => {
