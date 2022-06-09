@@ -1,6 +1,6 @@
 {
   "name": "hanzo.core",
-  "version": "3.2.2",
+  "version": "3.3.0",
   "main": "index.js",
   "repository": "https://github.com/tizis/hanzo.core.git",
   "author": "a bit cat",
