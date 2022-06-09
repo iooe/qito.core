@@ -1,14 +1,10 @@
 import {v4 as uuidv4} from 'uuid';
 import Title from "../../../Basic/Objects/Title";
-import Nav from "../Meta/Nav";
+import Connection from "../Meta/Connection";
 import Page from "../../../Basic/Objects/Page";
 import Callback from "./Callback/CallbackContract";
 
 export const constants = {
-    TYPES: [
-        'filler',
-        'important'
-    ],
     CALLBACKS: [
         'onCreated',
         'onClosed'
@@ -17,15 +13,14 @@ export const constants = {
 
 export default class Part {
     private _title: Title
-    private _nav: Nav
-    private _type: string | null = null
+    private _connection: Connection | null = null
     private _pages: Array<Page> = []
+
     private readonly _uuid: string;
     protected _callbacks: Array<{ key: string, values: Array<Callback> }> = [];
 
     constructor(uuid: string) {
         this._uuid = uuid
-        this._nav = new Nav(null, null)
         this._title = new Title();
 
         constants.CALLBACKS.forEach(value => this._callbacks.push({key: value, values: []}))
@@ -110,21 +105,15 @@ export default class Part {
         }
     }
 
-    public type = {
-        get: () => {
-            return this._type
+    public connection = {
+        has: (): boolean => {
+            return this._connection !== null
         },
-        set: (type: string) => {
-            this._type = type
-        }
-    }
-
-    public nav = {
-        get: (): Nav => {
-            return this._nav
+        get: (): Connection => {
+            return this._connection
         },
-        set: (instance: Nav) => {
-            this._nav = instance
+        set: (instance: Connection) => {
+            this._connection = instance
         }
     }
 
@@ -155,8 +144,7 @@ export default class Part {
         return {
             uuid: this._uuid,
             title: this._title.export(),
-            nav: this._nav.export(),
-            type: this._type,
+            connection: this._connection === null ? null : this._connection.export(),
             callbacks: callbacks,
             pages: this._pages.map((value: Page) => value.export())
         }

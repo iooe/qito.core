@@ -67,7 +67,13 @@ export default class Segment {
             this._parts[index] = part
         },
         isCursored: (uuid: string) => {
-            return this._parts.find((part: Part) => part.nav.get().getPrev() === uuid || part.nav.get().getNext() === uuid)
+            return this._parts.find((part: Part) => {
+                if (!part.connection.has()) {
+                    return false
+                }
+
+                return part.connection.get().uuid() === uuid
+            })
         },
         isEmpty: () => {
             return this._parts.length === 0

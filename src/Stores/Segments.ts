@@ -1,7 +1,7 @@
 import Segment from "../Entities/Databases/Segment/Segment";
 import Part from "../Entities/Databases/Segment/Part/Part";
 import Title from "../Entities/Basic/Objects/Title";
-import Nav from "../Entities/Databases/Segment/Meta/Nav";
+import Connection from "../Entities/Databases/Segment/Meta/Connection";
 import PageCallback from "../Entities/Databases/Segment/Part/Callback/Callback";
 import Page from "../Entities/Basic/Objects/Page";
 
@@ -76,8 +76,10 @@ export const scheme: any = {
 
                     const partInstance = new Part(part.uuid)
                     partInstance.title.set(new Title(part.title.value, part.title.slug))
-                    partInstance.nav.set(new Nav(part.nav.prev, part.nav.next))
-                    partInstance.type.set(part.type)
+
+                    if (part.connection !== null) {
+                        partInstance.connection.set(new Connection(part.connection.component, part.connection.uuid))
+                    }
 
                     Object.entries(part.callbacks).forEach((callbackValue: any) => {
 
