@@ -15,8 +15,8 @@ export const scheme: any = {
         personalities: Array<Personality>(),
     }),
     mutations: {
-        pushPersonality(state: any, item: Personality) {
-            state.personalities.push(item)
+        setPersonalities(state: any, items: Array<Personality>) {
+            state.personalities = items
         },
         increasePersonality(state: any, {uuid, value}: any) {
             const instance = state.personalities.find((item: Personality) => item.getUuid() === uuid);
@@ -71,14 +71,18 @@ export const scheme: any = {
 
             data.forEach(instance => {
                 if (instance.key === 'personalities') {
-                    instance.data.forEach((value: any) => {
-                        const instance = new Personality(value.uuid)
-                        instance.name.set(value.name)
-                        instance.media.set(new Media(value.media.id))
-                        instance.value.set(value.value)
+                    const personalities = []
 
-                        context.commit('pushPersonality', instance)
+                    instance.data.forEach((value: any) => {
+                        const personality = new Personality(value.uuid)
+                        personality.name.set(value.name)
+                        personality.media.set(new Media(value.media.id))
+                        personality.value.set(value.value)
+                        personalities.push(personality)
                     })
+
+                    context.commit('setPersonalities', personalities)
+
                 }
             })
         },
