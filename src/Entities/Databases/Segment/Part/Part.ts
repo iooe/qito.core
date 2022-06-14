@@ -114,6 +114,9 @@ export default class Part {
         },
         set: (instance: Connection) => {
             this._connection = instance
+        },
+        delete: () => {
+            this._connection = null
         }
     }
 
