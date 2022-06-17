@@ -1,3 +1,11 @@
+export const constants = {
+    COMPONENTS: {
+        part: 'part',
+        choice: 'choice',
+        branching: 'branching'
+    },
+} as const;
+
 export default class Connection {
     private readonly _uuid: string;
     private readonly _component: string;
