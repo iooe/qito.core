@@ -1,8 +1,8 @@
-import Segment from "../Entities/Databases/Segment/Segment";
-import Part from "../Entities/Databases/Segment/Part/Part";
+import Module from "../Entities/Databases/Module/Module";
+import Part from "../Entities/Databases/Module/Part/Part";
 import Title from "../Entities/Basic/Objects/Title";
-import Connection from "../Entities/Databases/Segment/Meta/Connection";
-import PageCallback from "../Entities/Databases/Segment/Part/Callback/Callback";
+import Connection from "../Entities/Databases/Module/Connection";
+import PageCallback from "../Entities/Databases/Module/Part/Callback/Callback";
 import Page from "../Entities/Basic/Objects/Page";
 
 export const NAME = 'segments'
@@ -17,13 +17,13 @@ const touch = (state: any) => {
 export const scheme: any = {
     namespaced: true,
     state: () => ({
-        segments: Array<Segment>(),
+        segments: Array<Module>(),
         hash: {}
     }),
     mutations: {},
     actions: {
-        editSegment(context: any, updatedSegment: Segment) {
-            const segment: Segment = context.getters.getSegment(updatedSegment.getUuid());
+        editSegment(context: any, updatedSegment: Module) {
+            const segment: Module = context.getters.getSegment(updatedSegment.getUuid());
 
             if (segment === undefined) {
                 return false
@@ -31,13 +31,13 @@ export const scheme: any = {
 
             segment.title.set(updatedSegment.title.get())
         },
-        addSegment(context: any, segment: Segment) {
+        addSegment(context: any, segment: Module) {
             context.state.segments.push(segment)
 
             segment.parts.get().forEach((part: Part) => context.state.hash[part.getUuid()] = segment.getUuid())
         },
         addPart(context: any, {segmentUuid, part}: any) {
-            const segment: Segment = context.getters.getSegment(segmentUuid);
+            const segment: Module = context.getters.getSegment(segmentUuid);
 
             if (segment === undefined) {
                 return false
@@ -51,7 +51,7 @@ export const scheme: any = {
             return true;
         },
         editPart(context: any, {segmentUuid, part}: any) {
-            const segment: Segment = context.getters.getSegment(segmentUuid);
+            const segment: Module = context.getters.getSegment(segmentUuid);
 
             if (segment === undefined) {
                 return false
@@ -69,7 +69,7 @@ export const scheme: any = {
 
                 const parts = segmentRaw.parts
 
-                const segmentInstance = new Segment(segmentRaw.uuid)
+                const segmentInstance = new Module(segmentRaw.uuid)
                 segmentInstance.title.set(new Title(segmentRaw.title.value, segmentRaw.title.slug))
 
                 parts.forEach((part: any) => {
@@ -114,7 +114,7 @@ export const scheme: any = {
         export(context: any) {
             return {
                 name: NAME,
-                data: context.state.segments.map((value: Segment) => value.export())
+                data: context.state.segments.map((value: Module) => value.export())
             }
         }
     },
@@ -127,7 +127,7 @@ export const scheme: any = {
             }
 
             return state.segments
-                .find((segment: Segment) => segment.getUuid() === segmentUuid)
+                .find((segment: Module) => segment.getUuid() === segmentUuid)
                 .parts.first(uuid)
         },
         getSegmentByPartUuid: (state: any) => (uuid: string) => {
@@ -138,10 +138,10 @@ export const scheme: any = {
             }
 
             return state.segments
-                .find((segment: Segment) => segment.getUuid() === segmentUuid)
+                .find((segment: Module) => segment.getUuid() === segmentUuid)
         },
-        getSegment: (state: any) => (uuid: any): Segment => {
-            return state.segments.find((segment: Segment) => segment.getUuid() === uuid)
+        getSegment: (state: any) => (uuid: any): Module => {
+            return state.segments.find((segment: Module) => segment.getUuid() === uuid)
         },
         getSegments: (state: any) => {
             return state.segments

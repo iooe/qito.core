@@ -3,7 +3,7 @@ import {v4 as uuidv4} from 'uuid';
 import Part from "./Part/Part";
 import Title from "../../Basic/Objects/Title";
 
-export default class Segment {
+export default class Module {
     private _parts: Array<Part> = [];
     private readonly _uuid: string = ''
     private _title = new Title();
@@ -13,7 +13,7 @@ export default class Segment {
     }
 
     public static create() {
-        return new Segment(uuidv4())
+        return new Module(uuidv4())
     }
 
     public getUuid() {

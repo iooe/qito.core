@@ -1,8 +1,9 @@
 import {v4 as uuidv4} from 'uuid';
 import Title from "../../../Basic/Objects/Title";
-import Connection from "../Meta/Connection";
+import Connection from "../Connection";
 import Page from "../../../Basic/Objects/Page";
 import Callback from "./Callback/CallbackContract";
+import Node from "../Node";
 
 export const constants = {
     CALLBACKS: [
@@ -11,7 +12,7 @@ export const constants = {
     ]
 } as const;
 
-export default class Part {
+export default class Part implements Node {
     private _title: Title
     private _connection: Connection | null = null
     private _pages: Array<Page> = []
