@@ -1,29 +1,27 @@
 import Module from "../Entities/Databases/Module/Module";
-import Part from "../Entities/Databases/Module/Part/Part";
-import Title from "../Entities/Basic/Objects/Title";
 import Connection from "../Entities/Databases/Module/Connection";
-import PageCallback from "../Entities/Databases/Module/Part/Callback/Callback";
-import Page from "../Entities/Basic/Objects/Page";
+import PageCallback from "../Entities/Databases/Module/Node/Callback/Callback";
+import BaseNode from "../Entities/Databases/Module/Node/BaseNode";
 
-export const NAME = 'segments'
+export const NAME = 'modules'
 
 const touch = (state: any) => {
-    const length = state.segments.length;
+    const length = state.data.length;
 
-    state.segments.push(state.segments[length - 1])
-    state.segments.splice(length, 1)
+    state.data.push(state.data[length - 1])
+    state.data.splice(length, 1)
 }
 
 export const scheme: any = {
     namespaced: true,
     state: () => ({
-        segments: Array<Module>(),
+        data: Array<Module>(),
         hash: {}
     }),
     mutations: {},
     actions: {
-        editSegment(context: any, updatedSegment: Module) {
-            const segment: Module = context.getters.getSegment(updatedSegment.getUuid());
+        editModule(context: any, updatedSegment: Module) {
+            const segment: Module = context.getters.getModule(updatedSegment.getUuid());
 
             if (segment === undefined) {
                 return false
@@ -31,57 +29,48 @@ export const scheme: any = {
 
             segment.title.set(updatedSegment.title.get())
         },
-        addSegment(context: any, segment: Module) {
-            context.state.segments.push(segment)
+        addModule(context: any, segment: Module) {
+            context.state.data.push(segment)
 
-            segment.parts.get().forEach((part: Part) => context.state.hash[part.getUuid()] = segment.getUuid())
+            segment.nodes.get().forEach((part: BaseNode) => context.state.hash[part.getUuid()] = segment.getUuid())
         },
-        addPart(context: any, {segmentUuid, part}: any) {
-            const segment: Module = context.getters.getSegment(segmentUuid);
+        addNode(context: any, {moduleUuid, node}: any) {
+            const module: Module = context.getters.getModule(moduleUuid);
 
-            if (segment === undefined) {
+            if (module === undefined) {
                 return false
             }
 
-            segment.parts.push(part)
-            context.state.hash[part.getUuid()] = segment.getUuid()
+            module.nodes.push(node)
+            context.state.hash[node.getUuid()] = module.getUuid()
 
             touch(context.state)
 
             return true;
         },
-        editPart(context: any, {segmentUuid, part}: any) {
-            const segment: Module = context.getters.getSegment(segmentUuid);
-
-            if (segment === undefined) {
-                return false
-            }
-
-            segment.parts.update(part)
-
-            touch(context.state)
-        },
         import(context: any, data: Array<any>) {
-            context.state.segments = []
+            context.state.data = []
             context.state.hash = []
 
-            data.forEach((segmentRaw, key) => {
+            const nodeImporter = (nodeRaw: any) => {
+                const nodeInstance = new BaseNode(nodeRaw.uuid)
 
-                const parts = segmentRaw.parts
+                nodeInstance.data.set(nodeRaw.data.component, nodeRaw.data.uuid)
 
-                const segmentInstance = new Module(segmentRaw.uuid)
-                segmentInstance.title.set(new Title(segmentRaw.title.value, segmentRaw.title.slug))
+                if (nodeRaw.hasOwnProperty('title')) {
+                    nodeInstance.title.set(nodeRaw.title)
+                }
 
-                parts.forEach((part: any) => {
+                if (nodeRaw.hasOwnProperty('nodes')) {
+                    nodeRaw.nodes.forEach((nodeSubRaw: any) => nodeInstance.nodes.push(nodeImporter(nodeSubRaw)))
+                }
 
-                    const partInstance = new Part(part.uuid)
-                    partInstance.title.set(new Title(part.title.value, part.title.slug))
+                if (nodeRaw.hasOwnProperty('connection') && nodeRaw.connection !== null && Object.keys(nodeRaw.connection).length > 0) {
+                    nodeInstance.connection.set(new Connection(nodeRaw.connection.uuid))
+                }
 
-                    if (part.connection !== null) {
-                        partInstance.connection.set(new Connection(part.connection.component, part.connection.uuid))
-                    }
-
-                    Object.entries(part.callbacks).forEach((callbackValue: any) => {
+                if (nodeRaw.hasOwnProperty('callbacks')) {
+                    Object.entries(nodeRaw.callbacks).forEach((callbackValue: any) => {
 
                         const callbackKey = callbackValue[0]
 
@@ -95,56 +84,59 @@ export const scheme: any = {
                                 callbackInstance.callback.set((store: any) => store.commit('narrative/pushQueue', value.id))
                             }
 
-                            partInstance.callbacks.push(callbackKey, callbackInstance)
+                            nodeInstance.callbacks.push(callbackKey, callbackInstance)
                         }))
                     })
+                }
 
-                    part.pages.forEach((page: any) => {
-                        const pageInstance = new Page(page.uuid)
-                        pageInstance.setBlocks(page.blocks)
-                        partInstance.pages.push(pageInstance)
-                    })
+                return nodeInstance
+            }
+            data.forEach(moduleRaw => {
+                const moduleInstance = new Module(moduleRaw.uuid)
+                moduleInstance.title.set(moduleRaw.title)
 
-                    segmentInstance.parts.push(partInstance)
+                moduleRaw.nodes.forEach((node: any) => {
+
+                    moduleInstance.nodes.push(nodeImporter(node))
                 })
 
-                context.dispatch('addSegment', segmentInstance)
+                context.dispatch('addModule', moduleInstance)
             })
         },
         export(context: any) {
             return {
                 name: NAME,
-                data: context.state.segments.map((value: Module) => value.export())
+                data: context.state.data.map((value: Module) => value.export())
             }
         }
     },
     getters: {
-        getPart: (state: any) => (uuid: string) => {
+        getNode: (state: any) => (uuid: string) => {
             const segmentUuid = state.hash[uuid]
 
             if (!segmentUuid) {
                 return undefined
             }
 
-            return state.segments
+            return state.data
                 .find((segment: Module) => segment.getUuid() === segmentUuid)
-                .parts.first(uuid)
+                .nodes.first(uuid)
         },
-        getSegmentByPartUuid: (state: any) => (uuid: string) => {
+        getModuleByPartUuid: (state: any) => (uuid: string) => {
             const segmentUuid = state.hash[uuid]
 
             if (!segmentUuid) {
                 return undefined
             }
 
-            return state.segments
+            return state.data
                 .find((segment: Module) => segment.getUuid() === segmentUuid)
         },
-        getSegment: (state: any) => (uuid: any): Module => {
-            return state.segments.find((segment: Module) => segment.getUuid() === uuid)
+        getModule: (state: any) => (uuid: any): Module => {
+            return state.data.find((segment: Module) => segment.getUuid() === uuid)
         },
-        getSegments: (state: any) => {
-            return state.segments
+        getModules: (state: any) => {
+            return state.data
         }
     },
 }

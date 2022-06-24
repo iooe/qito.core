@@ -2,17 +2,32 @@ export const constants = {
     COMPONENTS: {
         part: 'part',
         choice: 'choice',
+        choice_variant: 'choice_variant',
         branching: 'branching'
     },
 } as const;
 
 export default class Connection {
     private readonly _uuid: string;
-    private readonly _component: string;
+    private _data: any = {}
 
-    constructor(component: string, uuid: string) {
-        this._component = component
+    constructor(uuid: string) {
         this._uuid = uuid
+    }
+
+    public data = {
+        set: (value: Object) => {
+            this._data = value
+        },
+        get: () => {
+            return this._data
+        },
+        first: (key: string): any => {
+            return this._data[key]
+        },
+        has: (key: string) => {
+            return this._data.hasOwnProperty(key)
+        }
     }
 
     public uuid(): string {
@@ -20,13 +35,12 @@ export default class Connection {
     }
 
     public component(): string {
-        return this._component
+        return ''
     }
 
     public export(): object {
         return {
-            uuid: this._uuid,
-            component: this._component
+            uuid: this._uuid
         }
     }
 }

@@ -1,15 +1,15 @@
 import {v4 as uuidv4} from 'uuid';
 
-import Part from "./Part/Part";
-import Title from "../../Basic/Objects/Title";
+import Node from "./Node/Node";
 
 export default class Module {
-    private _parts: Array<Part> = [];
+    private _nodes: Array<Node> = [];
     private readonly _uuid: string = ''
-    private _title = new Title();
+    private _title: string = ''
 
     constructor(uuid: string) {
         this._uuid = uuid
+        this._title = uuid
     }
 
     public static create() {
@@ -24,67 +24,67 @@ export default class Module {
         get: () => {
             return this._title
         },
-        set: (value: Title) => {
+        set: (value: string) => {
             this._title = value
         }
     }
 
-    public parts = {
+    public nodes = {
         first: (uuid: string = '') => {
 
             if (uuid.length === 0) {
-                return this._parts[0]
+                return this._nodes[0]
             }
 
-            return this._parts.find((part: Part) => part.getUuid() === uuid)
+            return this._nodes.find((node: Node) => node.getUuid() === uuid)
         },
         has: (uuid: string) => {
-            return this._parts.find((part: Part) => part.getUuid() === uuid) !== undefined;
+            return this._nodes.find((node: Node) => node.getUuid() === uuid) !== undefined;
         },
         delete: (uuid: string) => {
-            const index = this._parts.findIndex((value: Part) => value.getUuid() === uuid)
+            const index = this._nodes.findIndex((node: Node) => node.getUuid() === uuid)
 
             if (index === -1) {
                 return
             }
 
-            this._parts.splice(index, 1)
+            this._nodes.splice(index, 1)
         },
         get: () => {
-            return this._parts
+            return this._nodes
         },
-        push: (part: Part) => {
-            this._parts.push(part)
+        push: (node: Node) => {
+            this._nodes.push(node)
         },
-        update: (part: Part) => {
+        update: (node: Node) => {
             //@ts-ignore
-            const index = this._parts.findIndex(value => value.getUuid() === part.getUuid())
+            const index = this._nodes.findIndex(value => value.getUuid() === node.getUuid())
 
             if (index === -1) {
                 return
             }
 
-            this._parts[index] = part
+            this._nodes[index] = node
         },
         isCursored: (uuid: string) => {
-            return this._parts.find((part: Part) => {
-                if (!part.connection.has()) {
+            return this._nodes.find((node: Node) => {
+                if (!node.connection.has()) {
                     return false
                 }
 
-                return part.connection.get().uuid() === uuid
+                return node.connection.get().uuid() === uuid
             })
         },
         isEmpty: () => {
-            return this._parts.length === 0
+            return this._nodes.length === 0
         }
     }
 
     public export() {
         return {
             uuid: this._uuid,
-            title: this._title.export(),
-            parts: this._parts.map((value: Part) => value.export())
+            title: this._title,
+            nodes: this._nodes.map((node: Node) => node.export())
         }
     }
 }
