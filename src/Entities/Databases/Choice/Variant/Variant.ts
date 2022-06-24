@@ -8,7 +8,6 @@ import ResultContract from "../Results/ResultContract";
 import ItemResult from "../Results/Foundation/ItemResult";
 import RequirementsContainer from "../Requirements/RequirementsContainer";
 import FactRequirement from "../Requirements/Foundataion/FactRequirement";
-import PageResult from "../Results/Foundation/PageResult";
 import NarrativeResult from "../Results/Foundation/NarrativeResult";
 import {v4 as uuidv4} from 'uuid';
 
@@ -25,9 +24,6 @@ export default class Variant {
         },
         fact: (uuid: string) => {
             return new FactResult(uuid)
-        },
-        page: (uuid: string) => {
-            return new PageResult(uuid)
         },
         narrative: (uuid: string) => {
             return new NarrativeResult(uuid)
@@ -151,6 +147,7 @@ export default class Variant {
 
     public export() {
         return {
+            uuid: this._uuid,
             name: this._name,
             requirements: this._requirements.map((value: RequirementsContainer) => value.export()),
             result: this._result.map((value: ResultContract) => value.export()),
@@ -161,6 +158,7 @@ export default class Variant {
         // @ts-ignore
         content.requirements.forEach(container => {
             const containerInstance = new RequirementsContainer(container.uuid)
+
             container.data.forEach((data: any) => {
                 containerInstance.values.add(this.REQUIREMENT_PROCESS[data.type](data.uuid, data))
             })
