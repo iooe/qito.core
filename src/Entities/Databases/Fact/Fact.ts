@@ -1,16 +1,16 @@
 import {v4 as uuidv4} from 'uuid';
 import Preview from "./Preview/Preview";
-import Title from "../../Basic/Objects/Title";
 
 export default class Fact {
 
     private readonly _uuid: string
     private _state: boolean = false
     private _preview: Preview = new Preview('')
-    private _title = new Title();
+    private _title: string;
 
     constructor(uuid: string) {
         this._uuid = uuid
+        this._title = uuid
     }
 
     public static create() {
@@ -21,7 +21,7 @@ export default class Fact {
         get: () => {
             return this._title
         },
-        set: (value: Title) => {
+        set: (value: string) => {
             this._title = value
         }
     }
@@ -57,7 +57,7 @@ export default class Fact {
     public export(): Object {
         return {
             uuid: this._uuid,
-            title: this._title.export(),
+            title: this._title,
             preview: {
                 message: this.preview.get().getMessage()
             },

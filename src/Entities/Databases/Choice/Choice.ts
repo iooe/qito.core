@@ -1,17 +1,15 @@
 import Variant from "./Variant/Variant";
-import ResultContract from "./Results/ResultContract";
-import PageResult from "./Results/Foundation/PageResult";
-import Title from "../../Basic/Objects/Title";
 import {v4 as uuidv4} from 'uuid';
 
 export default class Choice {
 
     protected _uuid: string
     protected _data: Array<Variant> = []
-    protected _title: Title = new Title()
+    protected _title: string
 
     constructor(uuid: string) {
         this._uuid = uuid
+        this._title = uuid
     }
 
     public static create() {
@@ -26,7 +24,7 @@ export default class Choice {
         get: () => {
             return this._title
         },
-        set: (value: Title) => {
+        set: (value: string) => {
             this._title = value
         }
     }
@@ -34,18 +32,18 @@ export default class Choice {
     public export() {
         return {
             uuid: this._uuid,
-            title: this._title.export(),
+            title: this._title,
             data: this._data.map((value: Variant) => value.export())
         }
     }
 
     public variants = {
         import: (value: any) => {
-            const variant = value.hasOwnProperty('uuid') ? new Variant(value.uuid) : Variant.create()
-            variant.name.set(value.name)
-            variant.import(value)
+            const variantInstance = new Variant(value.uuid)
+            variantInstance.name.set(value.name)
+            variantInstance.import(value)
 
-            this._data.push(variant)
+            this._data.push(variantInstance)
         },
 
         moveUp: (index: number) => {
@@ -104,8 +102,9 @@ export default class Choice {
     public backlinks = {
         has: {
             page: (uuid: string): boolean => {
-                return this.variants.get().find((value: Variant) => value.results.get()
-                    .find((result: ResultContract) => result.constructor.name === PageResult.name && result.getUuid() === uuid)) !== undefined
+                return false
+                /*return this.variants.get().find((value: Variant) => value.results.get()
+                    .find((result: ResultContract) => result.constructor.name === PageResult.name && result.getUuid() === uuid)) !== undefined*/
             }
         }
     }

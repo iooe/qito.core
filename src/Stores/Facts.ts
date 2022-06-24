@@ -1,6 +1,5 @@
 import Fact from "../Entities/Databases/Fact/Fact";
 import Preview from "../Entities/Databases/Fact/Preview/Preview";
-import Title from "../Entities/Basic/Objects/Title";
 
 export const NAME = 'facts'
 
@@ -10,7 +9,7 @@ export const touch = (state: any) => {
     state.data.splice(length, 1)
 }
 
-const scheme: any = {
+export const scheme = {
     namespaced: true,
     state: () => ({
         data: Array<Fact>(),
@@ -57,12 +56,12 @@ const scheme: any = {
         import(context: any, data: Array<any>) {
             let values: Array<Fact> = [];
 
-            data.map(item => {
-                const instance = new Fact(item.uuid)
+            data.map(value => {
+                const instance = new Fact(value.uuid)
 
-                instance.title.set(new Title(item.title.value))
-                instance.preview.set(new Preview(item.preview.message))
-                instance.state.set(item.state)
+                instance.title.set(value.title)
+                instance.preview.set(new Preview(value.preview.message))
+                instance.state.set(value.state)
 
                 values.push(instance)
             })
