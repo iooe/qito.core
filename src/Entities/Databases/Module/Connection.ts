@@ -34,10 +34,6 @@ export default class Connection {
         return this._uuid
     }
 
-    public component(): string {
-        return ''
-    }
-
     public export(): object {
         return {
             uuid: this._uuid

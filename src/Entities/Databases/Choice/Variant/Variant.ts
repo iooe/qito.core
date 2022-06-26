@@ -168,7 +168,10 @@ export default class Variant {
 
         // @ts-ignore
         content.result.forEach((data: any) => {
-            // @ts-ignore
+            if (!this.RESULT_PROCESS.hasOwnProperty(data.type)) {
+                return
+            }
+
             this._result.push(this.RESULT_PROCESS[data.type](data.uuid, data))
         })
     }
