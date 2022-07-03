@@ -160,6 +160,10 @@ export default class Variant {
             const containerInstance = new RequirementsContainer(container.uuid)
 
             container.data.forEach((data: any) => {
+                if (!this.REQUIREMENT_PROCESS.hasOwnProperty(data.type)) {
+                    return
+                }
+
                 containerInstance.values.add(this.REQUIREMENT_PROCESS[data.type](data.uuid, data))
             })
 
