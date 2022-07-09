@@ -128,8 +128,11 @@ export default class BaseNode implements Node {
 
             this._nodes.splice(index, 1)
         },
-        push: (node: Node) => {
-            this.nodes.delete(node.getUuid())
+        add: (node: Node) => {
+            if(this.nodes.has(node.getUuid())) {
+                return
+            }
+
             this._nodes.push(node)
         }
     }

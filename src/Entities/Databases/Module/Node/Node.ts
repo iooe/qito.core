@@ -17,7 +17,7 @@ export default interface Node {
     nodes: {
         first(uuid: string),
         has(uuid: string),
-        push(node: Node),
+        add(node: Node),
         delete(uuid: string),
         get(): Array<Node>,
         isEmpty(): boolean
