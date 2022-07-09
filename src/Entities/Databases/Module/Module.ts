@@ -3,9 +3,10 @@ import {v4 as uuidv4} from 'uuid';
 import Node from "./Node/Node";
 
 export default class Module {
-    private _nodes: Array<Node> = [];
-    private readonly _uuid: string = ''
     private _title: string = ''
+    private readonly _uuid: string = ''
+    private _rootNodeUuid: string = ''
+    private _nodes: Array<Node> = [];
 
     constructor(uuid: string) {
         this._uuid = uuid
@@ -30,8 +31,19 @@ export default class Module {
     }
 
     public nodes = {
-        first: (uuid: string = '') => {
+        root: {
+            set: (node: Node) => {
+                if (!this.nodes.has(node.getUuid())) {
+                    this.nodes.add(node)
+                }
 
+                this._rootNodeUuid = node.getUuid()
+            },
+            get: () => {
+                return this.nodes.first(this._rootNodeUuid)
+            }
+        },
+        first: (uuid: string = '') => {
             if (uuid.length === 0) {
                 return this._nodes[0]
             }
@@ -52,6 +64,9 @@ export default class Module {
         },
         get: () => {
             return this._nodes
+        },
+        add: (node: Node) => {
+            this._nodes.push(node)
         },
         push: (node: Node) => {
             this._nodes.push(node)
@@ -84,6 +99,7 @@ export default class Module {
         return {
             uuid: this._uuid,
             title: this._title,
+            rootNodeUuid: this._rootNodeUuid,
             nodes: this._nodes.map((node: Node) => node.export())
         }
     }

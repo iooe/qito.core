@@ -41,7 +41,7 @@ export const scheme: any = {
                 return false
             }
 
-            module.nodes.push(node)
+            module.nodes.add(node)
             context.state.hash[node.getUuid()] = module.getUuid()
 
             touch(context.state)
@@ -62,7 +62,7 @@ export const scheme: any = {
                 }
 
                 if (nodeRaw.hasOwnProperty('nodes')) {
-                    nodeRaw.nodes.forEach((nodeSubRaw: any) => nodeInstance.nodes.push(nodeImporter(nodeSubRaw)))
+                    nodeRaw.nodes.forEach((nodeSubRaw: any) => nodeInstance.nodes.add(nodeImporter(nodeSubRaw)))
                 }
 
                 if (nodeRaw.hasOwnProperty('connection') && nodeRaw.connection !== null && Object.keys(nodeRaw.connection).length > 0) {
@@ -93,12 +93,10 @@ export const scheme: any = {
             }
             data.forEach(moduleRaw => {
                 const moduleInstance = new Module(moduleRaw.uuid)
+                moduleRaw.nodes.forEach((node: any) => moduleInstance.nodes.add(nodeImporter(node)))
+
                 moduleInstance.title.set(moduleRaw.title)
-
-                moduleRaw.nodes.forEach((node: any) => {
-
-                    moduleInstance.nodes.push(nodeImporter(node))
-                })
+                moduleInstance.nodes.root.set(moduleInstance.nodes.first(moduleRaw.rootNodeUuid))
 
                 context.dispatch('addModule', moduleInstance)
             })
