@@ -86,6 +86,15 @@ export default class Choice {
             this._data.unshift(value)
         },
 
+        first: (uuid: string = '') => {
+
+            if (uuid.length === 0) {
+                return this._data[0]
+            }
+
+            return this._data.find((value: Variant) => value.getUuid() === uuid)
+        },
+
         get: () => {
             return this._data
         },
