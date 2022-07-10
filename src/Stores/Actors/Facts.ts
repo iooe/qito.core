@@ -1,5 +1,5 @@
-import Fact from "../Entities/Databases/Fact/Fact";
-import Preview from "../Entities/Databases/Fact/Preview/Preview";
+import Fact from "../../Entities/Databases/Fact/Fact";
+import Preview from "../../Entities/Databases/Fact/Preview/Preview";
 
 export const NAME = 'facts'
 

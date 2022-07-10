@@ -1,6 +1,6 @@
-import Narrative from "../Entities/Databases/Narrative/Narrative";
-import Page from "../Entities/Basic/Objects/Page";
-import Fact from "hanzo.core/src/Entities/Databases/Fact/Fact";
+import Narrative from "../../Entities/Databases/Narrative/Narrative";
+import Page from "../../Entities/Basic/Objects/Page";
+import Fact from "src/Entities/Databases/Fact/Fact";
 
 export const NAME = 'narrative'
 

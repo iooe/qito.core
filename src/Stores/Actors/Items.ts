@@ -1,5 +1,5 @@
-import Item from "../Entities/Databases/Item/Item";
-import Media from "../Entities/Basic/Objects/Media";
+import Item from "../../Entities/Databases/Item/Item";
+import Media from "../../Entities/Basic/Objects/Media";
 
 export const NAME = 'items'
 

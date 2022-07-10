@@ -1,6 +1,6 @@
-import Choice from "../Entities/Databases/Choice/Choice";
+import Choice from "../../Entities/Databases/Choice/Choice";
 
-export const NAME = 'choices'
+export const NAME = 'nodes.choices'
 
 export const touch = (state: any) => {
     const length = state.data.length;

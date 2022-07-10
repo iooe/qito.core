@@ -1,6 +1,6 @@
-import Character from "../Entities/Databases/Character/Character";
-import Media from "../Entities/Basic/Objects/Media";
-import Fact from "../Entities/Databases/Fact/Fact";
+import Character from "../../Entities/Databases/Character/Character";
+import Media from "../../Entities/Basic/Objects/Media";
+import Fact from "../../Entities/Databases/Fact/Fact";
 
 export const NAME = 'characters'
 

@@ -1,5 +1,5 @@
-import Personality from "../Entities/Databases/Protagonist/Personality";
-import Media from "../Entities/Basic/Objects/Media";
+import Personality from "../../Entities/Databases/Protagonist/Personality";
+import Media from "../../Entities/Basic/Objects/Media";
 
 export const NAME = 'protagonist'
 
