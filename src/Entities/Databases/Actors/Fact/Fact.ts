@@ -26,8 +26,8 @@ export default class Fact {
         }
     }
 
-    public getUuid(): string {
-        return this._uuid;
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public preview = {

@@ -16,8 +16,8 @@ export default class Choice {
         return new Choice(uuidv4())
     }
 
-    public getUuid() {
-        return this._uuid
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public title = {
@@ -92,7 +92,7 @@ export default class Choice {
                 return this._data[0]
             }
 
-            return this._data.find((value: Variant) => value.getUuid() === uuid)
+            return this._data.find((value: Variant) => value.uuid.get() === uuid)
         },
 
         get: () => {

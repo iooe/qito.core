@@ -18,16 +18,16 @@ export const scheme = {
         set(state: any, items: Array<Fact>) {
             state.data = items;
         },
-        open(state: any, id: string) {
-            state.data.find((item: Fact) => item.getUuid() === id).open()
+        open(state: any, uuid: string) {
+            state.data.find((item: Fact) => item.uuid.get() === uuid).open()
         },
-        hide(state: any, id: string) {
-            state.data.find((item: Fact) => item.getUuid() === id).hide()
+        hide(state: any, uuid: string) {
+            state.data.find((item: Fact) => item.uuid.get() === uuid).hide()
         }
     },
     actions: {
         add(context: any, fact: Fact) {
-            if (context.getters.first(fact.getUuid()) !== undefined) {
+            if (context.getters.first(fact.uuid.get()) !== undefined) {
                 return false
             }
 
@@ -36,14 +36,14 @@ export const scheme = {
             return true;
         },
         edit(context: any, item: Fact) {
-            const editedValue = context.state.data.find((value: Fact) => value.getUuid() === item.getUuid());
+            const editedValue = context.state.data.find((value: Fact) => value.uuid.get() === item.uuid.get());
 
             editedValue.preview.set(item.preview.get())
 
             return true;
         },
         remove(context: any, uuid: string) {
-            const index = context.state.data.findIndex((value: Fact) => value.getUuid() === uuid);
+            const index = context.state.data.findIndex((value: Fact) => value.uuid.get() === uuid);
 
             if (index === -1) {
                 return false
@@ -56,7 +56,7 @@ export const scheme = {
         import(context: any, data: Array<any>) {
             let values: Array<Fact> = [];
 
-            data.map(value => {
+            data.forEach(value => {
                 const instance = new Fact(value.uuid)
 
                 instance.title.set(value.title)
@@ -76,14 +76,14 @@ export const scheme = {
         }
     },
     getters: {
-        first: (state: any) => (id: string): Fact => {
-            return state.data.find((item: Fact) => item.getUuid() === id);
+        first: (state: any) => (uuid: string): Fact => {
+            return state.data.find((value: Fact) => value.uuid.get() === uuid);
         },
         get: (state: any) => {
             return state.data;
         },
-        has: (state: any) => (id: string): boolean => {
-            return state.data.find((item: Fact) => item.getUuid() === id && item.state.get()) !== undefined;
+        has: (state: any) => (uuid: string): boolean => {
+            return state.data.find((value: Fact) => value.uuid.get() === uuid && value.state.get()) !== undefined;
         }
     }
 }

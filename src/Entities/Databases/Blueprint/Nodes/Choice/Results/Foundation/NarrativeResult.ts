@@ -4,14 +4,14 @@ import BaseResult from "../BaseResult";
 const TYPE = 'narrative'
 
 export default class NarrativeResult extends BaseResult implements ResultContract {
-    constructor(id: string) {
-        super(id)
+    constructor(uuid: string) {
+        super(uuid)
     }
 
     public export() {
         return {
             type: TYPE,
-            uuid: this._id
+            uuid: this._uuid
         }
     }
 }

@@ -1,6 +1,5 @@
 import Character from "../../Entities/Databases/Actors/Character/Character";
 import Media from "../../Entities/Basic/Objects/Media";
-import Fact from "../../Entities/Databases/Actors/Fact/Fact";
 
 export const NAME = 'actors.characters'
 
@@ -10,7 +9,7 @@ export const touch = (state: any) => {
     state.data.splice(length, 1)
 }
 
-export const scheme:any = {
+export const scheme: any = {
     namespaced: true,
     state: () => ({
         data: Array<Character>(),
@@ -22,7 +21,7 @@ export const scheme:any = {
     },
     actions: {
         add(context: any, character: Character) {
-            if (context.getters.first(character.getUuid()) !== undefined) {
+            if (context.getters.first(character.uuid.get()) !== undefined) {
                 return false
             }
 
@@ -30,18 +29,18 @@ export const scheme:any = {
 
             return true;
         },
-        edit(context: any, item: Character) {
-            const editedValue = context.state.data.find((value: Fact) => value.getUuid() === item.getUuid());
+        edit(context: any, character: Character) {
+            const editedValue = context.state.data.find((value: Character) => value.uuid.get() === character.uuid.get());
 
-            editedValue.name.set(item.name.get())
-            editedValue.type.set(item.type.get())
-            editedValue.media.set(item.media.get())
-            editedValue.relationship.set(item.relationship.get())
+            editedValue.name.set(character.name.get())
+            editedValue.type.set(character.type.get())
+            editedValue.media.set(character.media.get())
+            editedValue.relationship.set(character.relationship.get())
 
             return true;
         },
         remove(context: any, uuid: string) {
-            const index = context.state.data.findIndex((value: Character) => value.getUuid() === uuid);
+            const index = context.state.data.findIndex((value: Character) => value.uuid.get() === uuid);
 
             if (index === -1) {
                 return false
@@ -76,8 +75,11 @@ export const scheme:any = {
         get: (state: any) => {
             return state.data
         },
-        first: (state: any) => (id: string): Character => {
-            return state.data.find((character: Character) => character.getUuid() === id);
+        has: (state: any) => (uuid: string) => {
+            return state.data.find((value: Character) => value.uuid.get() === uuid) !== undefined;
+        },
+        first: (state: any) => (uuid: string): Character => {
+            return state.data.find((value: Character) => value.uuid.get() === uuid);
         }
     }
 }

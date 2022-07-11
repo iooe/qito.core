@@ -21,7 +21,7 @@ export const scheme: any = {
     mutations: {},
     actions: {
         editModule(context: any, updatedSegment: Module) {
-            const segment: Module = context.getters.getModule(updatedSegment.getUuid());
+            const segment: Module = context.getters.getModule(updatedSegment.uuid.get());
 
             if (segment === undefined) {
                 return false
@@ -32,7 +32,7 @@ export const scheme: any = {
         addModule(context: any, segment: Module) {
             context.state.data.push(segment)
 
-            segment.nodes.get().forEach((part: BaseNode) => context.state.hash[part.getUuid()] = segment.getUuid())
+            segment.nodes.get().forEach((part: BaseNode) => context.state.hash[part.uuid.get()] = segment.uuid.get())
         },
         addNode(context: any, {moduleUuid, node}: any) {
             const module: Module = context.getters.getModule(moduleUuid);
@@ -42,7 +42,7 @@ export const scheme: any = {
             }
 
             module.nodes.add(node)
-            context.state.hash[node.getUuid()] = module.getUuid()
+            context.state.hash[node.uuid.get()] = module.uuid.get()
 
             touch(context.state)
 
@@ -117,7 +117,7 @@ export const scheme: any = {
             }
 
             return state.data
-                .find((segment: Module) => segment.getUuid() === segmentUuid)
+                .find((segment: Module) => segment.uuid.get() === segmentUuid)
                 .nodes.first(uuid)
         },
         getModuleByPartUuid: (state: any) => (uuid: string) => {
@@ -128,10 +128,10 @@ export const scheme: any = {
             }
 
             return state.data
-                .find((segment: Module) => segment.getUuid() === segmentUuid)
+                .find((segment: Module) => segment.uuid.get() === segmentUuid)
         },
         getModule: (state: any) => (uuid: any): Module => {
-            return state.data.find((segment: Module) => segment.getUuid() === uuid)
+            return state.data.find((segment: Module) => segment.uuid.get() === uuid)
         },
         getModules: (state: any) => {
             return state.data

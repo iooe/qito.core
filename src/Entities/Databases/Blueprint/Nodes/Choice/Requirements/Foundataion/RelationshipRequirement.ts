@@ -10,14 +10,14 @@ export const constants = {
 } as const;
 
 export default class RelationshipRequirement extends BaseRequirement implements RequirementContract {
-    constructor(id: string, operator: string, value: number) {
-        super(id, operator, value)
+    constructor(uuid: string, operator: string, value: number) {
+        super(uuid, operator, value)
     }
 
     public export() {
         return {
             type: TYPE,
-            uuid: this._id,
+            uuid: this._uuid,
             operator: this._operator,
             value: this._value
         }

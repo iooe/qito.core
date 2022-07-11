@@ -2,18 +2,18 @@ import RequirementContract from "./RequirementContract";
 
 export default class BaseRequirement implements RequirementContract {
 
-    protected readonly _id: string;
+    protected readonly _uuid: string;
     protected readonly _operator: string;
     protected readonly _value: number;
 
     constructor(id: string, action: string = '', value: number = 0) {
-        this._id = id
+        this._uuid = id
         this._operator = action
         this._value = value
     }
 
-    public getUuid(): string {
-        return this._id;
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public getAction(): string {

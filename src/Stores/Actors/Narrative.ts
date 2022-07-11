@@ -18,7 +18,7 @@ export const scheme: any = {
     mutations: {},
     actions: {
         add(context: any, value: Narrative) {
-            if (context.getters.first(value.getUuid()) !== undefined) {
+            if (context.getters.first(value.uuid.get()) !== undefined) {
                 return false
             }
 
@@ -27,7 +27,7 @@ export const scheme: any = {
             return true;
         },
         remove(context: any, uuid: string) {
-            const index = context.state.data.findIndex((value: Narrative) => value.getUuid() === uuid);
+            const index = context.state.data.findIndex((value: Narrative) => value.uuid.get() === uuid);
 
             if (index === -1) {
                 return false
@@ -69,10 +69,10 @@ export const scheme: any = {
             return state.data
         },
         first: (state: any) => (uuid: string): Fact => {
-            return state.data.find((value: Narrative) => value.getUuid() === uuid);
+            return state.data.find((value: Narrative) => value.uuid.get() === uuid);
         },
         has: (state: any) => (uuid: string): boolean => {
-            return state.data.find((value: Narrative) => value.getUuid() === uuid) !== undefined;
+            return state.data.find((value: Narrative) => value.uuid.get() === uuid) !== undefined;
         }
     },
 }

@@ -1,7 +1,9 @@
 import Connection from "../Connection";
 
 export default interface Node {
-    getUuid(): string
+    uuid: {
+        get(): string
+    }
 
     connection: {
         has(): boolean,

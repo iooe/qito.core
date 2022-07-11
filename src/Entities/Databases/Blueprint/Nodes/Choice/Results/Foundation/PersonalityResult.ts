@@ -16,14 +16,14 @@ export const constants = {
 
 export default class PersonalityResult extends BaseResult implements ResultContract {
 
-    constructor(id: string, action: string, value: number) {
-        super(id, action, value)
+    constructor(uuid: string, action: string, value: number) {
+        super(uuid, action, value)
     }
 
     public export() {
         return {
             type: TYPE,
-            uuid: this._id,
+            uuid: this._uuid,
             action: this._action,
             value: this._value
         }

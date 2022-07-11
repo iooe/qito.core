@@ -1,5 +1,7 @@
 export default interface RequirementContract {
-    getUuid(): string
+    uuid: {
+        get(): string
+    }
 
     getAction(): string
 

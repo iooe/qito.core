@@ -15,7 +15,7 @@ export const scheme = {
     }),
     actions: {
         add(context: any, value: Choice) {
-            if (context.getters.first(value.getUuid()) !== undefined) {
+            if (context.getters.first(value.uuid.get()) !== undefined) {
                 return false
             }
 
@@ -24,7 +24,7 @@ export const scheme = {
             return true;
         },
         remove(context: any, uuid: string) {
-            const index = context.state.data.findIndex((value: Choice) => value.getUuid() === uuid);
+            const index = context.state.data.findIndex((value: Choice) => value.uuid.get() === uuid);
 
             if (index === -1) {
                 return false
@@ -67,7 +67,7 @@ export const scheme = {
                 return state.data[0]
             }
 
-            return state.data.find((item: Choice) => item.getUuid() === uuid);
+            return state.data.find((value: Choice) => value.uuid.get() === uuid);
         }
     }
 }

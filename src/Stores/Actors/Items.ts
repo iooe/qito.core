@@ -21,7 +21,7 @@ const scheme: any = {
     },
     actions: {
         add(context: any, item: Item) {
-            if (context.getters.first(item.getUuid()) !== undefined) {
+            if (context.getters.first(item.uuid.get()) !== undefined) {
                 return false
             }
 
@@ -30,7 +30,7 @@ const scheme: any = {
             return true;
         },
         remove(context: any, uuid: string) {
-            const index = context.state.data.findIndex((value: Item) => value.getUuid() === uuid);
+            const index = context.state.data.findIndex((value: Item) => value.uuid.get() === uuid);
 
             if (index === -1) {
                 return false
@@ -43,7 +43,7 @@ const scheme: any = {
         import(context: any, data: Array<any>) {
             let values: Array<Item> = [];
 
-            data.map(value => {
+            data.forEach(value => {
                 const instance = new Item(value.uuid)
                 instance.name.set(value.name)
                 instance.state.set(value.state)
@@ -65,12 +65,12 @@ const scheme: any = {
         get: (state: any) => {
             return state.data
         },
-        first: (state: any) => (id: string): Item => {
-            return state.data.find((item: Item) => item.getUuid() === id);
+        first: (state: any) => (uuid: string): Item => {
+            return state.data.find((value: Item) => value.uuid.get() === uuid);
         },
-        has: (state: any) => (id: string) => {
-            return state.data.find((item: Item) => item.getUuid() === id && item.state.get()) !== undefined;
-        },
+        has: (state: any) => (uuid: string) => {
+            return state.data.find((value: Item) => value.uuid.get() === uuid && value.state.get()) !== undefined;
+        }
     },
 }
 

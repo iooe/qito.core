@@ -11,8 +11,8 @@ export default class RequirementsContainer {
         this._uuid = uuid
     }
 
-    public getUuid() {
-        return this._uuid
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public get count() {
@@ -31,7 +31,7 @@ export default class RequirementsContainer {
             return this._data.length
         },
         delete: (uuid: string) => {
-            const index = this._data.findIndex((value: RequirementContract) => value.getUuid() === uuid)
+            const index = this._data.findIndex((value: RequirementContract) => value.uuid.get() === uuid)
 
             if (index === -1) {
                 return
@@ -45,7 +45,7 @@ export default class RequirementsContainer {
                 return this._data[0]
             }
 
-            return this._data.find((value: RequirementContract) => value.getUuid() === uuid)
+            return this._data.find((value: RequirementContract) => value.uuid.get() === uuid)
         },
         has: (uuid: string = '') => {
 
@@ -53,7 +53,7 @@ export default class RequirementsContainer {
                 return false
             }
 
-            return this._data.find((value: RequirementContract) => value.getUuid() === uuid) !== undefined
+            return this._data.find((value: RequirementContract) => value.uuid.get() === uuid) !== undefined
         }
     }
 

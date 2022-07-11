@@ -16,8 +16,10 @@ export default class Personality {
         return new Personality(uuidv4())
     }
 
-    public getUuid(): string {
-        return this._uuid;
+    public uuid = {
+        get: () => {
+            return this._uuid
+        }
     }
 
     public name = {

@@ -17,8 +17,8 @@ export default class Module {
         return new Module(uuidv4())
     }
 
-    public getUuid() {
-        return this._uuid
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public title = {
@@ -33,11 +33,11 @@ export default class Module {
     public nodes = {
         root: {
             set: (node: Node) => {
-                if (!this.nodes.has(node.getUuid())) {
+                if (!this.nodes.has(node.uuid.get())) {
                     this.nodes.add(node)
                 }
 
-                this._rootNodeUuid = node.getUuid()
+                this._rootNodeUuid = node.uuid.get()
             },
             get: () => {
                 return this.nodes.first(this._rootNodeUuid)
@@ -48,13 +48,13 @@ export default class Module {
                 return this._nodes[0]
             }
 
-            return this._nodes.find((node: Node) => node.getUuid() === uuid)
+            return this._nodes.find((node: Node) => node.uuid.get() === uuid)
         },
         has: (uuid: string) => {
-            return this._nodes.find((node: Node) => node.getUuid() === uuid) !== undefined;
+            return this._nodes.find((node: Node) => node.uuid.get() === uuid) !== undefined;
         },
         delete: (uuid: string) => {
-            const index = this._nodes.findIndex((node: Node) => node.getUuid() === uuid)
+            const index = this._nodes.findIndex((node: Node) => node.uuid.get() === uuid)
 
             if (index === -1) {
                 return
@@ -73,7 +73,7 @@ export default class Module {
         },
         update: (node: Node) => {
             //@ts-ignore
-            const index = this._nodes.findIndex(value => value.getUuid() === node.getUuid())
+            const index = this._nodes.findIndex(value => value.uuid.get() === node.uuid.get())
 
             if (index === -1) {
                 return

@@ -15,14 +15,14 @@ export const constants = {
 } as const;
 
 export default class ItemResult extends BaseResult implements ResultContract {
-    constructor(id: string, action: string) {
-        super(id, action)
+    constructor(uuid: string, action: string) {
+        super(uuid, action)
     }
 
     public export() {
         return {
             type: TYPE,
-            uuid: this._id,
+            uuid: this._uuid,
             action: this._action
         }
     }

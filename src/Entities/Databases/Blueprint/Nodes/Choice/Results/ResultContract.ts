@@ -1,5 +1,7 @@
 export default interface ResultContract {
-    getUuid(): string
+    uuid: {
+        get(): string
+    }
 
     getAction(): string
 

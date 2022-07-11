@@ -16,7 +16,7 @@ export const scheme = {
     }),
     actions: {
         add(context: any, value: Part) {
-            if (context.getters.first(value.getUuid()) !== undefined) {
+            if (context.getters.first(value.uuid.get()) !== undefined) {
                 return false
             }
 
@@ -25,7 +25,7 @@ export const scheme = {
             return true;
         },
         remove(context: any, uuid: string) {
-            const index = context.state.data.findIndex((value: Part) => value.getUuid() === uuid);
+            const index = context.state.data.findIndex((value: Part) => value.uuid.get() === uuid);
 
             if (index === -1) {
                 return false
@@ -64,6 +64,9 @@ export const scheme = {
         get: (state: any) => {
             return state.data
         },
+        has: (state: any) => (uuid: string) => {
+            return state.data.find((value: Part) => value.uuid.get() === uuid) !== undefined;
+        },
         first: (state: any) => (uuid: string = ''): Part | undefined => {
             if (state.data.length === 0) {
                 return undefined
@@ -73,7 +76,7 @@ export const scheme = {
                 return state.data[0]
             }
 
-            return state.data.find((item: Part) => item.getUuid() === uuid);
+            return state.data.find((value: Part) => value.uuid.get() === uuid);
         }
     }
 }

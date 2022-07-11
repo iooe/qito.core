@@ -19,8 +19,8 @@ export default class Page {
         return new Page(uuidv4())
     }
 
-    public getUuid() {
-        return this._uuid
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     setBlocks(content: Array<any>) {

@@ -15,7 +15,7 @@ export default class Variant {
     private _result: Array<ResultContract> = []
     private _requirements: Array<RequirementsContainer> = []
     private _name: string = '';
-    private _uuid: string
+    private readonly _uuid: string
 
     private readonly RESULT_PROCESS = {
         personality: (uuid: string, data: object) => {
@@ -74,8 +74,8 @@ export default class Variant {
         }
     }
 
-    public getUuid(): string {
-        return this._uuid
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public results = {
@@ -91,13 +91,13 @@ export default class Variant {
                 return this._result[0]
             }
 
-            return this._result.find((value: ResultContract) => value.getUuid() === uuid);
+            return this._result.find((value: ResultContract) => value.uuid.get() === uuid);
         },
         get: (): Array<ResultContract> => {
             return this._result
         },
         delete: (uuid: string) => {
-            const index = this._result.findIndex((value: ResultContract) => value.getUuid() === uuid)
+            const index = this._result.findIndex((value: ResultContract) => value.uuid.get() === uuid)
 
             if (index === -1) {
                 return
@@ -120,10 +120,10 @@ export default class Variant {
                 return this._requirements[0]
             }
 
-            return this._requirements.find((value: RequirementsContainer) => value.getUuid() === uuid);
+            return this._requirements.find((value: RequirementsContainer) => value.uuid.get() === uuid);
         },
         edit: (newValue: RequirementsContainer) => {
-            const index = this._requirements.findIndex((value: RequirementsContainer) => value.getUuid() === newValue.getUuid())
+            const index = this._requirements.findIndex((value: RequirementsContainer) => value.uuid.get() === newValue.uuid.get())
 
             if (index === -1) {
                 return
@@ -135,7 +135,7 @@ export default class Variant {
             return this._requirements
         },
         delete: (uuid: string) => {
-            const index = this._requirements.findIndex((value: RequirementsContainer) => value.getUuid() === uuid)
+            const index = this._requirements.findIndex((value: RequirementsContainer) => value.uuid.get() === uuid)
 
             if (index === -1) {
                 return

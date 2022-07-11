@@ -26,8 +26,8 @@ export default class Item {
         return new Item(uuidv4())
     }
 
-    public getUuid(): string {
-        return this._uuid;
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public name = {

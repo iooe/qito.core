@@ -23,8 +23,8 @@ export default class Part {
         return instance
     }
 
-    public getUuid() {
-        return this._uuid
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public title = {
@@ -41,7 +41,7 @@ export default class Part {
             this._pages = pages
         },
         replace: (uuid: string, value: Page) => {
-            const index = this._pages.findIndex((value: Page) => value.getUuid() === uuid)
+            const index = this._pages.findIndex((value: Page) => value.uuid.get() === uuid)
 
             if (index === -1) {
                 new Error('Unfinded')
@@ -64,10 +64,10 @@ export default class Part {
                 return this._pages[0]
             }
 
-            return this._pages.find((value: Page) => value.getUuid() === uuid)
+            return this._pages.find((value: Page) => value.uuid.get() === uuid)
         },
         index: (uuid: string) => {
-            return this._pages.findIndex((value: Page) => value.getUuid() === uuid)
+            return this._pages.findIndex((value: Page) => value.uuid.get() === uuid)
         },
     }
 

@@ -4,14 +4,14 @@ import BaseRequirement from "../BaseRequirement";
 export const TYPE = 'item'
 
 export default class ItemRequirement extends BaseRequirement implements RequirementContract {
-    constructor(id: string) {
-        super(id)
+    constructor(uuid: string) {
+        super(uuid)
     }
 
     public export() {
         return {
             type: TYPE,
-            uuid: this._id
+            uuid: this._uuid
         }
     }
 }

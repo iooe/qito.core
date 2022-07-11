@@ -27,8 +27,8 @@ export default class Character {
         return new Character(uuidv4())
     }
 
-    public getUuid() {
-        return this._uuid
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public type = {

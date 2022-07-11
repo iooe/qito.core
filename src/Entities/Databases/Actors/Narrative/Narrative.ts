@@ -15,8 +15,8 @@ export default class Narrative {
         return new Narrative(uuidv4())
     }
 
-    public getUuid() {
-        return this._uuid
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public pages = {
@@ -30,7 +30,7 @@ export default class Narrative {
             return this._pages.length
         },
         delete: (uuid: string) => {
-            const index = this._pages.findIndex((value: Page) => value.getUuid() === uuid)
+            const index = this._pages.findIndex((value: Page) => value.uuid.get() === uuid)
 
             if (index === -1) {
                 return
@@ -39,7 +39,7 @@ export default class Narrative {
             this._pages.splice(index, 1)
         },
         index: (uuid: string) => {
-            return this._pages.findIndex((value: Page) => value.getUuid() === uuid)
+            return this._pages.findIndex((value: Page) => value.uuid.get() === uuid)
         },
         first: (uuid: string = '') => {
 
@@ -47,7 +47,7 @@ export default class Narrative {
                 return this._pages[0]
             }
 
-            return this._pages.find((value: Page) => value.getUuid() === uuid)
+            return this._pages.find((value: Page) => value.uuid.get() === uuid)
         },
     }
 

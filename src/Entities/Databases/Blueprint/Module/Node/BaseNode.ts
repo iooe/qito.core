@@ -33,8 +33,8 @@ export default class BaseNode implements Node {
         return new BaseNode(uuidv4())
     }
 
-    public getUuid() {
-        return this._uuid
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public data = {
@@ -114,13 +114,13 @@ export default class BaseNode implements Node {
             return this._nodes.length === 0
         },
         first: (uuid: string) => {
-            return this._nodes.find(node => node.getUuid() === uuid)
+            return this._nodes.find(node => node.uuid.get() === uuid)
         },
         has: (uuid: string) => {
             return this.nodes.first(uuid) !== undefined
         },
         delete: (uuid: string) => {
-            const index = this._nodes.findIndex(node => node.getUuid() === uuid)
+            const index = this._nodes.findIndex(node => node.uuid.get() === uuid)
 
             if (index === -1) {
                 return
@@ -129,7 +129,7 @@ export default class BaseNode implements Node {
             this._nodes.splice(index, 1)
         },
         add: (node: Node) => {
-            if(this.nodes.has(node.getUuid())) {
+            if(this.nodes.has(node.uuid.get())) {
                 return
             }
 

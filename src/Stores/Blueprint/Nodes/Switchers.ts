@@ -2,6 +2,7 @@ import Switcher from "../../../Entities/Databases/Blueprint/Nodes/Switcher/Switc
 import Expression from "../../../Entities/Basic/Objects/Expression";
 import Case from "../../../Entities/Databases/Blueprint/Nodes/Switcher/Case/Case";
 import Statement from "../../../Entities/Databases/Blueprint/Nodes/Switcher/Case/Statement";
+import Item from "../../../Entities/Databases/Actors/Item/Item";
 
 export const NAME = 'blueprint.nodes.switchers'
 
@@ -80,6 +81,9 @@ export const scheme = {
         get: (state: any) => {
             return state.data
         },
+        has: (state: any) => (uuid: string) => {
+            return state.data.find((value: Switcher) => value.uuid.get() === uuid) !== undefined;
+        },
         first: (state: any) => (uuid: string = ''): Switcher | undefined => {
             if (state.data.length === 0) {
                 return undefined
@@ -89,7 +93,7 @@ export const scheme = {
                 return state.data[0]
             }
 
-            return state.data.find((item: Switcher) => item.uuid.get() === uuid);
+            return state.data.find((value: Switcher) => value.uuid.get() === uuid);
         }
     }
 }

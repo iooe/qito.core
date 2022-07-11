@@ -1,19 +1,19 @@
 import ResultContract from "./ResultContract";
 
-export default class BaseResult implements ResultContract{
+export default class BaseResult implements ResultContract {
 
-    protected readonly _id: string;
+    protected readonly _uuid: string;
     protected readonly _action: string;
     protected readonly _value: number;
 
     constructor(id: string, action: string = '', value: number = 0) {
-        this._id = id
+        this._uuid = id
         this._action = action
         this._value = value
     }
 
-    public getUuid(): string {
-        return this._id;
+    public uuid = {
+        get: (): string => this._uuid
     }
 
     public getAction(): string {
@@ -25,8 +25,6 @@ export default class BaseResult implements ResultContract{
     }
 
     public export() {
-        return {
-
-        }
+        return {}
     }
 }
