@@ -1,5 +1,5 @@
 import {v4 as uuidv4} from 'uuid';
-import Media from "../../Basic/Objects/Media";
+import Media from "../../../Basic/Objects/Media";
 
 export default class Personality {
 

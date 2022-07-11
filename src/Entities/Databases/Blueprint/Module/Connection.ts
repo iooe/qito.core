@@ -1,12 +1,3 @@
-export const constants = {
-    COMPONENTS: {
-        part: 'part',
-        choice: 'choice',
-        choice_variant: 'choice_variant',
-        branching: 'branching'
-    },
-} as const;
-
 export default class Connection {
     private readonly _uuid: string;
     private _data: any = {}

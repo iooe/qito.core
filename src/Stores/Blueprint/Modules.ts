@@ -1,9 +1,9 @@
-import Module from "../Entities/Databases/Module/Module";
-import Connection from "../Entities/Databases/Module/Connection";
-import PageCallback from "../Entities/Databases/Module/Node/Callback/Callback";
-import BaseNode from "../Entities/Databases/Module/Node/BaseNode";
+import Module from "../../Entities/Databases/Blueprint/Module/Module";
+import Connection from "../../Entities/Databases/Blueprint/Module/Connection";
+import PageCallback from "../../Entities/Databases/Blueprint/Module/Node/Callback/Callback";
+import BaseNode from "../../Entities/Databases/Blueprint/Module/Node/BaseNode";
 
-export const NAME = 'modules'
+export const NAME = 'blueprint.modules'
 
 const touch = (state: any) => {
     const length = state.data.length;

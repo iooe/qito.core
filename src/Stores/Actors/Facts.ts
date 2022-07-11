@@ -1,7 +1,7 @@
-import Fact from "../../Entities/Databases/Fact/Fact";
-import Preview from "../../Entities/Databases/Fact/Preview/Preview";
+import Fact from "../../Entities/Databases/Actors/Fact/Fact";
+import Preview from "../../Entities/Databases/Actors/Fact/Preview/Preview";
 
-export const NAME = 'facts'
+export const NAME = 'actors.facts'
 
 export const touch = (state: any) => {
     const length = state.data.length;

@@ -1,9 +1,9 @@
-import Switcher from "../../Entities/Databases/Nodes/Switcher/Switcher";
-import Expression from "../../Entities/Basic/Objects/Expression";
-import Case from "../../Entities/Databases/Nodes/Switcher/Case/Case";
-import Statement from "../../Entities/Databases/Nodes/Switcher/Case/Statement";
+import Switcher from "../../../Entities/Databases/Blueprint/Nodes/Switcher/Switcher";
+import Expression from "../../../Entities/Basic/Objects/Expression";
+import Case from "../../../Entities/Databases/Blueprint/Nodes/Switcher/Case/Case";
+import Statement from "../../../Entities/Databases/Blueprint/Nodes/Switcher/Case/Statement";
 
-export const NAME = 'nodes.switchers'
+export const NAME = 'blueprint.nodes.switchers'
 
 export const touch = (state: any) => {
     const length = state.data.length;
@@ -54,8 +54,8 @@ export const scheme = {
                         const statementInstance = new Statement(statementRaw.uuid)
 
                         statementInstance.expression.set(expression)
-                        statementInstance.component.setEntity(statementRaw.entity)
-                        statementInstance.component.setEntity(statementRaw.uuid)
+                        statementInstance.component.setEntity(statementRaw.component.entity)
+                        statementInstance.component.setUuid(statementRaw.component.uuid)
 
                         caseInstance.statements.add(statementInstance)
 

@@ -1,8 +1,8 @@
-import Narrative from "../../Entities/Databases/Narrative/Narrative";
+import Narrative from "../../Entities/Databases/Actors/Narrative/Narrative";
 import Page from "../../Entities/Basic/Objects/Page";
-import Fact from "src/Entities/Databases/Fact/Fact";
+import Fact from "src/Entities/Databases/Actors/Fact/Fact";
 
-export const NAME = 'narrative'
+export const NAME = 'actors.narrative'
 
 export const touch = (state: any) => {
     const length = state.data.length;

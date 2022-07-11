@@ -1,5 +1,5 @@
 import {v4 as uuidv4} from "uuid";
-import Expression from "../../../../Basic/Objects/Expression";
+import Expression from "../../../../../Basic/Objects/Expression";
 
 export default class Statement {
     private readonly _uuid: string

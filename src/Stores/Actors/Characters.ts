@@ -1,8 +1,8 @@
-import Character from "../../Entities/Databases/Character/Character";
+import Character from "../../Entities/Databases/Actors/Character/Character";
 import Media from "../../Entities/Basic/Objects/Media";
-import Fact from "../../Entities/Databases/Fact/Fact";
+import Fact from "../../Entities/Databases/Actors/Fact/Fact";
 
-export const NAME = 'characters'
+export const NAME = 'actors.characters'
 
 export const touch = (state: any) => {
     const length = state.data.length;

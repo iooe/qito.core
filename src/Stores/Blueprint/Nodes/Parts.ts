@@ -1,7 +1,7 @@
-import Part from "../../Entities/Databases/Part/Part";
-import Page from "../../Entities/Basic/Objects/Page";
+import Part from "../../../Entities/Databases/Blueprint/Nodes/Part/Part";
+import Page from "../../../Entities/Basic/Objects/Page";
 
-export const NAME = 'nodes.parts'
+export const NAME = 'blueprint.nodes.parts'
 
 export const touch = (state: any) => {
     const length = state.data.length;

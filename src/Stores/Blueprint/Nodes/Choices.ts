@@ -1,6 +1,6 @@
-import Choice from "../../Entities/Databases/Choice/Choice";
+import Choice from "../../../Entities/Databases/Blueprint/Nodes/Choice/Choice";
 
-export const NAME = 'nodes.choices'
+export const NAME = 'blueprint.nodes.choices'
 
 export const touch = (state: any) => {
     const length = state.data.length;

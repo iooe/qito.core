@@ -1,4 +1,4 @@
-import Page from "../../Basic/Objects/Page";
+import Page from "../../../Basic/Objects/Page";
 import {v4 as uuidv4} from 'uuid';
 
 export default class Narrative {

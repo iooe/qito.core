@@ -1,7 +1,7 @@
-import Personality from "../../Entities/Databases/Protagonist/Personality";
+import Personality from "../../Entities/Databases/Actors/Protagonist/Personality";
 import Media from "../../Entities/Basic/Objects/Media";
 
-export const NAME = 'protagonist'
+export const NAME = 'actors.protagonist'
 
 export const touchPersonality = (state: any) => {
     const length = state.personalities.length;

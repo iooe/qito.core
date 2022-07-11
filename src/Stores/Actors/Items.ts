@@ -1,7 +1,7 @@
-import Item from "../../Entities/Databases/Item/Item";
+import Item from "../../Entities/Databases/Actors/Item/Item";
 import Media from "../../Entities/Basic/Objects/Media";
 
-export const NAME = 'items'
+export const NAME = 'actors.items'
 
 export const touch = (state: any) => {
     const length = state.data.length;
