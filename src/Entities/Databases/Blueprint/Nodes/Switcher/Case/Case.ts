@@ -22,6 +22,15 @@ export default class Case {
         add: (value: Statement) => {
             this._data.push(value)
         },
+        replace: (uuid: string, value: Statement) => {
+            const index = this._data.findIndex((value: Statement) => value.uuid.get() === uuid)
+
+            if (index === -1) {
+                new Error('undefined')
+            }
+
+            this._data[index] = value
+        },
         first: (uuid: string = '') => {
             if (uuid.length === 0) {
                 return this._data[0]
