@@ -28,6 +28,31 @@ export default class Switcher {
     }
 
     public cases = {
+        set: (nodes: Array<Case>) => {
+            this._data = nodes
+        },
+        swap: (node1: Case | number, node2: Case | number) => {
+
+            let index1 = -1,
+                index2 = -1
+
+            if (node1 instanceof Case) {
+                index1 = this._data.findIndex((node: Case) => node.uuid.get() === node1.uuid.get())
+            } else {
+                index1 = node1
+                node1 = this._data[node1]
+            }
+
+            if (node2 instanceof Case) {
+                index2 = this._data.findIndex((node: Case) => node.uuid.get() === node2.uuid.get())
+            } else {
+                index2 = node2
+                node2 = this._data[node2]
+            }
+
+            this._data[index1] = node2
+            this._data[index2] = node1
+        },
         first: (uuid: string = '') => {
             if (uuid.length === 0) {
                 return this._data[0]
