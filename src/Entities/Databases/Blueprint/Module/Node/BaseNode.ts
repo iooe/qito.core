@@ -107,6 +107,32 @@ export default class BaseNode implements Node {
     }
 
     public nodes = {
+        set: (nodes: Array<Node>) => {
+            this._nodes = nodes
+        },
+        swap: (node1: Node | number, node2: Node | number) => {
+            let index1 = -1,
+                index2 = -1
+
+            if (typeof node1 !== 'number') {
+                //@ts-ignore
+                index1 = this._nodes.findIndex((node: Node) => node.uuid.get() === node1.uuid.get())
+            } else {
+                index1 = node1
+                node1 = this._nodes[index1]
+            }
+
+            if (typeof node2 !== 'number') {
+                //@ts-ignore
+                index2 = this._nodes.findIndex((node: Node) => node.uuid.get() === node2.uuid.get())
+            } else {
+                index2 = node2
+                node2 = this._nodes[index2]
+            }
+
+            this._nodes[index1] = node2
+            this._nodes[index2] = node1
+        },
         get: (): Array<Node> => {
             return this._nodes
         },
@@ -129,7 +155,7 @@ export default class BaseNode implements Node {
             this._nodes.splice(index, 1)
         },
         add: (node: Node) => {
-            if(this.nodes.has(node.uuid.get())) {
+            if (this.nodes.has(node.uuid.get())) {
                 return
             }
 
