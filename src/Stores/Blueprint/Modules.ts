@@ -96,7 +96,12 @@ export const scheme: any = {
                 moduleRaw.nodes.forEach((node: any) => moduleInstance.nodes.add(nodeImporter(node)))
 
                 moduleInstance.title.set(moduleRaw.title)
-                moduleInstance.nodes.root.set(moduleInstance.nodes.first(moduleRaw.rootNodeUuid))
+
+                const rootNode = moduleInstance.nodes.first(moduleRaw.rootNodeUuid)
+
+                if(rootNode !== undefined) {
+                    moduleInstance.nodes.root.set(moduleInstance.nodes.first(moduleRaw.rootNodeUuid))
+                }
 
                 context.dispatch('addModule', moduleInstance)
             })
