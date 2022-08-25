@@ -1,6 +1,6 @@
 import Connection from "../Connection";
 
-export default interface Node {
+export interface Node {
     uuid: {
         get(): string
     }

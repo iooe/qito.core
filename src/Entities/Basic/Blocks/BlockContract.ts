@@ -1,4 +1,4 @@
-export default interface BlockContract {
+export interface BlockContract {
     getType(): string;
 
     getId(): string

@@ -1,4 +1,4 @@
-import BlockContract from "../BlockContract";
+import {BlockContract} from "../BlockContract";
 import BaseBlock from "../BaseBlock";
 
 const TYPE = 'button';

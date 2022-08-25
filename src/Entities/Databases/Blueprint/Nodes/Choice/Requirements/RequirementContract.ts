@@ -1,4 +1,4 @@
-export default interface RequirementContract {
+export interface RequirementContract {
     uuid: {
         get(): string
     }

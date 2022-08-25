@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
 
-import Node from "./Node/Node";
+import {Node} from "./Node/Node";
 
 export default class Module {
     private _title: string = ''

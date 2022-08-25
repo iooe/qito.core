@@ -1,4 +1,4 @@
-import RequirementContract from "./RequirementContract";
+import {RequirementContract} from "./RequirementContract";
 
 export default class BaseRequirement implements RequirementContract {
 

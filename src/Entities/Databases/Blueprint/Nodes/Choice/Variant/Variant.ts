@@ -4,7 +4,7 @@ import RelationshipRequirement from "../Requirements/Foundataion/RelationshipReq
 import PersonalityResult from "../Results/Foundation/PersonalityResult";
 import FactResult from "../Results/Foundation/FactResult";
 import RelationshipResult from "../Results/Foundation/RelationshipResult";
-import ResultContract from "../Results/ResultContract";
+import {ResultContract} from "../Results/ResultContract";
 import ItemResult from "../Results/Foundation/ItemResult";
 import RequirementsContainer from "../Requirements/RequirementsContainer";
 import FactRequirement from "../Requirements/Foundataion/FactRequirement";

@@ -1,4 +1,4 @@
-import RequirementContract from "../RequirementContract";
+import {RequirementContract} from "../RequirementContract";
 import BaseRequirement from "../BaseRequirement";
 
 export const TYPE = 'fact'

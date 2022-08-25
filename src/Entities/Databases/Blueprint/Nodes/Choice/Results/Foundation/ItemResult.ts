@@ -1,4 +1,4 @@
-import ResultContract from "../ResultContract";
+import {ResultContract} from "../ResultContract";
 import BaseResult from "../BaseResult";
 
 export const TYPE = 'item',

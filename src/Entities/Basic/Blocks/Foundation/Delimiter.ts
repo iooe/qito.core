@@ -1,5 +1,5 @@
 import BaseBlock from "../BaseBlock";
-import BlockContract from "../BlockContract";
+import {BlockContract} from "../BlockContract";
 
 const TYPE = 'delimiter';
 

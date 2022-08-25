@@ -1,4 +1,4 @@
-export default interface ResultContract {
+export interface ResultContract {
     uuid: {
         get(): string
     }

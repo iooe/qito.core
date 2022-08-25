@@ -1,4 +1,4 @@
-import RequirementContract from "./RequirementContract";
+import {RequirementContract} from "./RequirementContract";
 import {v4 as uuidv4} from 'uuid';
 
 export default class RequirementsContainer {

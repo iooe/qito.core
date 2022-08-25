@@ -1,4 +1,4 @@
-import CallbackContract from "./CallbackContract";
+import {CallbackContract} from "./CallbackContract";
 
 export default class Callback implements CallbackContract {
 

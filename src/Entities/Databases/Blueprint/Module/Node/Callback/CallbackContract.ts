@@ -1,4 +1,4 @@
-export default interface CallbackContract {
+export interface CallbackContract {
     callback: {
         set(value: CallableFunction): void,
         get(): CallableFunction

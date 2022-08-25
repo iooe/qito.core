@@ -1,7 +1,7 @@
 import {v4 as uuidv4} from 'uuid';
 import Connection from "../Connection";
-import Callback from "./Callback/CallbackContract";
-import Node from "./Node";
+import {Callback} from "./Callback/CallbackContract";
+import {Node} from "./Node";
 
 export const constants = {
     CALLBACKS: [

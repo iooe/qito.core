@@ -1,4 +1,4 @@
-import ResultContract from "./ResultContract";
+import {ResultContract} from "./ResultContract";
 
 export default class BaseResult implements ResultContract {
 
