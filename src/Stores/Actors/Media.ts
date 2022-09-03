@@ -55,8 +55,7 @@ export const scheme = {
 
             data.forEach(value => {
                 const instance = new LocalMedia(value.uuid)
-                instance.path.set(value.path)
-                instance.format.set(value.format)
+                instance.extension.set(value.extension)
                 instance.type.set(value.type)
 
                 values.push(instance)

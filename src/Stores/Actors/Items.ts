@@ -20,12 +20,12 @@ const scheme: any = {
         }
     },
     actions: {
-        add(context: any, item: Item) {
-            if (context.getters.first(item.uuid.get()) !== undefined) {
+        add(context: any, value: Item) {
+            if (context.getters.first(value.uuid.get()) !== undefined) {
                 return false
             }
 
-            context.state.data.push(item)
+            context.state.data.push(value)
 
             return true;
         },
