@@ -2,9 +2,9 @@ import {v4 as uuidv4} from 'uuid';
 
 export default class LocalMedia {
 
-    private _path: string = ''
     private _type: string = ''
-    private _format: string = ''
+    private _extension: string = ''
+
     private readonly _uuid: string
 
     public create() {
@@ -19,14 +19,6 @@ export default class LocalMedia {
         get: (): string => this._uuid
     }
 
-    public path = {
-        set: (value: string) => {
-            this._path = value
-        },
-        get: () => {
-            return this._path
-        }
-    }
 
     public type = {
         set: (value: string) => {
@@ -37,25 +29,20 @@ export default class LocalMedia {
         }
     }
 
-    public format = {
+    public extension = {
         set: (value: string) => {
-            this._format = value
+            this._extension = value
         },
         get: () => {
-            return this._format
+            return this._extension
         }
-    }
-
-    public isEmpty(): boolean {
-        return this._path.length === 0
     }
 
     public export(): object {
         return {
             uuid: this._uuid,
             type: this._type,
-            path: this._path,
-            format: this._format,
+            extension: this._extension,
         }
     }
 }
