@@ -14,7 +14,7 @@ export const constants = {
 export default class Character {
 
     private _name: string = ''
-    private _media: Media = new Media()
+    private _mediaUUid: string = ''
     private _type: string = TYPE_FILLER;
     private _relationship: number = 0
     private readonly _uuid: string;
@@ -46,12 +46,15 @@ export default class Character {
         }
     }
 
-    public media = {
+    public mediaUuid = {
         get: () => {
-            return this._media;
+            return this._mediaUUid;
         },
-        set: (value: Media) => {
-            this._media = value
+        set: (value: string) => {
+            this._mediaUUid = value
+        },
+        has: () => {
+            return this._mediaUUid.length > 0
         }
     }
 
@@ -63,6 +66,7 @@ export default class Character {
             this._name = value
         }
     }
+
     public relationship = {
         set: (value: number) => {
             this._relationship = value
@@ -77,7 +81,7 @@ export default class Character {
             uuid: this._uuid,
             name: this._name,
             media: {
-                id: this._media.path()
+                uuid: this._mediaUUid
             },
             relationship: this._relationship,
             type: this._type,

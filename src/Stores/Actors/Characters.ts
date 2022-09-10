@@ -1,5 +1,4 @@
 import Character from "../../Entities/Databases/Actors/Character/Character";
-import Media from "../../Entities/Basic/Objects/Media";
 
 export const NAME = 'actors.characters'
 
@@ -57,7 +56,8 @@ export const scheme: any = {
                 const instance = new Character(value.uuid)
                 instance.name.set(value.name)
                 instance.relationship.set(value.relationship)
-                instance.media.set(new Media(value.media.id))
+                //    instance.media.set(new Media(value.media.uuid))
+                instance.mediaUuid.set(value.media.uuid)
                 instance.type.set(value.type)
                 values.push(instance)
             })
