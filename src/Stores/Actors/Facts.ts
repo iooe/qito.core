@@ -1,5 +1,6 @@
 import Fact from "../../Entities/Databases/Actors/Fact/Fact";
 import Preview from "../../Entities/Databases/Actors/Fact/Preview/Preview";
+import Item from "../../Entities/Databases/Actors/Item/Item";
 
 export const NAME = 'actors.facts'
 
@@ -35,10 +36,16 @@ export const scheme = {
 
             return true;
         },
-        edit(context: any, item: Fact) {
-            const editedValue = context.state.data.find((value: Fact) => value.uuid.get() === item.uuid.get());
+        edit(context: any, value: Fact) {
+            const index = context.state.data.find((value: Fact) => value.uuid.get() === value.uuid.get());
 
-            editedValue.preview.set(item.preview.get())
+            if (index === -1) {
+                throw false;
+            }
+
+            context.state.data[index] = value;
+
+            touch(context.state)
 
             return true;
         },

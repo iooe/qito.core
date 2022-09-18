@@ -28,13 +28,16 @@ export const scheme: any = {
 
             return true;
         },
-        edit(context: any, character: Character) {
-            const editedValue = context.state.data.find((value: Character) => value.uuid.get() === character.uuid.get());
+        edit(context: any, value: Character) {
+            const index = context.state.data.find((value: Character) => value.uuid.get() === value.uuid.get());
 
-            editedValue.name.set(character.name.get())
-            editedValue.type.set(character.type.get())
-            editedValue.media.set(character.media.get())
-            editedValue.relationship.set(character.relationship.get())
+            if (index === -1) {
+                throw false;
+            }
+
+            context.state.data[index] = value;
+
+            touch(context.state)
 
             return true;
         },

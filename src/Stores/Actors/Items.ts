@@ -1,5 +1,6 @@
 import Item from "../../Entities/Databases/Actors/Item/Item";
 import Media from "../../Entities/Basic/Objects/Media";
+import Variable from "../../Entities/Databases/Actors/Variable/Variable";
 
 export const NAME = 'actors.items'
 
@@ -26,6 +27,19 @@ const scheme: any = {
             }
 
             context.state.data.push(value)
+
+            return true;
+        },
+        edit(context: any, value: Item) {
+            const index = context.state.data.find((value: Item) => value.uuid.get() === value.uuid.get());
+
+            if (index === -1) {
+                throw false;
+            }
+
+            context.state.data[index] = value;
+
+            touch(context.state)
 
             return true;
         },

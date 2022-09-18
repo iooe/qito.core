@@ -47,11 +47,16 @@ export const scheme: any = {
 
             return true;
         },
-        edit(context: any, personality: Personality) {
-            const editedValue = context.state.data.find((value: Personality) => value.uuid.get() === personality.uuid.get());
+        edit(context: any, value: Personality) {
+            const index = context.state.data.find((value: Personality) => value.uuid.get() === value.uuid.get());
 
-            editedValue.name.set(personality.name.get())
-            editedValue.value.set(personality.value.get())
+            if (index === -1) {
+                throw false;
+            }
+
+            context.state.data[index] = value;
+
+            touch(context.state)
 
             return true;
         },

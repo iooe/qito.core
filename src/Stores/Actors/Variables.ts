@@ -28,6 +28,19 @@ const scheme: any = {
 
             return true;
         },
+        edit(context: any, value: Variable) {
+            const index = context.state.data.find((value: Variable) => value.uuid.get() === value.uuid.get());
+
+            if (index === -1) {
+                throw false;
+            }
+
+            context.state.data[index] = value;
+
+            touch(context.state)
+
+            return true;
+        },
         remove(context: any, uuid: string) {
             const index = context.state.data.findIndex((value: Variable) => value.uuid.get() === uuid);
 

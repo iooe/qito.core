@@ -1,4 +1,5 @@
 import LocalMedia from "../../Entities/Databases/Actors/Media/LocalMedia";
+import Item from "../../Entities/Databases/Actors/Item/Item";
 
 export const NAME = 'actors.media'
 
@@ -28,14 +29,16 @@ export const scheme = {
 
             return true;
         },
-        edit(context: any, editedValue: LocalMedia) {
-            const index = context.state.data.find((value: LocalMedia) => value.uuid.get() === editedValue.uuid.get());
+        edit(context: any, value: LocalMedia) {
+            const index = context.state.data.find((value: LocalMedia) => value.uuid.get() === value.uuid.get());
 
-            if (index < 0) {
-                return false
+            if (index === -1) {
+                throw false;
             }
 
-            context.state.data[index] = editedValue
+            context.state.data[index] = value;
+
+            touch(context.state)
 
             return true;
         },
