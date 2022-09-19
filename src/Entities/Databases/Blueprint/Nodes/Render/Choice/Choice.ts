@@ -1,4 +1,4 @@
-import Variant from "./Variant/Variant";
+import Variant from "./Variant";
 import {v4 as uuidv4} from 'uuid';
 
 export default class Choice {

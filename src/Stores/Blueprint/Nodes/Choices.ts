@@ -1,4 +1,4 @@
-import Choice from "../../../Entities/Databases/Blueprint/Nodes/Choice/Choice";
+import Choice from "../../../Entities/Databases/Blueprint/Nodes/Render/Choice/Choice";
 
 export const NAME = 'blueprint.nodes.choices'
 

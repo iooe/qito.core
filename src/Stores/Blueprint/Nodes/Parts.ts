@@ -1,4 +1,4 @@
-import Part from "../../../Entities/Databases/Blueprint/Nodes/Part/Part";
+import Part from "../../../Entities/Databases/Blueprint/Nodes/Render/Part/Part";
 import Page from "../../../Entities/Basic/Objects/Page";
 
 export const NAME = 'blueprint.nodes.parts'

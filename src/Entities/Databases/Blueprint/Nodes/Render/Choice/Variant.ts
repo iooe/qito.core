@@ -1,14 +1,14 @@
-import PersonalityRequirement from "../Requirements/Foundataion/PersonalityRequirement";
-import ItemRequirement from "../Requirements/Foundataion/ItemRequirement";
-import RelationshipRequirement from "../Requirements/Foundataion/RelationshipRequirement";
-import PersonalityResult from "../Results/Foundation/PersonalityResult";
-import FactResult from "../Results/Foundation/FactResult";
-import RelationshipResult from "../Results/Foundation/RelationshipResult";
-import {ResultContract} from "../Results/ResultContract";
-import ItemResult from "../Results/Foundation/ItemResult";
-import RequirementsContainer from "../Requirements/RequirementsContainer";
-import FactRequirement from "../Requirements/Foundataion/FactRequirement";
-import NarrativeResult from "../Results/Foundation/NarrativeResult";
+import PersonalityRequirement from "./Requirements/Foundataion/PersonalityRequirement";
+import ItemRequirement from "./Requirements/Foundataion/ItemRequirement";
+import RelationshipRequirement from "./Requirements/Foundataion/RelationshipRequirement";
+import PersonalityResult from "./Results/Foundation/PersonalityResult";
+import FactResult from "./Results/Foundation/FactResult";
+import RelationshipResult from "./Results/Foundation/RelationshipResult";
+import {ResultContract} from "./Results/ResultContract";
+import ItemResult from "./Results/Foundation/ItemResult";
+import RequirementsContainer from "./Requirements/RequirementsContainer";
+import FactRequirement from "./Requirements/Foundataion/FactRequirement";
+import NarrativeResult from "./Results/Foundation/NarrativeResult";
 import {v4 as uuidv4} from 'uuid';
 
 export default class Variant {

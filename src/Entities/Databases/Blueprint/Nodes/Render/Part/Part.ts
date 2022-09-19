@@ -1,5 +1,5 @@
 import {v4 as uuidv4} from 'uuid';
-import Page from "../../../../Basic/Objects/Page";
+import Page from "../../../../../Basic/Objects/Page";
 
 export default class Part {
     private _pages: Array<Page> = []
