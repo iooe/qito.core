@@ -1,7 +1,6 @@
-import LocalMedia from "../../Entities/Databases/Actors/Media/LocalMedia";
-import Item from "../../Entities/Databases/Actors/Item/Item";
+import LocalMedia from "../../Entities/Databases/Resources/Media/LocalMedia";
 
-export const NAME = 'actors.media'
+export const NAME = 'resources.media'
 
 export const touch = (state: any) => {
     const length = state.data.length;
