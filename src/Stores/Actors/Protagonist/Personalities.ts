@@ -1,5 +1,4 @@
 import Personality from "../../../Entities/Databases/Actors/Protagonist/Personality";
-import Media from "../../../Entities/Basic/Objects/Media";
 
 export const NAME = 'actors.protagonist.personalities'
 
@@ -77,7 +76,7 @@ export const scheme: any = {
             data.forEach((value: any) => {
                 const personality = new Personality(value.uuid)
                 personality.name.set(value.name)
-                personality.media.set(new Media(value.media.id))
+                personality.mediaUuid.set(value.media.uuid)
                 personality.value.set(value.value)
                 values.push(personality)
             })

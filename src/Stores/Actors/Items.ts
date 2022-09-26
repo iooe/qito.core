@@ -1,6 +1,4 @@
 import Item from "../../Entities/Databases/Actors/Item/Item";
-import Media from "../../Entities/Basic/Objects/Media";
-import Variable from "../../Entities/Databases/Actors/Variable/Variable";
 
 export const NAME = 'actors.items'
 
@@ -61,7 +59,7 @@ const scheme: any = {
                 const instance = new Item(value.uuid)
                 instance.name.set(value.name)
                 instance.state.set(value.state)
-                instance.media.set(new Media(value.media.id))
+                instance.mediaUuid.set(value.media.uuid)
 
                 values.push(instance)
             })

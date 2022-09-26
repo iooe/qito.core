@@ -1,12 +1,11 @@
 import {v4 as uuidv4} from 'uuid';
-import Media from "../../../Basic/Objects/Media";
 
 export default class Personality {
 
     private readonly _uuid: string
     private _name: string = ''
     private _value: number = 0
-    private _media: Media = new Media()
+    private _mediaUUid: string = ''
 
     constructor(uuid: string) {
         this._uuid = uuid
@@ -39,12 +38,15 @@ export default class Personality {
         }
     }
 
-    public media = {
+    public mediaUuid = {
         get: () => {
-            return this._media;
+            return this._mediaUUid;
         },
-        set: (value: Media) => {
-            this._media = value
+        set: (value: string) => {
+            this._mediaUUid = value
+        },
+        has: () => {
+            return this._mediaUUid.length > 0
         }
     }
 
@@ -53,7 +55,7 @@ export default class Personality {
             uuid: this._uuid,
             name: this._name,
             media: {
-                id: this._media.path()
+                uuid: this._mediaUUid
             },
             value: this._value
         }
