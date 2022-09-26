@@ -69,26 +69,6 @@ export const scheme: any = {
                     nodeInstance.connection.set(new Connection(nodeRaw.connection.uuid))
                 }
 
-                if (nodeRaw.hasOwnProperty('callbacks')) {
-                    Object.entries(nodeRaw.callbacks).forEach((callbackValue: any) => {
-
-                        const callbackKey = callbackValue[0]
-
-                        callbackValue[1].forEach(((value: any) => {
-
-                            const callbackInstance = new PageCallback()
-                            callbackInstance.type.set(value.type)
-                            callbackInstance.config.set(value)
-
-                            if (value.type === 'narrative') {
-                                callbackInstance.callback.set((store: any) => store.commit('narrative/pushQueue', value.id))
-                            }
-
-                            nodeInstance.callbacks.push(callbackKey, callbackInstance)
-                        }))
-                    })
-                }
-
                 return nodeInstance
             }
             data.forEach(moduleRaw => {

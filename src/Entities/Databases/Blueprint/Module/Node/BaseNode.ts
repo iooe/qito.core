@@ -1,14 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
 import Connection from "../Connection";
-import {Callback} from "./Callback/CallbackContract";
 import {Node} from "./Node";
-
-export const constants = {
-    CALLBACKS: [
-        'onCreated',
-        'onClosed'
-    ]
-} as const;
 
 export default class BaseNode implements Node {
     private _title: string
@@ -16,7 +8,6 @@ export default class BaseNode implements Node {
     private _nodes: Array<Node> = []
 
     private readonly _uuid: string
-    protected _callbacks: Array<{ key: string, values: Array<Callback> }> = [];
     private _data = {
         component: '',
         uuid: ''
@@ -25,8 +16,6 @@ export default class BaseNode implements Node {
     constructor(uuid: string) {
         this._uuid = uuid
         this._title = uuid
-
-        constants.CALLBACKS.forEach(value => this._callbacks.push({key: value, values: []}))
     }
 
     public static create() {
@@ -47,38 +36,6 @@ export default class BaseNode implements Node {
         },
         getUuid: () => {
             return this._data.uuid
-        }
-    }
-    public callbacks = {
-        get: () => {
-            return this._callbacks
-        },
-        first: (key: string) => {
-            const instance = this._callbacks.find(value => value.key === key)
-
-            if (instance === undefined) {
-                return;
-            }
-
-            return instance.values
-        },
-        delete: (key: string, index: number) => {
-            const instance = this._callbacks.find(value => value.key === key)
-
-            if (instance === undefined) {
-                return;
-            }
-
-            instance.values.splice(index, 1)
-        },
-        push: (key: string, callback: Callback) => {
-            const instance = this._callbacks.find(value => value.key === key)
-
-            if (instance === undefined) {
-                return;
-            }
-
-            instance.values.push(callback)
         }
     }
 
@@ -164,21 +121,6 @@ export default class BaseNode implements Node {
     }
 
     public export() {
-        let callbacks: any = {}
-        /*
-                constants.CALLBACKS.forEach(value => callbacks[value] = [])
-        */
-
-        this._callbacks.forEach(value => {
-            value.values.forEach(config => {
-                if (!callbacks.hasOwnProperty(value.key)) {
-                    callbacks[value.key] = []
-                }
-
-                callbacks[value.key].push(config.config.get())
-            })
-        })
-
         let response: any = {
             uuid: this._uuid,
             data: {
@@ -193,10 +135,6 @@ export default class BaseNode implements Node {
 
         if (this._connection !== null) {
             response.connection = this._connection.export()
-        }
-
-        if (Object.keys(callbacks).length > 0) {
-            response.callbacks = callbacks
         }
 
         if (this._nodes.length > 0) {
