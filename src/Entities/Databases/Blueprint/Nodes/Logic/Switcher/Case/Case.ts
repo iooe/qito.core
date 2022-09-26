@@ -41,6 +41,9 @@ export default class Case {
         has: (uuid: string) => {
             return this._data.find((node: Statement) => node.uuid.get() === uuid) !== undefined;
         },
+        count: () => {
+            return this._data.length;
+        },
         delete: (uuid: string) => {
             const index = this._data.findIndex((node: Statement) => node.uuid.get() === uuid)
 
