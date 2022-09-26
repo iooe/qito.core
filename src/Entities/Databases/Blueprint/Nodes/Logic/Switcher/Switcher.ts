@@ -32,7 +32,6 @@ export default class Switcher {
             this._data = nodes
         },
         swap: (node1: Case | number, node2: Case | number) => {
-
             let index1 = -1,
                 index2 = -1
 
