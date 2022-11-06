@@ -1,6 +1,5 @@
 import Module from "../../Entities/Databases/Blueprint/Module/Module";
 import Connection from "../../Entities/Databases/Blueprint/Module/Connection";
-import PageCallback from "../../Entities/Databases/Blueprint/Module/Node/Callback/Callback";
 import BaseNode from "../../Entities/Databases/Blueprint/Module/Node/BaseNode";
 
 export const NAME = 'blueprint.modules'
@@ -69,8 +68,11 @@ export const scheme: any = {
                     nodeInstance.connection.set(new Connection(nodeRaw.connection.uuid))
                 }
 
+                nodeInstance.metadata.setKeywords(nodeRaw.metadata.keywords)
+
                 return nodeInstance
             }
+
             data.forEach(moduleRaw => {
                 const moduleInstance = new Module(moduleRaw.uuid)
                 moduleRaw.nodes.forEach((node: any) => moduleInstance.nodes.add(nodeImporter(node)))
@@ -79,7 +81,7 @@ export const scheme: any = {
 
                 const rootNode = moduleInstance.nodes.first(moduleRaw.rootNodeUuid)
 
-                if(rootNode !== undefined) {
+                if (rootNode !== undefined) {
                     moduleInstance.nodes.root.set(moduleInstance.nodes.first(moduleRaw.rootNodeUuid))
                 }
 
