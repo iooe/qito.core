@@ -59,7 +59,6 @@ export const scheme: any = {
                 const instance = new Character(value.uuid)
                 instance.name.set(value.name)
                 instance.relationship.set(value.relationship)
-                //    instance.media.set(new Media(value.media.uuid))
                 instance.mediaUuid.set(value.media.uuid)
                 instance.type.set(value.type)
                 values.push(instance)
