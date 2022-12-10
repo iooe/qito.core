@@ -1,5 +1,5 @@
 import Part from "../../../Entities/Databases/Blueprint/Nodes/Render/Part/Part";
-import Page from "../../../Entities/Basic/Objects/Page";
+import InteractablePage from "../../../Entities/Structures/InteractableContent/InteractablePage";
 
 export const NAME = 'blueprint.nodes.parts'
 
@@ -43,7 +43,7 @@ export const scheme = {
                 partInstance.title.set(partRaw.title)
 
                 partRaw.pages.forEach((page: any) => {
-                    const pageInstance = new Page(page.uuid)
+                    const pageInstance = new InteractablePage(page.uuid)
                     pageInstance.setBlocks(page.blocks)
                     partInstance.pages.push(pageInstance)
                 })

@@ -1,13 +1,13 @@
-import Paragraph from "../Blocks/Foundation/Paragraph";
-import Image from "../Blocks/Foundation/Image";
-import Choice from "../Blocks/Foundation/Choice";
-import Character from "../Blocks/Foundation/Character";
-import Delimiter from "../Blocks/Foundation/Delimiter";
-import BaseBlock from "../Blocks/BaseBlock";
-import Button from "../Blocks/Foundation/Button";
+import Paragraph from "./Blocks/Foundation/Paragraph";
+import Image from "./Blocks/Foundation/Image";
+import Choice from "./Blocks/Foundation/Choice";
+import Character from "./Blocks/Foundation/Character";
+import Delimiter from "./Blocks/Foundation/Delimiter";
+import BaseBlock from "./Blocks/BaseBlock";
+import Button from "./Blocks/Foundation/Button";
 import {v4 as uuidv4} from 'uuid';
 
-export default class Page {
+export default class InteractablePage {
     protected data: Array<BaseBlock> = []
     private readonly _uuid: string;
 
@@ -16,7 +16,7 @@ export default class Page {
     }
 
     public static create() {
-        return new Page(uuidv4())
+        return new InteractablePage(uuidv4())
     }
 
     public uuid = {
