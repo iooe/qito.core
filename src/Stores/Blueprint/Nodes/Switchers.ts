@@ -1,7 +1,7 @@
 import Switcher from "../../../Entities/Databases/Blueprint/Nodes/Logic/Switcher/Switcher";
-import Expression from "../../../Entities/Basic/Objects/Expression";
-import Case from "../../../Entities/Databases/Blueprint/Nodes/Logic/Switcher/Case/Case";
-import Statement from "../../../Entities/Databases/Blueprint/Nodes/Logic/Switcher/Case/Statement";
+import Rule from "../../../Entities/Structures/Expression/Rule";
+import Case from "../../../Entities/Databases/Blueprint/Nodes/Logic/Switcher/Case";
+import ActorDto from "../../../Entities/Dto/ActorDto";
 import Item from "../../../Entities/Databases/Actors/Item/Item";
 
 export const NAME = 'blueprint.nodes.switchers'
@@ -48,21 +48,20 @@ export const scheme = {
                     const caseInstance = new Case(caseRaw.uuid)
 
                     caseRaw.data.forEach((statementRaw: any) => {
-                        const expression = new Expression()
+                        const expression = new Rule()
                         expression.operator.set(statementRaw.expression.operator)
                         expression.value.set(statementRaw.expression.value)
 
-                        const statementInstance = new Statement(statementRaw.uuid)
+                        const statementInstance = new ActorDto(statementRaw.uuid)
 
                         statementInstance.expression.set(expression)
                         statementInstance.component.setEntity(statementRaw.component.entity)
                         statementInstance.component.setUuid(statementRaw.component.uuid)
 
-                        caseInstance.statements.add(statementInstance)
-
+                        caseInstance.values.add(statementInstance)
                     })
 
-                    switcherInstance.cases.add(caseInstance)
+                    switcherInstance.containers.add(caseInstance)
                 })
 
                 values.push(switcherInstance)

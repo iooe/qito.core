@@ -1,5 +1,5 @@
 import {v4 as uuidv4} from 'uuid';
-import Case from "./Case/Case";
+import Case from "./Case";
 
 export default class Switcher {
 
@@ -27,7 +27,7 @@ export default class Switcher {
         }
     }
 
-    public cases = {
+    public containers = {
         set: (nodes: Array<Case>) => {
             this._data = nodes
         },
