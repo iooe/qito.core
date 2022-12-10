@@ -2,7 +2,6 @@ import Variant from "./Variant";
 import {v4 as uuidv4} from 'uuid';
 
 export default class Choice {
-
     protected _uuid: string
     protected _data: Array<Variant> = []
     protected _title: string
@@ -105,16 +104,6 @@ export default class Choice {
 
         count: () => {
             return this._data.length
-        }
-    }
-
-    public backlinks = {
-        has: {
-            page: (uuid: string): boolean => {
-                return false
-                /*return this.variants.get().find((value: Variant) => value.results.get()
-                    .find((result: ResultContract) => result.constructor.name === PageResult.name && result.getUuid() === uuid)) !== undefined*/
-            }
         }
     }
 }
