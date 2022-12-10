@@ -13,12 +13,13 @@ const TYPES = {
     number: 'number'
 }
 
-export default class Expression {
+export default class Rule {
     private _operator: string = constants.OPERATORS.Equal
     private _value: string | number | boolean = 0
 
     public export() {
         return {
+            type: 'rule',
             operator: this._operator,
             value: this._value,
         }
