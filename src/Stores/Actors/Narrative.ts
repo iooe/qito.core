@@ -1,6 +1,7 @@
 import Narrative from "../../Entities/Databases/Actors/Narrative/Narrative";
-import InteractablePage from "../../Entities/Structures/InteractableContent/InteractablePage";
+import InteractableContainer from "../../Entities/Structures/InteractableContent/InteractableContainer";
 import Fact from "src/Entities/Databases/Actors/Fact/Fact";
+import InteractableContent from "../../Entities/Structures/InteractableContent/InteractableContent";
 
 export const NAME = 'actors.narrative'
 
@@ -46,9 +47,11 @@ export const scheme: any = {
                 instance.styles.set(part.style)
 
                 part.pages.forEach((page: any) => {
-                    const pageInstance = new InteractablePage(page.uuid)
+                    const pageInstance = new InteractableContainer(page.uuid)
 
-                    pageInstance.setBlocks(page.blocks)
+                    page.blocks.forEach(blockRaw => {
+                        pageInstance.blocks.add(new InteractableContent(blockRaw.uuid, blockRaw.type, blockRaw.data))
+                    })
                     instance.pages.push(pageInstance)
                 })
 

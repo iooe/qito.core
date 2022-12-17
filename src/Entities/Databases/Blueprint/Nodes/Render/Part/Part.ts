@@ -1,8 +1,8 @@
 import {v4 as uuidv4} from 'uuid';
-import InteractablePage from "../../../../../Structures/InteractableContent/InteractablePage";
+import InteractableContainer from "../../../../../Structures/InteractableContent/InteractableContainer";
 
 export default class Part {
-    private _pages: Array<InteractablePage> = []
+    private _pages: Array<InteractableContainer> = []
 
     private readonly _uuid: string;
     private _title: string = ''
@@ -16,8 +16,8 @@ export default class Part {
         const instance = new Part(uuidv4())
 
         instance.pages.set([
-            InteractablePage.create(),
-            InteractablePage.create()
+            InteractableContainer.create(),
+            InteractableContainer.create()
         ])
 
         return instance
@@ -37,11 +37,11 @@ export default class Part {
     }
 
     public pages = {
-        set: (pages: Array<InteractablePage>) => {
+        set: (pages: Array<InteractableContainer>) => {
             this._pages = pages
         },
-        replace: (uuid: string, value: InteractablePage) => {
-            const index = this._pages.findIndex((value: InteractablePage) => value.uuid.get() === uuid)
+        replace: (uuid: string, value: InteractableContainer) => {
+            const index = this._pages.findIndex((value: InteractableContainer) => value.uuid.get() === uuid)
 
             if (index === -1) {
                 new Error('Unfinded')
@@ -49,10 +49,10 @@ export default class Part {
 
             this._pages[index] = value
         },
-        get: (): Array<InteractablePage> => {
+        get: (): Array<InteractableContainer> => {
             return this._pages
         },
-        push: (page: InteractablePage) => {
+        push: (page: InteractableContainer) => {
             this._pages.push(page)
         },
         count: () => {
@@ -64,10 +64,10 @@ export default class Part {
                 return this._pages[0]
             }
 
-            return this._pages.find((value: InteractablePage) => value.uuid.get() === uuid)
+            return this._pages.find((value: InteractableContainer) => value.uuid.get() === uuid)
         },
         index: (uuid: string) => {
-            return this._pages.findIndex((value: InteractablePage) => value.uuid.get() === uuid)
+            return this._pages.findIndex((value: InteractableContainer) => value.uuid.get() === uuid)
         },
     }
 
@@ -75,7 +75,7 @@ export default class Part {
         return {
             uuid: this._uuid,
             title: this._title,
-            pages: this._pages.map((value: InteractablePage) => value.export())
+            pages: this._pages.map((value: InteractableContainer) => value.export())
         }
     }
 }

@@ -1,9 +1,9 @@
-import InteractablePage from "../../../Structures/InteractableContent/InteractablePage";
+import InteractableContainer from "../../../Structures/InteractableContent/InteractableContainer";
 import {v4 as uuidv4} from 'uuid';
 
 export default class Narrative {
     private _title: string = ''
-    private _pages: Array<InteractablePage> = []
+    private _pages: Array<InteractableContainer> = []
     private readonly _uuid: string = '';
     private _styles: Array<string> = [];
 
@@ -23,14 +23,14 @@ export default class Narrative {
         get: () => {
             return this._pages
         },
-        push: (page: InteractablePage) => {
+        push: (page: InteractableContainer) => {
             this._pages.push(page)
         },
         count: () => {
             return this._pages.length
         },
         delete: (uuid: string) => {
-            const index = this._pages.findIndex((value: InteractablePage) => value.uuid.get() === uuid)
+            const index = this._pages.findIndex((value: InteractableContainer) => value.uuid.get() === uuid)
 
             if (index === -1) {
                 return
@@ -39,7 +39,7 @@ export default class Narrative {
             this._pages.splice(index, 1)
         },
         index: (uuid: string) => {
-            return this._pages.findIndex((value: InteractablePage) => value.uuid.get() === uuid)
+            return this._pages.findIndex((value: InteractableContainer) => value.uuid.get() === uuid)
         },
         first: (uuid: string = '') => {
 
@@ -47,7 +47,7 @@ export default class Narrative {
                 return this._pages[0]
             }
 
-            return this._pages.find((value: InteractablePage) => value.uuid.get() === uuid)
+            return this._pages.find((value: InteractableContainer) => value.uuid.get() === uuid)
         },
     }
 
@@ -74,7 +74,7 @@ export default class Narrative {
             uuid: this._uuid,
             title: this._title,
             style: this._styles.map((value: string) => value),
-            pages: this._pages.map((page: InteractablePage) => page.export())
+            pages: this._pages.map((page: InteractableContainer) => page.export())
         }
     }
 }
