@@ -1,8 +1,8 @@
-import Switcher from "../../../Entities/Databases/Blueprint/Nodes/Logic/Switcher/Switcher";
-import Rule from "../../../Entities/Structures/Expression/Rule";
-import Case from "../../../Entities/Databases/Blueprint/Nodes/Logic/Switcher/Case";
-import ActorDto from "../../../Entities/Dto/ActorDto";
-import Item from "../../../Entities/Databases/Actors/Item/Item";
+import Switcher from "../../../Models/Blueprint/Nodes/Logic/Switcher/Switcher";
+import Rule from "../../../Structures/Expression/Rule";
+import Case from "../../../Models/Blueprint/Nodes/Logic/Switcher/Case";
+import ActorDto from "../../../Dto/ActorDto";
+import Item from "../../../Models/Actors/Item/Item";
 
 export const NAME = 'blueprint.nodes.switchers'
 

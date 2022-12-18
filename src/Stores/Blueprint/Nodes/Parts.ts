@@ -1,6 +1,6 @@
-import Part from "../../../Entities/Databases/Blueprint/Nodes/Render/Part/Part";
-import InteractableContainer from "../../../Entities/Structures/InteractableContent/InteractableContainer";
-import InteractableContent from "../../../Entities/Structures/InteractableContent/InteractableContent";
+import Part from "../../../Models/Blueprint/Nodes/Render/Part/Part";
+import InteractableContainer from "../../../Structures/InteractableContent/InteractableContainer";
+import InteractableContent from "../../../Structures/InteractableContent/InteractableContent";
 
 export const NAME = 'blueprint.nodes.parts'
 

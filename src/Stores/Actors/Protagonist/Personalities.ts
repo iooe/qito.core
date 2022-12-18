@@ -1,4 +1,4 @@
-import Personality from "../../../Entities/Databases/Actors/Protagonist/Personality";
+import Personality from "../../../Models/Actors/Protagonist/Personality";
 
 export const NAME = 'actors.protagonist.personalities'
 

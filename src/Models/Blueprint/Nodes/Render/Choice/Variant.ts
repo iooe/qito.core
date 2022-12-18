@@ -5,7 +5,7 @@ import ActorDto from "../../../../../Dto/ActorDto";
 import Commit from "../../../../../Structures/Expression/Commit";
 import VariantCommit from "./VariantCommit";
 import VariantCommitsContainer from "./VariantCommitsContainer";
-import Collection from "../../../../../../Structures/Collection";
+import Collection from "../../../../../Structures/Collection";
 
 export default class Variant {
     private _commits: VariantCommitsContainer

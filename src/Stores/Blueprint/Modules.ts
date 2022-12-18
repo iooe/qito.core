@@ -1,6 +1,6 @@
-import Module from "../../Entities/Databases/Blueprint/Module/Module";
-import Connection from "../../Entities/Databases/Blueprint/Module/Connection";
-import BaseNode from "../../Entities/Databases/Blueprint/Module/Node/BaseNode";
+import Module from "../../Models/Blueprint/Module/Module";
+import Connection from "../../Models/Blueprint/Module/Connection";
+import BaseNode from "../../Models/Blueprint/Module/Node/BaseNode";
 
 export const NAME = 'blueprint.modules'
 

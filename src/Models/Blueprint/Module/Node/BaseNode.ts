@@ -1,7 +1,7 @@
 import {v4 as uuidv4} from 'uuid';
 import Connection from '../Connection';
 import {Node} from './Node';
-import Collection from "../../../../../Structures/Collection";
+import Collection from "../../../../Structures/Collection";
 
 export default class BaseNode implements Node {
     private _title: string;

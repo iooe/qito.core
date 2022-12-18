@@ -1,4 +1,4 @@
-import LocalMedia from "../../Entities/Databases/Resources/Media/LocalMedia";
+import LocalMedia from "../../Models/Resources/Media/LocalMedia";
 
 export const NAME = 'resources.media'
 

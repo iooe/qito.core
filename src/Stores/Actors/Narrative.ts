@@ -1,7 +1,7 @@
-import Narrative from "../../Entities/Databases/Actors/Narrative/Narrative";
-import InteractableContainer from "../../Entities/Structures/InteractableContent/InteractableContainer";
+import Narrative from "../../Models/Actors/Narrative/Narrative";
+import InteractableContainer from "../../Structures/InteractableContent/InteractableContainer";
 import Fact from "src/Entities/Databases/Actors/Fact/Fact";
-import InteractableContent from "../../Entities/Structures/InteractableContent/InteractableContent";
+import InteractableContent from "../../Structures/InteractableContent/InteractableContent";
 
 export const NAME = 'actors.narrative'
 

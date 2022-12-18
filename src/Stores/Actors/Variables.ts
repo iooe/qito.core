@@ -1,4 +1,4 @@
-import Variable from "../../Entities/Databases/Actors/Variable/Variable";
+import Variable from "../../Models/Actors/Variable/Variable";
 
 export const NAME = 'actors.variables'
 

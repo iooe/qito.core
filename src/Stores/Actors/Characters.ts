@@ -1,4 +1,4 @@
-import Character from "../../Entities/Databases/Actors/Character/Character";
+import Character from "../../Models/Actors/Character/Character";
 
 export const NAME = 'actors.characters'
 

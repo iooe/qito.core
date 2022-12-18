@@ -1,7 +1,7 @@
 import {v4 as uuidv4} from 'uuid';
 
 import {Node} from "./Node/Node";
-import Collection from "../../../../Structures/Collection";
+import Collection from "../../../Structures/Collection";
 
 export default class Module {
     private _title: string
