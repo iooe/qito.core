@@ -1,29 +1,29 @@
-import Narrative from "../../Models/Actors/Narrative/Narrative";
-import InteractableContainer from "../../Structures/InteractableContent/InteractableContainer";
-import Fact from "src/Entities/Databases/Actors/Fact/Fact";
-import InteractableContent from "../../Structures/InteractableContent/InteractableContent";
+import Narrative from '../../Models/Actors/Narrative/Narrative';
+import InteractableContainer from '../../Structures/InteractableContent/InteractableContainer';
+import Fact from 'src/Entities/Databases/Actors/Fact/Fact';
+import InteractableContent from '../../Structures/InteractableContent/InteractableContent';
 
-export const NAME = 'actors.narrative'
+export const NAME = 'actors.narrative';
 
 export const touch = (state: any) => {
     const length = state.data.length;
-    state.data.push(state.data[length - 1])
-    state.data.splice(length, 1)
-}
+    state.data.push(state.data[length - 1]);
+    state.data.splice(length, 1);
+};
 
 export const scheme: any = {
     namespaced: true,
     state: () => ({
-        data: Array<Narrative>()
+        data: Array<Narrative>(),
     }),
     mutations: {},
     actions: {
         add(context: any, value: Narrative) {
             if (context.getters.first(value.uuid.get()) !== undefined) {
-                return false
+                return false;
             }
 
-            context.state.data.push(value)
+            context.state.data.push(value);
 
             return true;
         },
@@ -31,10 +31,10 @@ export const scheme: any = {
             const index = context.state.data.findIndex((value: Narrative) => value.uuid.get() === uuid);
 
             if (index === -1) {
-                return false
+                return false;
             }
 
-            context.state.data.splice(index, 1)
+            context.state.data.splice(index, 1);
 
             return true;
         },
@@ -42,42 +42,42 @@ export const scheme: any = {
             let values: Array<Narrative> = [];
 
             data.forEach(part => {
-                const instance = new Narrative(part.uuid)
-                instance.title.set(part.title)
-                instance.styles.set(part.style)
+                const instance = new Narrative(part.uuid);
+                instance.title.set(part.title);
+                instance.styles.set(part.style);
 
                 part.pages.forEach((page: any) => {
-                    const pageInstance = new InteractableContainer(page.uuid)
+                    const pageInstance = new InteractableContainer(page.uuid);
 
                     page.blocks.forEach(blockRaw => {
-                        pageInstance.blocks.add(new InteractableContent(blockRaw.uuid, blockRaw.type, blockRaw.data))
-                    })
-                    instance.pages.push(pageInstance)
-                })
+                        pageInstance.blocks.add(new InteractableContent(blockRaw.uuid, blockRaw.type, blockRaw.data));
+                    });
+                    instance.pages.push(pageInstance);
+                });
 
-                values.push(instance)
-            })
+                values.push(instance);
+            });
 
-            context.state.data = values
+            context.state.data = values;
         },
         export(context: any) {
             return {
                 name: NAME,
-                data: context.state.data.map((value: Narrative) => value.export())
-            }
-        }
+                data: context.state.data.map((value: Narrative) => value.export()),
+            };
+        },
     },
     getters: {
         get: (state: any) => {
-            return state.data
+            return state.data;
         },
         first: (state: any) => (uuid: string): Fact => {
             return state.data.find((value: Narrative) => value.uuid.get() === uuid);
         },
         has: (state: any) => (uuid: string): boolean => {
             return state.data.find((value: Narrative) => value.uuid.get() === uuid) !== undefined;
-        }
+        },
     },
-}
+};
 
 export default scheme;

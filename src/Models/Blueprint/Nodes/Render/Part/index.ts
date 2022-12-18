@@ -1,3 +1,3 @@
-import Part from "./Part";
+import Part from './Part';
 
-export default Part
+export default Part;

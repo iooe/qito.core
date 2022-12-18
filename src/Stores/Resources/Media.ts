@@ -1,12 +1,12 @@
-import LocalMedia from "../../Models/Resources/Media/LocalMedia";
+import LocalMedia from '../../Models/Resources/Media/LocalMedia';
 
-export const NAME = 'resources.media'
+export const NAME = 'resources.media';
 
 export const touch = (state: any) => {
     const length = state.data.length;
-    state.data.push(state.data[length - 1])
-    state.data.splice(length, 1)
-}
+    state.data.push(state.data[length - 1]);
+    state.data.splice(length, 1);
+};
 
 export const scheme = {
     namespaced: true,
@@ -16,15 +16,15 @@ export const scheme = {
     mutations: {
         set(state: any, values: Array<LocalMedia>) {
             state.data = values;
-        }
+        },
     },
     actions: {
         add(context: any, value: LocalMedia) {
             if (context.getters.first(value.uuid.get()) !== undefined) {
-                return false
+                return false;
             }
 
-            context.state.data.push(value)
+            context.state.data.push(value);
 
             return true;
         },
@@ -37,7 +37,7 @@ export const scheme = {
 
             context.state.data[index] = value;
 
-            touch(context.state)
+            touch(context.state);
 
             return true;
         },
@@ -45,10 +45,10 @@ export const scheme = {
             const index = context.state.data.findIndex((value: LocalMedia) => value.uuid.get() === uuid);
 
             if (index === -1) {
-                return false
+                return false;
             }
 
-            context.state.data.splice(index, 1)
+            context.state.data.splice(index, 1);
 
             return true;
         },
@@ -56,21 +56,21 @@ export const scheme = {
             let values: Array<LocalMedia> = [];
 
             data.forEach(value => {
-                const instance = new LocalMedia(value.uuid)
-                instance.extension.set(value.extension)
-                instance.type.set(value.type)
+                const instance = new LocalMedia(value.uuid);
+                instance.extension.set(value.extension);
+                instance.type.set(value.type);
 
-                values.push(instance)
-            })
+                values.push(instance);
+            });
 
-            context.commit('set', values)
+            context.commit('set', values);
         },
         export(context: any) {
             return {
                 name: NAME,
-                data: context.state.data.map((value: LocalMedia) => value.export())
-            }
-        }
+                data: context.state.data.map((value: LocalMedia) => value.export()),
+            };
+        },
     },
     getters: {
         first: (state: any) => (uuid: string): LocalMedia => {
@@ -81,8 +81,8 @@ export const scheme = {
         },
         has: (state: any) => (uuid: string): boolean => {
             return state.data.find((value: LocalMedia) => value.uuid.get() === uuid) !== undefined;
-        }
-    }
-}
+        },
+    },
+};
 
-export default scheme
+export default scheme;

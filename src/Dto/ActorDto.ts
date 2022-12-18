@@ -1,48 +1,48 @@
-import {v4 as uuidv4} from "uuid";
-import Rule from "../Structures/Expression/Rule";
-import Commit from "../Structures/Expression/Commit";
+import {v4 as uuidv4} from 'uuid';
+import Rule from '../Structures/Expression/Rule';
+import Commit from '../Structures/Expression/Commit';
 
 export default class ActorDto {
-    private readonly _uuid: string
+    private readonly _uuid: string;
 
     private _component = {
         entity: '',
-        uuid: ''
-    }
+        uuid: '',
+    };
 
-    private _expression: Rule | Commit
+    private _expression: Rule | Commit;
 
     constructor(uuid: string) {
-        this._uuid = uuid
-        this._expression = new Rule()
+        this._uuid = uuid;
+        this._expression = new Rule();
     }
 
     public uuid = {
-        get: () => this._uuid
-    }
+        get: () => this._uuid,
+    };
 
     public static create() {
-        return new ActorDto(uuidv4())
+        return new ActorDto(uuidv4());
     }
 
     public component = {
         setEntity: (entity: string) => {
-            this._component.entity = entity
+            this._component.entity = entity;
         },
         setUuid: (uuid: string) => {
-            this._component.uuid = uuid
+            this._component.uuid = uuid;
         },
         getEntity: () => this._component.entity,
-        getUuid: () => this._component.uuid
-    }
+        getUuid: () => this._component.uuid,
+    };
 
 
     public expression = {
         set: (value: Rule | Commit) => {
-            this._expression = value
+            this._expression = value;
         },
-        get: () => this._expression
-    }
+        get: () => this._expression,
+    };
 
     public export() {
         return {
@@ -52,6 +52,6 @@ export default class ActorDto {
                 entity: this._component.entity,
             },
             expression: this._expression.export(),
-        }
+        };
     }
 }

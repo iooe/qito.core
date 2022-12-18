@@ -1,14 +1,13 @@
-import Fact from "../../Models/Actors/Fact/Fact";
-import Preview from "../../Models/Actors/Fact/Preview/Preview";
-import Item from "../../Models/Actors/Item/Item";
+import Fact from '../../Models/Actors/Fact/Fact';
+import Preview from '../../Models/Actors/Fact/Preview/Preview';
 
-export const NAME = 'actors.facts'
+export const NAME = 'actors.facts';
 
 export const touch = (state: any) => {
     const length = state.data.length;
-    state.data.push(state.data[length - 1])
-    state.data.splice(length, 1)
-}
+    state.data.push(state.data[length - 1]);
+    state.data.splice(length, 1);
+};
 
 export const scheme = {
     namespaced: true,
@@ -20,19 +19,19 @@ export const scheme = {
             state.data = items;
         },
         open(state: any, uuid: string) {
-            state.data.find((item: Fact) => item.uuid.get() === uuid).open()
+            state.data.find((item: Fact) => item.uuid.get() === uuid).open();
         },
         hide(state: any, uuid: string) {
-            state.data.find((item: Fact) => item.uuid.get() === uuid).hide()
-        }
+            state.data.find((item: Fact) => item.uuid.get() === uuid).hide();
+        },
     },
     actions: {
         add(context: any, fact: Fact) {
             if (context.getters.first(fact.uuid.get()) !== undefined) {
-                return false
+                return false;
             }
 
-            context.state.data.push(fact)
+            context.state.data.push(fact);
 
             return true;
         },
@@ -45,7 +44,7 @@ export const scheme = {
 
             context.state.data[index] = value;
 
-            touch(context.state)
+            touch(context.state);
 
             return true;
         },
@@ -53,10 +52,10 @@ export const scheme = {
             const index = context.state.data.findIndex((value: Fact) => value.uuid.get() === uuid);
 
             if (index === -1) {
-                return false
+                return false;
             }
 
-            context.state.data.splice(index, 1)
+            context.state.data.splice(index, 1);
 
             return true;
         },
@@ -64,23 +63,23 @@ export const scheme = {
             let values: Array<Fact> = [];
 
             data.forEach(value => {
-                const instance = new Fact(value.uuid)
+                const instance = new Fact(value.uuid);
 
-                instance.title.set(value.title)
-                instance.preview.set(new Preview(value.preview.message))
-                instance.state.set(value.state)
+                instance.title.set(value.title);
+                instance.preview.set(new Preview(value.preview.message));
+                instance.state.set(value.state);
 
-                values.push(instance)
-            })
+                values.push(instance);
+            });
 
-            context.commit('set', values)
+            context.commit('set', values);
         },
         export(context: any) {
             return {
                 name: NAME,
-                data: context.state.data.map((value: Fact) => value.export())
-            }
-        }
+                data: context.state.data.map((value: Fact) => value.export()),
+            };
+        },
     },
     getters: {
         first: (state: any) => (uuid: string): Fact => {
@@ -91,8 +90,8 @@ export const scheme = {
         },
         has: (state: any) => (uuid: string): boolean => {
             return state.data.find((value: Fact) => value.uuid.get() === uuid && value.state.get()) !== undefined;
-        }
-    }
-}
+        },
+    },
+};
 
-export default scheme
+export default scheme;

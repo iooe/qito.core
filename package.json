@@ -8,5 +8,13 @@
   "private": false,
   "dependencies": {
     "@types/uuid": "^8.3.4"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
+    "eslint": "^8.30.0"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .ts"
   }
 }

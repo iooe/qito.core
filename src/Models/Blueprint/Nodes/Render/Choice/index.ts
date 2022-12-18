@@ -1,3 +1,3 @@
-import Choice from "./Choice";
+import Choice from './Choice';
 
-export default Choice
+export default Choice;
