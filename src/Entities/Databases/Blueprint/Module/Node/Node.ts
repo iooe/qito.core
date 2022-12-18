@@ -19,7 +19,6 @@ export interface Node {
     nodes: {
         set(nodes: Array<Node>),
         first(uuid: string),
-        swap(node1: Node | number, node2: Node | number),
         has(uuid: string),
         add(node: Node),
         delete(uuid: string),

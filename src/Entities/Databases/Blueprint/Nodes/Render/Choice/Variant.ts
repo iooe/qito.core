@@ -5,10 +5,11 @@ import ActorDto from "../../../../../Dto/ActorDto";
 import Commit from "../../../../../Structures/Expression/Commit";
 import VariantCommit from "./VariantCommit";
 import VariantCommitsContainer from "./VariantCommitsContainer";
+import Collection from "../../../../../../Structures/Collection";
 
 export default class Variant {
     private _commits: VariantCommitsContainer
-    private _rules: Array<VariantRulesContainer> = []
+    private _rules = new Collection('uuid')
     private _name: string = '';
     private readonly _uuid: string
 
@@ -35,63 +36,24 @@ export default class Variant {
     }
 
     public commits = {
-        add: (value: VariantCommit) => {
-            return this._commits.values.add(value)
-        },
-        first: (uuid: string = ''): VariantCommit | undefined => {
-            return this._commits.values.first(uuid);
-        },
-        get: (): Array<VariantCommit> => {
-            return this._commits
-        },
-        delete: (uuid: string) => {
-            this._commits.values.delete(uuid)
-        }
+        add: (value: VariantCommit) => this._commits.values.add(value),
+        first: (uuid: string = ''): VariantCommit | undefined => this._commits.values.first(uuid),
+        get: (): VariantCommitsContainer => this._commits,
+        delete: (uuid: string) => this._commits.values.delete(uuid)
     }
 
     public rules = {
-        add: (value: VariantRulesContainer) => {
-            return this._rules.push(value)
-        },
-        first: (uuid: string = ''): VariantRulesContainer | undefined => {
-            if (this._rules.length === 0) {
-                return undefined
-            }
-
-            if (uuid.length === 0) {
-                return this._rules[0]
-            }
-
-            return this._rules.find((value: VariantRulesContainer) => value.uuid.get() === uuid);
-        },
-        edit: (newValue: VariantRulesContainer) => {
-            const index = this._rules.findIndex((value: VariantRulesContainer) => value.uuid.get() === newValue.uuid.get())
-
-            if (index === -1) {
-                return
-            }
-
-            this._rules[index] = newValue
-        },
-        get: (): Array<VariantRulesContainer> => {
-            return this._rules
-        },
-        delete: (uuid: string) => {
-            const index = this._rules.findIndex((value: VariantRulesContainer) => value.uuid.get() === uuid)
-
-            if (index === -1) {
-                return
-            }
-
-            this._rules.splice(index, 1)
-        }
+        add: (value: VariantRulesContainer) => this._rules.add(value),
+        first: (uuid: string = ''): VariantRulesContainer | undefined => this._rules.first(uuid),
+        get: (): Array<VariantRulesContainer> => this._rules.get(),
+        delete: (uuid: string) => this._rules.delete(uuid)
     }
 
     public export() {
         return {
             uuid: this._uuid,
             name: this._name,
-            rules: this._rules.map((value: VariantRulesContainer) => value.export()),
+            rules: this._rules.get().map((value: VariantRulesContainer) => value.export()),
             commits: this._commits.export()
         }
     }
@@ -115,7 +77,7 @@ export default class Variant {
                 containerInstance.values.add(statementInstance)
             })
 
-            this._rules.push(containerInstance)
+            this._rules.add(containerInstance)
         })
 
         // @ts-ignore

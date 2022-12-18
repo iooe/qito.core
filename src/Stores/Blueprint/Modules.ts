@@ -79,10 +79,10 @@ export const scheme: any = {
 
                 moduleInstance.title.set(moduleRaw.title)
 
-                const rootNode = moduleInstance.nodes.first(moduleRaw.rootNodeUuid)
-
-                if (rootNode !== undefined) {
-                    moduleInstance.nodes.root.set(moduleInstance.nodes.first(moduleRaw.rootNodeUuid))
+                if (moduleInstance.nodes.has(moduleRaw.rootNodeUuid)) {
+                    moduleInstance.nodes.root.set(moduleRaw.rootNodeUuid)
+                } else {
+                    ///
                 }
 
                 context.dispatch('addModule', moduleInstance)

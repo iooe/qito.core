@@ -1,12 +1,13 @@
 import {v4 as uuidv4} from 'uuid';
 
 import {Node} from "./Node/Node";
+import Collection from "../../../../Structures/Collection";
 
 export default class Module {
-    private _title: string = ''
-    private readonly _uuid: string = ''
-    private _rootNodeUuid: string = ''
-    private _nodes: Array<Node> = [];
+    private _title: string
+    private readonly _uuid: string
+    private _rootNodeUuid = ''
+    private _nodes = new Collection('uuid')
 
     constructor(uuid: string) {
         this._uuid = uuid
@@ -32,67 +33,24 @@ export default class Module {
 
     public nodes = {
         root: {
-            set: (node: Node) => {
-                if (!this.nodes.has(node.uuid.get())) {
-                    this.nodes.add(node)
+            set: (uuid: string) => {
+                if (!this._nodes.has(uuid)) {
+                    return;
                 }
 
-                this._rootNodeUuid = node.uuid.get()
+                this._rootNodeUuid = uuid;
             },
             get: () => {
-                return this.nodes.first(this._rootNodeUuid)
+                return this._nodes.first(this._rootNodeUuid)
             }
         },
-        first: (uuid: string = '') => {
-            if (uuid.length === 0) {
-                return this._nodes[0]
-            }
-
-            return this._nodes.find((node: Node) => node.uuid.get() === uuid)
-        },
-        has: (uuid: string) => {
-            return this._nodes.find((node: Node) => node.uuid.get() === uuid) !== undefined;
-        },
-        delete: (uuid: string) => {
-            const index = this._nodes.findIndex((node: Node) => node.uuid.get() === uuid)
-
-            if (index === -1) {
-                return
-            }
-
-            this._nodes.splice(index, 1)
-        },
-        get: () => {
-            return this._nodes
-        },
-        add: (node: Node) => {
-            this._nodes.push(node)
-        },
-        push: (node: Node) => {
-            this._nodes.push(node)
-        },
-        update: (node: Node) => {
-            //@ts-ignore
-            const index = this._nodes.findIndex(value => value.uuid.get() === node.uuid.get())
-
-            if (index === -1) {
-                return
-            }
-
-            this._nodes[index] = node
-        },
-        isCursored: (uuid: string) => {
-            return this._nodes.find((node: Node) => {
-                if (!node.connection.has()) {
-                    return false
-                }
-
-                return node.connection.get().uuid() === uuid
-            })
-        },
-        isEmpty: () => {
-            return this._nodes.length === 0
-        }
+        first: (uuid: string = ''): Node | undefined => this._nodes.first(uuid),
+        has: (uuid: string): boolean => this._nodes.has(uuid),
+        delete: (uuid: string) => this._nodes.delete(uuid),
+        get: () => this._nodes.get(),
+        add: (value: Node) => this._nodes.add(value),
+        update: (node: Node) => this._nodes.replace(node.uuid.get(), node),
+        isEmpty: (): boolean => this._nodes.isEmpty()
     }
 
     public export() {
@@ -100,7 +58,7 @@ export default class Module {
             uuid: this._uuid,
             title: this._title,
             rootNodeUuid: this._rootNodeUuid,
-            nodes: this._nodes.map((node: Node) => node.export())
+            nodes: this._nodes.get().map((node: Node) => node.export())
         }
     }
 }

@@ -1,10 +1,11 @@
 import {v4 as uuidv4} from "uuid";
 import ActorDto from "./ActorDto";
 import ActorsContainer from "./ActorsContainer";
+import Collection from "../../Structures/Collection";
 
 export default class ActorDtosContainer implements ActorsContainer {
     private readonly _uuid: string
-    private _data: Array<ActorDto> = []
+    private _data = new Collection('uuid')
 
     constructor(uuid: string) {
         this._uuid = uuid
@@ -19,49 +20,17 @@ export default class ActorDtosContainer implements ActorsContainer {
     }
 
     public values = {
-        add: (value: ActorDto) => {
-            this._data.push(value)
-        },
-        replace: (uuid: string, value: ActorDto) => {
-            const index = this._data.findIndex((value: ActorDto) => value.uuid.get() === uuid)
-
-            if (index === -1) {
-                new Error('undefined')
-            }
-
-            this._data[index] = value
-        },
-        first: (uuid: string = '') => {
-            if (uuid.length === 0) {
-                return this._data[0]
-            }
-
-            return this._data.find((node: ActorDto) => node.uuid.get() === uuid)
-        },
-        has: (uuid: string) => {
-            return this._data.find((node: ActorDto) => node.uuid.get() === uuid) !== undefined;
-        },
-        count: () => {
-            return this._data.length;
-        },
-        delete: (uuid: string) => {
-            const index = this._data.findIndex((node: ActorDto) => node.uuid.get() === uuid)
-
-            if (index === -1) {
-                return
-            }
-
-            this._data.splice(index, 1)
-        },
-        get: () => {
-            return this._data
-        }
+        add: (value: ActorDto) => this._data.add(value),
+        replace: (uuid: string, value: ActorDto) => this._data.replace(uuid, value),
+        first: (uuid: string = '') => this._data.first(uuid),
+        delete: (uuid: string) => this._data.delete(uuid),
+        get: () => this._data.get()
     }
 
     public export() {
         return {
             uuid: this._uuid,
-            data: this._data.map(value => value.export())
+            data: this._data.get().map(value => value.export())
         }
     }
 }
