@@ -12,6 +12,17 @@ export default class Collection {
 
     public add(value, index: number | undefined = undefined) {
         if (index === undefined) {
+            // refactor it in future
+            // eslint-disable-next-line no-prototype-builtins
+            if (typeof value === 'object' && value.hasOwnProperty(this._key)) {
+                if (value[this._key].hasOwnProperty('get') && this.firstIndex(value[this._key].get()) !== -1) {
+                    return;
+                } else {
+                    if (this.firstIndex(value[this._key].get()) !== -1) {
+                        return;
+                    }
+                }
+            }
             return this._values.push(value);
         }
 
@@ -24,18 +35,19 @@ export default class Collection {
 
         if (index === -1) {
             new Error('undefined');
+            return;
         }
 
         this._values[index] = value;
     }
 
-    public firstIndex(id = ''): number {
+    public firstIndex(id: string): number {
         if (this._values.length === 0) {
-            return undefined;
+            return -1;
         }
 
-        if (id.length === 0) {
-            return 0;
+        if (typeof id !== 'string' || id.length === 0) {
+            return -1;
         }
 
         return this._values.findIndex((model) => {
