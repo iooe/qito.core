@@ -10,24 +10,20 @@ export default class Collection {
         this._values = values;
     }
 
-    public add(value, index: number | undefined = undefined) {
-        if (index === undefined) {
-            // refactor it in future
-            // eslint-disable-next-line no-prototype-builtins
-            if (typeof value === 'object' && value.hasOwnProperty(this._key)) {
-                if (value[this._key].hasOwnProperty('get') && this.firstIndex(value[this._key].get()) !== -1) {
+    public add(value) {
+        // refactor it in future
+        // eslint-disable-next-line no-prototype-builtins
+        if (typeof value === 'object' && value.hasOwnProperty(this._key)) {
+            if (value[this._key].hasOwnProperty('get') && this.firstIndex(value[this._key].get()) !== -1) {
+                return;
+            } else {
+                if (this.firstIndex(value[this._key].get()) !== -1) {
                     return;
-                } else {
-                    if (this.firstIndex(value[this._key].get()) !== -1) {
-                        return;
-                    }
                 }
             }
-            return this._values.push(value);
         }
 
-        this._values[index] = value;
-        return value;
+        return this._values.push(value);
     }
 
     public replace(id: string, value: never) {
@@ -38,7 +34,7 @@ export default class Collection {
             return;
         }
 
-        this._values[index] = value;
+        this._values.splice(index, 1, value);
     }
 
     public firstIndex(id: string): number {
