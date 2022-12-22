@@ -1,10 +1,11 @@
 import {v4 as uuidv4} from 'uuid';
-import Case from './Case';
+import type Case from './Case';
+import Collection from '../../../../../Structures/Collection';
 
 export default class Switcher {
 
     protected _uuid: string;
-    protected _data: Array<Case> = [];
+    protected _collection = new Collection('uuid');
 
     constructor(uuid: string) {
         this._uuid = uuid;
@@ -23,59 +24,16 @@ export default class Switcher {
     public export() {
         return {
             uuid: this._uuid,
-            data: this._data.map((value: Case) => value.export()),
+            data: this._collection.get().map((value: Case) => value.export()),
         };
     }
 
     public containers = {
-        set: (nodes: Array<Case>) => {
-            this._data = nodes;
-        },
-        swap: (node1: Case | number, node2: Case | number) => {
-            let index1 = -1,
-                index2 = -1;
-
-            if (node1 instanceof Case) {
-                index1 = this._data.findIndex((node: Case) => node.uuid.get() === node1.uuid.get());
-            } else {
-                index1 = node1;
-                node1 = this._data[node1];
-            }
-
-            if (node2 instanceof Case) {
-                index2 = this._data.findIndex((node: Case) => node.uuid.get() === node2.uuid.get());
-            } else {
-                index2 = node2;
-                node2 = this._data[node2];
-            }
-
-            this._data[index1] = node2;
-            this._data[index2] = node1;
-        },
-        first: (uuid: string = '') => {
-            if (uuid.length === 0) {
-                return this._data[0];
-            }
-
-            return this._data.find((node: Case) => node.uuid.get() === uuid);
-        },
-        has: (uuid: string) => {
-            return this._data.find((node: Case) => node.uuid.get() === uuid) !== undefined;
-        },
-        delete: (uuid: string) => {
-            const index = this._data.findIndex((node: Case) => node.uuid.get() === uuid);
-
-            if (index === -1) {
-                return;
-            }
-
-            this._data.splice(index, 1);
-        },
-        get: () => {
-            return this._data;
-        },
-        add: (node: Case) => {
-            this._data.push(node);
-        },
+        set: (values: Array<Case>) => this._collection.set(values),
+        first: (uuid: string) => this._collection.first(uuid),
+        has: (uuid: string) => this._collection.has(uuid),
+        delete: (uuid: string) => this._collection.delete(uuid),
+        get: (): Array<Case> => this._collection.get(),
+        add: (value: Case) => this._collection.add(value),
     };
 }
