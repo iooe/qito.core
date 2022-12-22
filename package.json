@@ -1,7 +1,8 @@
 {
-  "name": "hanzo.core",
+  "name": "qito.core",
+  "version": "0.6.9",
   "main": "index.js",
-  "repository": "https://github.com/tizis/hanzo.core.git",
+  "repository": "https://github.com/iooe/qito.core.git",
   "author": "a bit cat",
   "license": "MIT",
   "private": false,
