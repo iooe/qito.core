@@ -2,6 +2,9 @@ export default {
     part: {
         name: 'part',
     },
+    module: {
+        name: 'module',
+    },
     choice: {
         name: 'choice',
         variant: {
