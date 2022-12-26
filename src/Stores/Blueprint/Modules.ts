@@ -55,15 +55,10 @@ export const scheme: any = {
                 const nodeInstance = new BaseNode(nodeRaw.uuid);
 
                 nodeInstance.data.set(nodeRaw.data.component, nodeRaw.data.uuid);
+                nodeInstance.title.set(nodeRaw.metadata.title);
+                nodeRaw.nodes.forEach((nodeSubRaw: never) => nodeInstance.nodes.add(nodeImporter(nodeSubRaw)));
 
-                if (nodeRaw.hasOwnProperty('title')) {
-                    nodeInstance.title.set(nodeRaw.title);
-                }
-
-                if (nodeRaw.hasOwnProperty('nodes')) {
-                    nodeRaw.nodes.forEach((nodeSubRaw: any) => nodeInstance.nodes.add(nodeImporter(nodeSubRaw)));
-                }
-
+                // eslint-disable-next-line no-prototype-builtins
                 if (nodeRaw.hasOwnProperty('connection') && nodeRaw.connection !== null && Object.keys(nodeRaw.connection).length > 0) {
                     nodeInstance.connection.set(new Connection(nodeRaw.connection.uuid));
                 }
@@ -76,14 +71,9 @@ export const scheme: any = {
             data.forEach(moduleRaw => {
                 const moduleInstance = new Module(moduleRaw.uuid);
                 moduleRaw.nodes.forEach((node: any) => moduleInstance.nodes.add(nodeImporter(node)));
+                moduleInstance.title.set(moduleRaw.metadata.title);
 
-                moduleInstance.title.set(moduleRaw.title);
-
-                if (moduleInstance.nodes.has(moduleRaw.rootNodeUuid)) {
-                    moduleInstance.nodes.root.set(moduleRaw.rootNodeUuid);
-                } else {
-                    ///
-                }
+                moduleInstance.setInputUuid(moduleRaw.data.inputUuid);
 
                 context.dispatch('addModule', moduleInstance);
             });

@@ -1,12 +1,16 @@
 import {v4 as uuidv4} from 'uuid';
 
-import {Node} from './Node/Node';
+import type {Node} from './Node/Node';
 import Collection from '../../../Structures/Collection';
 
 export default class Module {
     private _title: string;
     private readonly _uuid: string;
-    private _rootNodeUuid = '';
+    private _data = {
+        inputUuid: '',
+        outputUuid: '',
+    };
+
     private _nodes = new Collection('uuid');
 
     constructor(uuid: string) {
@@ -31,19 +35,39 @@ export default class Module {
         },
     };
 
-    public nodes = {
-        root: {
-            set: (uuid: string) => {
-                if (!this._nodes.has(uuid)) {
-                    return;
-                }
+    public setInputUuid(uuid: string) {
+        if (!this._nodes.has(uuid)) {
+            return;
+        }
 
-                this._rootNodeUuid = uuid;
-            },
-            get: () => {
-                return this._nodes.first(this._rootNodeUuid);
-            },
-        },
+        this._data.inputUuid = uuid;
+    }
+
+    public getInputUuid() {
+        return this._data.inputUuid;
+    }
+
+    public setOutputUuid(uuid: string) {
+        if (!this._nodes.has(uuid)) {
+            return;
+        }
+
+        this._data.outputUuid = uuid;
+    }
+
+    public getOutputUuid() {
+        return this._data.outputUuid;
+    }
+
+    public getInputNode() {
+        return this._nodes.first(this._data.inputUuid);
+    }
+
+    public getOutputNode() {
+        return this._nodes.first(this._data.inputUuid);
+    }
+
+    public nodes = {
         first: (uuid: string = ''): Node | undefined => this._nodes.first(uuid),
         has: (uuid: string): boolean => this._nodes.has(uuid),
         delete: (uuid: string) => this._nodes.delete(uuid),
@@ -56,8 +80,13 @@ export default class Module {
     public export() {
         return {
             uuid: this._uuid,
-            title: this._title,
-            rootNodeUuid: this._rootNodeUuid,
+            metadata: {
+                title: this._title,
+            },
+            data: {
+                inputUuid: this._data.inputUuid,
+                outputUuid: this._data.outputUuid,
+            },
             nodes: this._nodes.get().map((node: Node) => node.export()),
         };
     }
