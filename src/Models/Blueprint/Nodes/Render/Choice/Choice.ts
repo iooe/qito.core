@@ -1,9 +1,10 @@
-import Variant from './Variant';
+import type Variant from './Variant';
 import {v4 as uuidv4} from 'uuid';
+import Collection from '../../../../../Structures/Collection';
 
 export default class Choice {
     protected _uuid: string;
-    protected _data: Array<Variant> = [];
+    protected _collection = new Collection('uuid');
     protected _title: string;
 
     constructor(uuid: string) {
@@ -31,79 +32,15 @@ export default class Choice {
     public export() {
         return {
             uuid: this._uuid,
-            title: this._title,
-            data: this._data.map((value: Variant) => value.export()),
+            metadata: {
+                title: this._title,
+            },
+            data: this._collection.get().map((value: Variant) => value.export()),
         };
     }
 
     public variants = {
-        import: (value: any) => {
-            const variantInstance = new Variant(value.uuid);
-            variantInstance.name.set(value.name);
-            variantInstance.import(value);
-
-            this._data.push(variantInstance);
-        },
-
-        moveUp: (index: number) => {
-            if (this._data.length < 2) {
-                return;
-            }
-
-            if (index === 0) {
-                return;
-            }
-
-            const temp = this._data[index - 1];
-            this._data[index - 1] = this._data[index];
-            this._data[index] = temp;
-        },
-
-        moveDown: (index: number) => {
-            if (this._data.length < 2) {
-                return;
-            }
-
-            if (index === this._data.length - 1) {
-                return;
-            }
-
-            const temp = this._data[index + 1];
-            this._data[index + 1] = this._data[index];
-            this._data[index] = temp;
-        },
-
-        add: (value: Variant) => {
-            this._data.push(value);
-        },
-
-        delete: (index: number) => {
-            this._data.splice(index, 1);
-        },
-
-        unshift: (value: Variant) => {
-            this._data.unshift(value);
-        },
-
-        first: (uuid: string = '') => {
-
-            if (uuid.length === 0) {
-                return this._data[0];
-            }
-
-            return this._data.find((value: Variant) => value.uuid.get() === uuid);
-        },
-
-        get: () => {
-            return this._data;
-        },
-
-        has: () => {
-            return this._data.length > 0;
-        },
-
-        count: () => {
-            return this._data.length;
-        },
+        add: (value: Variant) => this._collection.add(value),
+        first: (uuid = '') => this._collection.first(uuid),
     };
 }

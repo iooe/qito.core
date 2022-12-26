@@ -1,4 +1,10 @@
 import Choice from '../../../Models/Blueprint/Nodes/Render/Choice/Choice';
+import Variant from '../../../Models/Blueprint/Nodes/Render/Choice/Variant';
+import VariantRulesContainer from '../../../Models/Blueprint/Nodes/Render/Choice/VariantRulesContainer';
+import Rule from '../../../Structures/Expression/Rule';
+import ActorDto from '../../../Dto/ActorDto';
+import VariantCommitsContainer from '../../../Models/Blueprint/Nodes/Render/Choice/VariantCommitsContainer';
+import Commit from '../../../Structures/Expression/Commit';
 
 export const NAME = 'blueprint.nodes.choices';
 
@@ -37,10 +43,63 @@ export const scheme = {
         import(context: any, data: Array<any>) {
             const values: Array<Choice> = [];
 
+
+            const variantImporter = (variantInstance, variantRaw) => {
+                variantRaw.rules.forEach(container => {
+                    const containerInstance = new VariantRulesContainer(container.uuid);
+
+                    container.data.forEach((expressionRawData: any) => {
+                        const expression = new Rule();
+                        expression.operator.set(expressionRawData.expression.operator);
+                        expression.value.set(expressionRawData.expression.value);
+
+                        const statementInstance = new ActorDto(expressionRawData.uuid);
+
+                        statementInstance.expression.set(expression);
+                        statementInstance.component.setEntity(expressionRawData.component.entity);
+                        statementInstance.component.setUuid(expressionRawData.component.uuid);
+
+                        containerInstance.values.add(statementInstance);
+                    });
+
+                    variantInstance.rules.add(containerInstance);
+                });
+
+                const commitsContainer = new VariantCommitsContainer(variantRaw.commits.uuid);
+
+                variantRaw.commits.data.forEach(expressionRawData => {
+                    const expression = new Commit();
+                    expression.value.set(expressionRawData.expression.value);
+
+                    const statementInstance = new ActorDto(expressionRawData.uuid);
+
+                    statementInstance.expression.set(expression);
+                    statementInstance.component.setEntity(expressionRawData.component.entity);
+                    statementInstance.component.setUuid(expressionRawData.component.uuid);
+
+                    commitsContainer.values.add(statementInstance);
+                });
+
+                variantInstance.commits.set(commitsContainer);
+
+                return variantInstance;
+            };
+
             data.map(value => {
                 const instance = new Choice(value.uuid);
-                instance.title.set(value.title);
-                value.data.forEach((variant: object) => instance.variants.import(variant));
+
+                instance.title.set(value.metadata.title);
+
+                value.data.forEach((variantRaw: object) => {
+                    let variantInstance = new Variant(variantRaw.uuid);
+                    variantInstance.title.set(variantRaw.metadata.title);
+
+                    variantInstance = variantImporter(variantInstance, variantRaw);
+
+                    console.log(variantInstance);
+                    instance.variants.add(variantInstance);
+                });
+
 
                 values.push(instance);
             });
