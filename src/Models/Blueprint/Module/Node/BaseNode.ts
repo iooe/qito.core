@@ -123,20 +123,18 @@ export default class BaseNode implements Node {
     };
 
     public export() {
-        let response: any = {
+        const response: any = {
             uuid: this._uuid,
             data: {
                 component: this._data.component,
                 uuid: this._data.uuid,
             },
             metadata: {
+                title: this._title,
                 keywords: [...this._metadata.keywords],
             },
+            nodes: [],
         };
-
-        if (this._title !== this._uuid) {
-            response.title = this._title;
-        }
 
         if (this._connection !== null) {
             response.connection = this._connection.export();
