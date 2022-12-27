@@ -1,8 +1,8 @@
-import Part from '../../../Models/Blueprint/Nodes/Part/Part';
+import TextNode from '../../../Models/Blueprint/Nodes/TextNode/TextNode';
 import InteractableContainer from '../../../Structures/InteractableContent/InteractableContainer';
 import InteractableContent from '../../../Structures/InteractableContent/InteractableContent';
 
-export const NAME = 'blueprint.nodes.parts';
+export const NAME = 'blueprint.nodes.texts';
 
 export const touch = (state: any) => {
     const length = state.data.length;
@@ -16,7 +16,7 @@ export const scheme = {
         data: Array<any>(),
     }),
     actions: {
-        add(context: any, value: Part) {
+        add(context: any, value: TextNode) {
             if (context.getters.first(value.uuid.get()) !== undefined) {
                 return false;
             }
@@ -26,7 +26,7 @@ export const scheme = {
             return true;
         },
         remove(context: any, uuid: string) {
-            const index = context.state.data.findIndex((value: Part) => value.uuid.get() === uuid);
+            const index = context.state.data.findIndex((value: TextNode) => value.uuid.get() === uuid);
 
             if (index === -1) {
                 return false;
@@ -37,10 +37,10 @@ export const scheme = {
             return true;
         },
         import(context: any, data: Array<any>) {
-            const values: Array<Part> = [];
+            const values: Array<TextNode> = [];
 
             data.forEach((partRaw: any) => {
-                const partInstance = new Part(partRaw.uuid);
+                const partInstance = new TextNode(partRaw.uuid);
                 partInstance.title.set(partRaw.title);
 
                 partRaw.pages.forEach((page: any) => {
@@ -61,7 +61,7 @@ export const scheme = {
         export(context: any) {
             return {
                 name: NAME,
-                data: context.state.data.map((item: Part) => item.export()),
+                data: context.state.data.map((item: TextNode) => item.export()),
             };
         },
     },
@@ -70,9 +70,9 @@ export const scheme = {
             return state.data;
         },
         has: (state: any) => (uuid: string) => {
-            return state.data.find((value: Part) => value.uuid.get() === uuid) !== undefined;
+            return state.data.find((value: TextNode) => value.uuid.get() === uuid) !== undefined;
         },
-        first: (state: any) => (uuid: string = ''): Part | undefined => {
+        first: (state: any) => (uuid: string = ''): TextNode | undefined => {
             if (state.data.length === 0) {
                 return undefined;
             }
@@ -81,7 +81,7 @@ export const scheme = {
                 return state.data[0];
             }
 
-            return state.data.find((value: Part) => value.uuid.get() === uuid);
+            return state.data.find((value: TextNode) => value.uuid.get() === uuid);
         },
     },
 };

@@ -1,6 +1,6 @@
 export default {
-    part: {
-        name: 'part',
+    text: {
+        name: 'text',
     },
     module: {
         name: 'module',

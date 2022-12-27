@@ -2,7 +2,7 @@ import {v4 as uuidv4} from 'uuid';
 import InteractableContainer from '../../../../Structures/InteractableContent/InteractableContainer';
 import Collection from '../../../../Structures/Collection';
 
-export default class Part {
+export default class TextNode {
     private _pages = new Collection('uuid');
 
     private readonly _uuid: string;
@@ -14,7 +14,7 @@ export default class Part {
     }
 
     public static create() {
-        const instance = new Part(uuidv4());
+        const instance = new TextNode(uuidv4());
 
         instance.pages.add(InteractableContainer.create());
         instance.pages.add(InteractableContainer.create());
