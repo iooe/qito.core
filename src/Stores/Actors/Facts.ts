@@ -26,12 +26,12 @@ export const scheme = {
         },
     },
     actions: {
-        add(context: any, fact: Fact) {
-            if (context.getters.first(fact.uuid.get()) !== undefined) {
+        add(context: any, value: Fact) {
+            if (context.getters.first(value.uuid.get()) !== undefined) {
                 return false;
             }
 
-            context.state.data.push(fact);
+            context.state.data.push(value);
 
             return true;
         },
@@ -42,7 +42,7 @@ export const scheme = {
                 throw false;
             }
 
-            context.state.data[index] = value;
+            context.state.data.splice(index, 1, value);
 
             touch(context.state);
 

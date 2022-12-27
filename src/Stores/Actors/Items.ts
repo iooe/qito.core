@@ -35,7 +35,7 @@ const scheme: any = {
                 throw false;
             }
 
-            context.state.data[index] = value;
+            context.state.data.splice(index, 1, value);
 
             touch(context.state);
 
