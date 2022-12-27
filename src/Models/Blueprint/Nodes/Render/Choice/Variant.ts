@@ -1,7 +1,7 @@
-import VariantRulesContainer from './VariantRulesContainer';
+import type VariantRulesContainer from './VariantRulesContainer';
 import {v4 as uuidv4} from 'uuid';
 import type VariantCommit from './VariantCommit';
-import VariantCommitsContainer from './VariantCommitsContainer';
+import type VariantCommitsContainer from './VariantCommitsContainer';
 import Collection from '../../../../../Structures/Collection';
 
 export default class Variant {
