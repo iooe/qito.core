@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
 import type Case from './Case';
-import Collection from '../../../../../Structures/Collection';
+import Collection from '../../../../Structures/Collection';
 
 export default class Switcher {
 

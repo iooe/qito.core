@@ -1,6 +1,6 @@
 import type Variant from './Variant';
 import {v4 as uuidv4} from 'uuid';
-import Collection from '../../../../../Structures/Collection';
+import Collection from '../../../../Structures/Collection';
 
 export default class Choice {
     protected _uuid: string;

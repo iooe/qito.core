@@ -1,4 +1,4 @@
-import Part from '../../../Models/Blueprint/Nodes/Render/Part/Part';
+import Part from '../../../Models/Blueprint/Nodes/Part/Part';
 import InteractableContainer from '../../../Structures/InteractableContent/InteractableContainer';
 import InteractableContent from '../../../Structures/InteractableContent/InteractableContent';
 

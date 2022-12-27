@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
-import InteractableContainer from '../../../../../Structures/InteractableContent/InteractableContainer';
-import Collection from "../../../../../Structures/Collection";
+import InteractableContainer from '../../../../Structures/InteractableContent/InteractableContainer';
+import Collection from '../../../../Structures/Collection';
 
 export default class Part {
     private _pages = new Collection('uuid');
@@ -37,20 +37,11 @@ export default class Part {
 
     public pages = {
         replace: (uuid: string, value: InteractableContainer) => this._pages.replace(uuid, value),
-        /*    replace: (uuid: string, value: InteractableContainer) => {
-                const index = this._pages.findIndex((value: InteractableContainer) => value.uuid.get() === uuid);
-
-                if (index === -1) {
-                    new Error('Unfinded');
-                }
-
-                this._pages[index] = value;
-            },*/
         get: (): Array<InteractableContainer> => this._pages.get(),
         add: (value: InteractableContainer) => this._pages.add(value),
-        count: () => this._pages.count(),
-        first: (uuid = '') => this._pages.first(uuid),
-        firstIndex: (uuid: string) => this._pages.firstIndex(uuid),
+        count: (): number => this._pages.count(),
+        first: (uuid = ''): InteractableContainer | undefined => this._pages.first(uuid),
+        firstIndex: (uuid: string): number => this._pages.firstIndex(uuid),
     };
 
     public export() {

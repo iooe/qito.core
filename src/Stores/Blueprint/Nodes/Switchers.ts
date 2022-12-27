@@ -1,6 +1,6 @@
-import Switcher from '../../../Models/Blueprint/Nodes/Logic/Switcher/Switcher';
+import Switcher from '../../../Models/Blueprint/Nodes/Switcher/Switcher';
 import Rule from '../../../Structures/Expression/Rule';
-import Case from '../../../Models/Blueprint/Nodes/Logic/Switcher/Case';
+import Case from '../../../Models/Blueprint/Nodes/Switcher/Case';
 import ActorDto from '../../../Dto/ActorDto';
 
 export const NAME = 'blueprint.nodes.switchers';
