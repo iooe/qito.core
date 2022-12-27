@@ -1,9 +1,9 @@
-import Choice from '../../../Models/Blueprint/Nodes/Choice/Choice';
-import Variant from '../../../Models/Blueprint/Nodes/Choice/Variant';
-import VariantRulesContainer from '../../../Models/Blueprint/Nodes/Choice/VariantRulesContainer';
+import Choice from '../../../Models/Blueprint/Nodes/ChoiceNode/Choice';
+import Variant from '../../../Models/Blueprint/Nodes/ChoiceNode/Variant';
+import VariantRulesContainer from '../../../Models/Blueprint/Nodes/ChoiceNode/VariantRulesContainer';
 import Rule from '../../../Structures/Expression/Rule';
 import ActorDto from '../../../Dto/ActorDto';
-import VariantCommitsContainer from '../../../Models/Blueprint/Nodes/Choice/VariantCommitsContainer';
+import VariantCommitsContainer from '../../../Models/Blueprint/Nodes/ChoiceNode/VariantCommitsContainer';
 import Commit from '../../../Structures/Expression/Commit';
 
 export const NAME = 'blueprint.nodes.choices';

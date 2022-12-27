@@ -1,6 +1,6 @@
-import Switcher from '../../../Models/Blueprint/Nodes/Switcher/Switcher';
+import SwitcherNode from '../../../Models/Blueprint/Nodes/SwitcherNode/SwitcherNode';
 import Rule from '../../../Structures/Expression/Rule';
-import Case from '../../../Models/Blueprint/Nodes/Switcher/Case';
+import SwitcherCase from '../../../Models/Blueprint/Nodes/SwitcherNode/SwitcherCase';
 import ActorDto from '../../../Dto/ActorDto';
 
 export const NAME = 'blueprint.nodes.switchers';
@@ -17,7 +17,7 @@ export const scheme = {
         data: Array<any>(),
     }),
     actions: {
-        add(context: any, value: Switcher) {
+        add(context: any, value: SwitcherNode) {
             if (context.getters.first(value.uuid.get()) !== undefined) {
                 return false;
             }
@@ -27,7 +27,7 @@ export const scheme = {
             return true;
         },
         remove(context: any, uuid: string) {
-            const index = context.state.data.findIndex((value: Switcher) => value.uuid.get() === uuid);
+            const index = context.state.data.findIndex((value: SwitcherNode) => value.uuid.get() === uuid);
 
             if (index === -1) {
                 return false;
@@ -38,13 +38,13 @@ export const scheme = {
             return true;
         },
         import(context: any, data: Array<any>) {
-            const values: Array<Switcher> = [];
+            const values: Array<SwitcherNode> = [];
 
             data.map(switcherRaw => {
-                const switcherInstance = new Switcher(switcherRaw.uuid);
+                const switcherInstance = new SwitcherNode(switcherRaw.uuid);
 
                 switcherRaw.data.forEach((caseRaw: any) => {
-                    const caseInstance = new Case(caseRaw.uuid);
+                    const caseInstance = new SwitcherCase(caseRaw.uuid);
 
                     caseRaw.data.forEach((statementRaw: any) => {
                         const expression = new Rule();
@@ -71,7 +71,7 @@ export const scheme = {
         export(context: any) {
             return {
                 name: NAME,
-                data: context.state.data.map((item: Switcher) => item.export()),
+                data: context.state.data.map((item: SwitcherNode) => item.export()),
             };
         },
     },
@@ -80,9 +80,9 @@ export const scheme = {
             return state.data;
         },
         has: (state: any) => (uuid: string) => {
-            return state.data.find((value: Switcher) => value.uuid.get() === uuid) !== undefined;
+            return state.data.find((value: SwitcherNode) => value.uuid.get() === uuid) !== undefined;
         },
-        first: (state: any) => (uuid: string = ''): Switcher | undefined => {
+        first: (state: any) => (uuid: string = ''): SwitcherNode | undefined => {
             if (state.data.length === 0) {
                 return undefined;
             }
@@ -91,7 +91,7 @@ export const scheme = {
                 return state.data[0];
             }
 
-            return state.data.find((value: Switcher) => value.uuid.get() === uuid);
+            return state.data.find((value: SwitcherNode) => value.uuid.get() === uuid);
         },
     },
 };
