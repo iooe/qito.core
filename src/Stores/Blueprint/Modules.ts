@@ -19,14 +19,18 @@ export const scheme: any = {
     }),
     mutations: {},
     actions: {
-        editModule(context: any, updatedSegment: Module) {
-            const segment: Module = context.getters.getModule(updatedSegment.uuid.get());
+        editModule(context: any, value: Module) {
+            const index = context.getters.getModule(value.uuid.get());
 
-            if (segment === undefined) {
-                return false;
+            if (index === -1) {
+                throw false;
             }
 
-            segment.title.set(updatedSegment.title.get());
+            context.state.data.splice(index, 1, value);
+
+            touch(context.state);
+
+            return true;
         },
         addModule(context: any, segment: Module) {
             context.state.data.push(segment);
@@ -74,6 +78,7 @@ export const scheme: any = {
                 moduleInstance.title.set(moduleRaw.metadata.title);
 
                 moduleInstance.setInputUuid(moduleRaw.data.inputUuid);
+                moduleInstance.setOutputUuid(moduleRaw.data.outputUuid);
 
                 context.dispatch('addModule', moduleInstance);
             });
