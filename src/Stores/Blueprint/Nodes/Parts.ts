@@ -50,7 +50,7 @@ export const scheme = {
                         pageInstance.blocks.add(new InteractableContent(blockRaw.uuid, blockRaw.type, blockRaw.data));
                     });
 
-                    partInstance.pages.push(pageInstance);
+                    partInstance.pages.add(pageInstance);
                 });
 
                 values.push(partInstance);
