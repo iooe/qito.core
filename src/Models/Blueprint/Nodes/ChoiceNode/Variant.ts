@@ -35,14 +35,14 @@ export default class Variant {
     public commits = {
         set: (value: VariantCommitsContainer) => this._commits = value,
         add: (value: VariantCommit) => this._commits.values.add(value),
-        first: (uuid: string = ''): VariantCommit | undefined => this._commits.values.first(uuid),
+        first: (uuid = ''): VariantCommit | undefined => this._commits.values.first(uuid),
         get: (): VariantCommitsContainer => this._commits,
         delete: (uuid: string) => this._commits.values.delete(uuid),
     };
 
     public rules = {
         add: (value: VariantRulesContainer) => this._rules.add(value),
-        first: (uuid: string = ''): VariantRulesContainer | undefined => this._rules.first(uuid),
+        first: (uuid = ''): VariantRulesContainer | undefined => this._rules.first(uuid),
         get: (): Array<VariantRulesContainer> => this._rules.get(),
         delete: (uuid: string) => this._rules.delete(uuid),
     };

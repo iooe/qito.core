@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
-import ActorDto from './ActorDto';
-import ActorsContainer from './ActorsContainer';
+import type ActorDto from './ActorDto';
+import type ActorsContainer from './ActorsContainer';
 import Collection from '../Structures/Collection';
 
 export default class ActorDtosContainer implements ActorsContainer {
