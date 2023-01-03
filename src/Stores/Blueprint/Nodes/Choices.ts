@@ -96,7 +96,7 @@ export const scheme = {
 
                     variantInstance = variantImporter(variantInstance, variantRaw);
 
-                    instance.variants.add(variantInstance);
+                    instance.containers.add(variantInstance);
                 });
 
 

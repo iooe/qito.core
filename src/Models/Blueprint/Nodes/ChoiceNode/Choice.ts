@@ -39,7 +39,8 @@ export default class Choice {
         };
     }
 
-    public variants = {
+    public containers = {
+        set: (values: Array<Variant>) => this._collection.set(values),
         add: (value: Variant) => this._collection.add(value),
         first: (uuid = '') => this._collection.first(uuid),
     };
