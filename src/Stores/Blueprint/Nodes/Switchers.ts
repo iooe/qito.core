@@ -17,6 +17,19 @@ export const scheme = {
         data: Array<any>(),
     }),
     actions: {
+        edit(context: any, value: SwitcherNode) {
+            const index = context.state.data.find((value: SwitcherNode) => value.uuid.get() === value.uuid.get());
+
+            if (index === -1) {
+                throw false;
+            }
+
+            context.state.data.splice(index, 1, value);
+
+            touch(context.state);
+
+            return true;
+        },
         add(context: any, value: SwitcherNode) {
             if (context.getters.first(value.uuid.get()) !== undefined) {
                 return false;

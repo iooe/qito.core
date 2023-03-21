@@ -16,6 +16,19 @@ export const scheme = {
         data: Array<any>(),
     }),
     actions: {
+        edit(context: any, value: TextNode) {
+            const index = context.state.data.find((value: TextNode) => value.uuid.get() === value.uuid.get());
+
+            if (index === -1) {
+                throw false;
+            }
+
+            context.state.data.splice(index, 1, value);
+
+            touch(context.state);
+
+            return true;
+        },
         add(context: any, value: TextNode) {
             if (context.getters.first(value.uuid.get()) !== undefined) {
                 return false;
@@ -59,6 +72,7 @@ export const scheme = {
             context.state.data = values;
         },
         export(context: any) {
+
             return {
                 name: NAME,
                 data: context.state.data.map((item: TextNode) => item.export()),

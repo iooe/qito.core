@@ -20,6 +20,19 @@ export const scheme = {
         data: Array<any>(),
     }),
     actions: {
+        edit(context: any, value: Choice) {
+            const index = context.state.data.find((value: Choice) => value.uuid.get() === value.uuid.get());
+
+            if (index === -1) {
+                throw false;
+            }
+
+            context.state.data.splice(index, 1, value);
+
+            touch(context.state);
+
+            return true;
+        },
         add(context: any, value: Choice) {
             if (context.getters.first(value.uuid.get()) !== undefined) {
                 return false;
