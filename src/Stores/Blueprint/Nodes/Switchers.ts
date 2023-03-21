@@ -56,6 +56,8 @@ export const scheme = {
             data.map(switcherRaw => {
                 const switcherInstance = new SwitcherNode(switcherRaw.uuid);
 
+                switcherInstance.title.set(switcherRaw.metadata.title);
+
                 switcherRaw.data.forEach((caseRaw: any) => {
                     const caseInstance = new SwitcherCase(caseRaw.uuid);
 
