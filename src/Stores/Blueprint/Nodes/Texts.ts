@@ -73,9 +73,14 @@ export const scheme = {
         },
         export(context: any) {
 
+            let data = context.state.data
+                .map((value: TextNode) => {
+                    return value.export();
+                });
+
             return {
                 name: NAME,
-                data: context.state.data.map((item: TextNode) => item.export()),
+                data: data,
             };
         },
     },
