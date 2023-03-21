@@ -5,13 +5,41 @@ import Collection from '../../../Structures/Collection';
 
 export default class Module {
     private _title: string;
+    public title = {
+        get: () => {
+            return this._title;
+        },
+        set: (value: string) => {
+            this._title = value;
+        },
+    };
+    private _description = '';
+    public description = {
+        get: () => {
+            return this._description;
+        },
+        set: (value: string) => {
+            this._description = value;
+        },
+    };
     private readonly _uuid: string;
+    public uuid = {
+        get: (): string => this._uuid,
+    };
     private _data = {
         inputUuid: '',
         outputUuid: '',
     };
-
     private _nodes = new Collection('uuid');
+    public nodes = {
+        first: (uuid: string = ''): Node | undefined => this._nodes.first(uuid),
+        has: (uuid: string): boolean => this._nodes.has(uuid),
+        delete: (uuid: string) => this._nodes.delete(uuid),
+        get: () => this._nodes.get(),
+        add: (value: Node) => this._nodes.add(value),
+        update: (node: Node) => this._nodes.replace(node.uuid.get(), node),
+        isEmpty: (): boolean => this._nodes.isEmpty(),
+    };
 
     constructor(uuid: string) {
         this._uuid = uuid;
@@ -21,19 +49,6 @@ export default class Module {
     public static create() {
         return new Module(uuidv4());
     }
-
-    public uuid = {
-        get: (): string => this._uuid,
-    };
-
-    public title = {
-        get: () => {
-            return this._title;
-        },
-        set: (value: string) => {
-            this._title = value;
-        },
-    };
 
     public setInputUuid(uuid: string) {
         if (!this._nodes.has(uuid)) {
@@ -67,21 +82,12 @@ export default class Module {
         return this._nodes.first(this._data.inputUuid);
     }
 
-    public nodes = {
-        first: (uuid: string = ''): Node | undefined => this._nodes.first(uuid),
-        has: (uuid: string): boolean => this._nodes.has(uuid),
-        delete: (uuid: string) => this._nodes.delete(uuid),
-        get: () => this._nodes.get(),
-        add: (value: Node) => this._nodes.add(value),
-        update: (node: Node) => this._nodes.replace(node.uuid.get(), node),
-        isEmpty: (): boolean => this._nodes.isEmpty(),
-    };
-
     public export() {
         return {
             uuid: this._uuid,
             metadata: {
                 title: this._title,
+                description: this._description,
             },
             data: {
                 inputUuid: this._data.inputUuid,
