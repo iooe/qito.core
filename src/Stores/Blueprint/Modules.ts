@@ -20,7 +20,14 @@ export const scheme: any = {
     mutations: {},
     actions: {
         editModule(context: any, value: Module) {
-            const index = context.getters.getModule(value.uuid.get());
+            /* store.dispatch('blueprint.modules/editModule', {
+                       uuid: variables.modelInstance.uuid.get(),
+                       params: {
+                           title: newtitle,
+                       },
+                   });*/
+
+            const index = context.getters.getModuleIndex(value.uuid.get());
 
             if (index === -1) {
                 throw false;
@@ -60,6 +67,11 @@ export const scheme: any = {
 
                 nodeInstance.data.set(nodeRaw.data.component, nodeRaw.data.uuid);
                 nodeInstance.title.set(nodeRaw.metadata.title);
+
+                if (nodeRaw.metadata.isOutputNode === true) {
+                    nodeInstance.metadata.setAsOutputNode();
+                }
+
                 nodeRaw.nodes.forEach((nodeSubRaw: never) => nodeInstance.nodes.add(nodeImporter(nodeSubRaw)));
 
                 // eslint-disable-next-line no-prototype-builtins
@@ -76,6 +88,7 @@ export const scheme: any = {
                 const moduleInstance = new Module(moduleRaw.uuid);
                 moduleRaw.nodes.forEach((node: any) => moduleInstance.nodes.add(nodeImporter(node)));
                 moduleInstance.title.set(moduleRaw.metadata.title);
+                moduleInstance.description.set(moduleRaw.metadata.description);
 
                 moduleInstance.setInputUuid(moduleRaw.data.inputUuid);
                 moduleInstance.setOutputUuid(moduleRaw.data.outputUuid);
@@ -114,6 +127,9 @@ export const scheme: any = {
         },
         getModule: (state: any) => (uuid: any): Module => {
             return state.data.find((segment: Module) => segment.uuid.get() === uuid);
+        },
+        getModuleIndex: (state: any) => (uuid: any): Module => {
+            return state.data.findIndex((segment: Module) => segment.uuid.get() === uuid);
         },
         getModules: (state: any) => {
             return state.data;
