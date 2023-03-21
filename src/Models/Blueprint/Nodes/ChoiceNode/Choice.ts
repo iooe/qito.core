@@ -4,8 +4,25 @@ import Collection from '../../../../Structures/Collection';
 
 export default class Choice {
     protected _uuid: string;
+    public uuid = {
+        get: (): string => this._uuid,
+    };
     protected _collection = new Collection('uuid');
+    public containers = {
+        set: (values: Array<Variant>) => this._collection.set(values),
+        add: (value: Variant) => this._collection.add(value),
+        first: (uuid = '') => this._collection.first(uuid),
+        get: () => this._collection.get(),
+    };
     protected _title: string;
+    public title = {
+        get: () => {
+            return this._title;
+        },
+        set: (value: string) => {
+            this._title = value;
+        },
+    };
 
     constructor(uuid: string) {
         this._uuid = uuid;
@@ -16,19 +33,6 @@ export default class Choice {
         return new Choice(uuidv4());
     }
 
-    public uuid = {
-        get: (): string => this._uuid,
-    };
-
-    public title = {
-        get: () => {
-            return this._title;
-        },
-        set: (value: string) => {
-            this._title = value;
-        },
-    };
-
     public export() {
         return {
             uuid: this._uuid,
@@ -38,10 +42,4 @@ export default class Choice {
             data: this._collection.get().map((value: Variant) => value.export()),
         };
     }
-
-    public containers = {
-        set: (values: Array<Variant>) => this._collection.set(values),
-        add: (value: Variant) => this._collection.add(value),
-        first: (uuid = '') => this._collection.first(uuid),
-    };
 }
