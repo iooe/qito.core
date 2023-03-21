@@ -4,9 +4,27 @@ import Collection from '../../../../Structures/Collection';
 
 export default class TextNode {
     private _pages = new Collection('uuid');
-
+    public pages = {
+        replace: (uuid: string, value: InteractableContainer) => this._pages.replace(uuid, value),
+        get: (): Array<InteractableContainer> => this._pages.get(),
+        add: (value: InteractableContainer) => this._pages.add(value),
+        count: (): number => this._pages.count(),
+        first: (uuid = ''): InteractableContainer => this._pages.first(uuid),
+        firstIndex: (uuid: string): number => this._pages.firstIndex(uuid),
+    };
     private readonly _uuid: string;
+    public uuid = {
+        get: (): string => this._uuid,
+    };
     private _title = '';
+    public title = {
+        get: (): string => {
+            return this._title;
+        },
+        set: (value: string) => {
+            this._title = value;
+        },
+    };
 
     constructor(uuid: string) {
         this._uuid = uuid;
@@ -22,33 +40,15 @@ export default class TextNode {
         return instance;
     }
 
-    public uuid = {
-        get: (): string => this._uuid,
-    };
-
-    public title = {
-        get: (): string => {
-            return this._title;
-        },
-        set: (value: string) => {
-            this._title = value;
-        },
-    };
-
-    public pages = {
-        replace: (uuid: string, value: InteractableContainer) => this._pages.replace(uuid, value),
-        get: (): Array<InteractableContainer> => this._pages.get(),
-        add: (value: InteractableContainer) => this._pages.add(value),
-        count: (): number => this._pages.count(),
-        first: (uuid = ''): InteractableContainer | undefined => this._pages.first(uuid),
-        firstIndex: (uuid: string): number => this._pages.firstIndex(uuid),
-    };
-
     public export() {
+        let pages = this._pages.get().map((value: InteractableContainer) => value.export()).filter((value) => value.blocks.length > 0);
+
+        pages = pages.length === 0 ? [InteractableContainer.create().export()] : pages;
+
         return {
             uuid: this._uuid,
             title: this._title,
-            pages: this._pages.get().map((value: InteractableContainer) => value.export()),
+            pages: pages,
         };
     }
 }
