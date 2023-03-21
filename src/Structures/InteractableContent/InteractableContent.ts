@@ -1,7 +1,8 @@
 import {v4 as uuidv4} from 'uuid';
+import type ContentContract from './ContentContract';
 
-export default class InteractableContent {
-    private _attributes: { [key: string]: string | number | boolean } = {};
+export default class InteractableContent implements ContentContract {
+    private _attributes: { [key: string]: string | number | boolean | null | CallableFunction } = {};
     private readonly _uuid: string;
     private readonly _type: string;
 
@@ -17,14 +18,18 @@ export default class InteractableContent {
 
     public getAttribute(key: string) {
         if (this._attributes[key] === undefined) {
-            throw new Error('The attribute isn\'t exist');
+            return null;
         }
 
-        return this._attributes;
+        return this._attributes[key];
     }
 
     public setAttribute(key: string, value: string | number | boolean) {
         this._attributes[key] = value;
+    }
+
+    public getAttributes() {
+        return this._attributes;
     }
 
     public export() {
