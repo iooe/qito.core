@@ -1,85 +1,10 @@
 import {v4 as uuidv4} from 'uuid';
 import Connection from '../Connection';
-import {Node} from './Node';
+import type {Node} from './Node';
 import Collection from '../../../../Structures/Collection';
 
 export default class BaseNode implements Node {
     private _title: string;
-    private _connection: Connection | null = null;
-    private _nodes = new Collection('uuid');
-
-    private _metadata = {
-        keywords: <Array<string>>[],
-    };
-
-    private readonly _uuid: string;
-    private _data = {
-        component: '',
-        uuid: '',
-    };
-
-    constructor(uuid: string) {
-        this._uuid = uuid;
-        this._title = uuid;
-    }
-
-    public static create() {
-        return new BaseNode(uuidv4());
-    }
-
-    public uuid = {
-        get: (): string => this._uuid,
-    };
-
-    public metadata = {
-        addKeyword: (value: string) => {
-            this._metadata.keywords.push(value);
-        },
-        deleteKeyword(value: string) {
-            const index = this._metadata.keywords.findIndex(keyword => keyword === value);
-
-            if (index === -1) {
-                return;
-            }
-
-            this.metadata.keywords.splice(index, 1);
-        },
-        setKeywords: (values: Array<string>) => {
-            this._metadata.keywords = values;
-        },
-        getKeywords: () => {
-            return this._metadata.keywords;
-        },
-    };
-
-    public data = {
-        set: (component: string, uuid: string) => {
-            this._data.component = component;
-            this._data.uuid = uuid;
-        },
-        getComponent: () => {
-            return this._data.component;
-        },
-        getUuid: () => {
-            return this._data.uuid;
-        },
-    };
-
-    public connection = {
-        has: (): boolean => {
-            return this._connection !== null;
-        },
-        get: (): Connection | null => {
-            return this._connection;
-        },
-        set: (instance: Connection) => {
-            this._connection = instance;
-        },
-        delete: () => {
-            this._connection = null;
-        },
-    };
-
     public title = {
         get: (): string => {
             return this._title;
@@ -88,7 +13,26 @@ export default class BaseNode implements Node {
             this._title = value;
         },
     };
+    private _connection: Connection | null = null;
+    public connection = {
+        has: (): boolean => {
+            return this._connection !== null;
+        },
+        get: (): string | null => {
+            if (this._connection === null) {
+                return undefined;
+            }
 
+            return this._connection.uuid();
+        },
+        set: (instance: Connection) => {
+            this._connection = instance;
+        },
+        delete: () => {
+            this._connection = null;
+        },
+    };
+    private _nodes = new Collection('uuid');
     public nodes = {
         set: (values: Array<Node>) => this._nodes.set(values),
         /*        swap: (node1: Node | number, node2: Node | number) => {
@@ -119,8 +63,70 @@ export default class BaseNode implements Node {
         first: (uuid: string): Node | undefined => this._nodes.first(uuid),
         has: (uuid: string): boolean => this._nodes.has(uuid),
         delete: (uuid: string) => this._nodes.delete(uuid),
-        add: (node: Node) => this._nodes.add(node),
+        add: (node: Node) => this._nodes.add(node)
     };
+    private _metadata = {
+        keywords: <Array<string>>[],
+        isOutputNode: false,
+    };
+    public metadata = {
+        setAsOutputNode: () => {
+            this._metadata.isOutputNode = true;
+        },
+        setAsNotOutputNode: () => {
+            this._metadata.isOutputNode = false;
+        },
+        isOutputNode: () => {
+            return this._metadata.isOutputNode;
+        },
+        addKeyword: (value: string) => {
+            this._metadata.keywords.push(value);
+        },
+        deleteKeyword(value: string) {
+            const index = this._metadata.keywords.findIndex(keyword => keyword === value);
+
+            if (index === -1) {
+                return;
+            }
+
+            this.metadata.keywords.splice(index, 1);
+        },
+        setKeywords: (values: Array<string>) => {
+            this._metadata.keywords = values;
+        },
+        getKeywords: () => {
+            return this._metadata.keywords;
+        },
+    };
+    private readonly _uuid: string;
+    public uuid = {
+        get: (): string => this._uuid,
+    };
+    private _data = {
+        component: '',
+        uuid: '',
+    };
+    public data = {
+        set: (component: string, uuid: string) => {
+            this._data.component = component;
+            this._data.uuid = uuid;
+        },
+        getComponent: () => {
+            return this._data.component;
+        },
+        getUuid: () => {
+            return this._data.uuid;
+        },
+    };
+
+    constructor(uuid: string) {
+        this._uuid = uuid;
+        this._title = uuid;
+    }
+
+    public static create() {
+        return new BaseNode(uuidv4());
+    }
 
     public export() {
         const response: any = {
@@ -132,6 +138,7 @@ export default class BaseNode implements Node {
             metadata: {
                 title: this._title,
                 keywords: [...this._metadata.keywords],
+                isOutputNode: this._metadata.isOutputNode,
             },
             nodes: [],
         };
