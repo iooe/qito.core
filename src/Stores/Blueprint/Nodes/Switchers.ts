@@ -87,6 +87,10 @@ export const scheme = {
             return {
                 name: NAME,
                 data: context.state.data.map((item: SwitcherNode) => item.export()),
+                options: {
+                    hasUi: false,
+                    isSingleton: false,
+                },
             };
         },
     },

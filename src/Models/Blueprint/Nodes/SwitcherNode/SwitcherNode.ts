@@ -1,8 +1,9 @@
 import {v4 as uuidv4} from 'uuid';
 import type SwitcherCase from './SwitcherCase';
 import Collection from '../../../../Structures/Collection';
+import BlueprintNode from '../BlueprintNode';
 
-export default class SwitcherNode {
+export default class SwitcherNode extends BlueprintNode {
 
     protected _uuid: string;
     public uuid = {
@@ -30,8 +31,12 @@ export default class SwitcherNode {
     };
 
     constructor(uuid: string) {
+        super();
         this._uuid = uuid;
         this._title = uuid;
+
+        this._options.isSingleton = false;
+        this._options.hasUi = false;
     }
 
     public static create() {

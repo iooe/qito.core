@@ -1,8 +1,9 @@
 import {v4 as uuidv4} from 'uuid';
 import InteractableContainer from '../../../../Structures/InteractableContent/InteractableContainer';
 import Collection from '../../../../Structures/Collection';
+import BlueprintNode from '../BlueprintNode';
 
-export default class TextNode {
+export default class TextNode extends BlueprintNode {
     private _pages = new Collection('uuid');
     public pages = {
         replace: (uuid: string, value: InteractableContainer) => this._pages.replace(uuid, value),
@@ -27,8 +28,13 @@ export default class TextNode {
     };
 
     constructor(uuid: string) {
+        super();
         this._uuid = uuid;
         this._title = uuid;
+
+
+        this._options.isSingleton = true;
+        this._options.hasUi = true;
     }
 
     public static create() {

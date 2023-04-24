@@ -1,8 +1,9 @@
 import type Variant from './Variant';
 import {v4 as uuidv4} from 'uuid';
 import Collection from '../../../../Structures/Collection';
+import BlueprintNode from '../BlueprintNode';
 
-export default class Choice {
+export default class Choice extends BlueprintNode {
     protected _uuid: string;
     public uuid = {
         get: (): string => this._uuid,
@@ -25,8 +26,12 @@ export default class Choice {
     };
 
     constructor(uuid: string) {
+        super();
         this._uuid = uuid;
         this._title = uuid;
+
+        this._options.isSingleton = false;
+        this._options.hasUi = true;
     }
 
     public static create() {
@@ -39,7 +44,7 @@ export default class Choice {
             metadata: {
                 title: this._title,
             },
-            data: this._collection.get().map((value: Variant) => value.export()),
+            data: this._collection.get().map((value: Variant) => value.export())
         };
     }
 }

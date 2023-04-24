@@ -121,7 +121,7 @@ export const scheme = {
         export(context: any) {
             return {
                 name: NAME,
-                data: context.state.data.map((item: Choice) => item.export()),
+                data: context.state.data.map((item: Choice) => item.export())
             };
         },
     },

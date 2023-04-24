@@ -81,6 +81,10 @@ export const scheme = {
             return {
                 name: NAME,
                 data: data,
+                options: {
+                    hasUi: true,
+                    isSingleton: true,
+                },
             };
         },
     },
