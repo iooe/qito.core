@@ -1,4 +1,4 @@
-import LocalMedia from '../../Models/Resources/Media/LocalMedia';
+import MediaResource from '../../Models/Resources/MediaResource';
 
 export const NAME = 'resources.media';
 
@@ -11,15 +11,15 @@ export const touch = (state: any) => {
 export const scheme = {
     namespaced: true,
     state: () => ({
-        data: Array<LocalMedia>(),
+        data: Array<MediaResource>(),
     }),
     mutations: {
-        set(state: any, values: Array<LocalMedia>) {
+        set(state: any, values: Array<MediaResource>) {
             state.data = values;
         },
     },
     actions: {
-        add(context: any, value: LocalMedia) {
+        add(context: any, value: MediaResource) {
             if (context.getters.first(value.uuid.get()) !== undefined) {
                 return false;
             }
@@ -28,8 +28,8 @@ export const scheme = {
 
             return true;
         },
-        edit(context: any, value: LocalMedia) {
-            const index = context.state.data.find((value: LocalMedia) => value.uuid.get() === value.uuid.get());
+        edit(context: any, value: MediaResource) {
+            const index = context.state.data.find((value: MediaResource) => value.uuid.get() === value.uuid.get());
 
             if (index === -1) {
                 throw false;
@@ -42,7 +42,7 @@ export const scheme = {
             return true;
         },
         remove(context: any, uuid: string) {
-            const index = context.state.data.findIndex((value: LocalMedia) => value.uuid.get() === uuid);
+            const index = context.state.data.findIndex((value: MediaResource) => value.uuid.get() === uuid);
 
             if (index === -1) {
                 return false;
@@ -53,12 +53,13 @@ export const scheme = {
             return true;
         },
         import(context: any, data: Array<any>) {
-            let values: Array<LocalMedia> = [];
+            let values: Array<MediaResource> = [];
 
             data.forEach(value => {
-                const instance = new LocalMedia(value.uuid);
+                const instance = new MediaResource(value.uuid);
                 instance.extension.set(value.extension);
                 instance.type.set(value.type);
+                instance.name.set(value.name);
 
                 values.push(instance);
             });
@@ -68,19 +69,19 @@ export const scheme = {
         export(context: any) {
             return {
                 name: NAME,
-                data: context.state.data.map((value: LocalMedia) => value.export()),
+                data: context.state.data.map((value: MediaResource) => value.export()),
             };
         },
     },
     getters: {
-        first: (state: any) => (uuid: string): LocalMedia => {
-            return state.data.find((value: LocalMedia) => value.uuid.get() === uuid);
+        first: (state: any) => (uuid: string): MediaResource => {
+            return state.data.find((value: MediaResource) => value.uuid.get() === uuid || value.name.get() === uuid);
         },
         get: (state: any) => {
             return state.data;
         },
         has: (state: any) => (uuid: string): boolean => {
-            return state.data.find((value: LocalMedia) => value.uuid.get() === uuid) !== undefined;
+            return state.data.find((value: MediaResource) => value.uuid.get() === uuid) !== undefined;
         },
     },
 };

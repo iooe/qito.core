@@ -1,22 +1,7 @@
 import {v4 as uuidv4} from 'uuid';
 
-export default class LocalMedia {
+export default class MediaResource {
     private _type = '';
-    private _extension = '';
-    private readonly _uuid: string;
-
-    public create() {
-        return new LocalMedia(uuidv4());
-    }
-
-    constructor(uuid: string) {
-        this._uuid = uuid;
-    }
-
-    public uuid = {
-        get: (): string => this._uuid,
-    };
-
 
     public type = {
         set: (value: string) => {
@@ -27,6 +12,18 @@ export default class LocalMedia {
         },
     };
 
+    private _name: string;
+
+    public name = {
+        set: (value: string) => {
+            this._name = value;
+        },
+        get: () => {
+            return this._name;
+        },
+    };
+
+    private _extension = '';
     public extension = {
         set: (value: string) => {
             this._extension = value;
@@ -35,10 +32,24 @@ export default class LocalMedia {
             return this._extension;
         },
     };
+    private readonly _uuid: string;
+    public uuid = {
+        get: (): string => this._uuid,
+    };
+
+    constructor(uuid: string) {
+        this._uuid = uuid;
+        this._name = uuid;
+    }
+
+    public static create() {
+        return new MediaResource(uuidv4());
+    }
 
     public export(): object {
         return {
             uuid: this._uuid,
+            name: this._name,
             type: this._type,
             extension: this._extension,
         };
